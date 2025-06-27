@@ -271,7 +271,7 @@
                           현재 경로는 HTML 파일과 PDF 파일이 동일한 폴더에 있다고 가정합니다.
                           만약 'pdf'와 같은 하위 폴더에 파일을 넣으셨다면 href="./pdf/CLASS 1 커리큘럼 (5).pdf" 와 같이 경로를 수정해주세요.
                         -->
-                        <a href="./CLASS 1 커리큘럼 (5).pdf" target="_blank" class="inline-block mt-6 bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors shadow-md">자세히 보기</a>
+                        <a href="https://drive.google.com/file/d/1spKW5L3qTYoDa5bbPSZ2UZxDsFSlSIe4/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors shadow-md">자세히 보기</a>
                     </div>
 
                     <div class="text-center bg-blue-50/70 p-8 rounded-2xl ring-1 ring-blue-200 shadow-lg">
@@ -281,7 +281,7 @@
                           [수정 가이드] 아래 href 속성의 파일 경로를 GitHub에 업로드된 PDF 파일의 경로로 수정해주세요.
                           현재 경로는 HTML 파일과 PDF 파일이 동일한 폴더에 있다고 가정합니다.
                         -->
-                        <a href="./CLASS 2 커리큘럼 (5).pdf" target="_blank" class="inline-block mt-6 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-md">자세히 보기</a>
+                        <a href="https://drive.google.com/file/d/1a-GBCB4Of3ihFVbOH4glAu-oKDhgbmkL/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-md">자세히 보기</a>
                     </div>
 
                     <div class="text-center bg-green-50/70 p-8 rounded-2xl ring-1 ring-green-200 shadow-lg">
@@ -291,7 +291,7 @@
                           [수정 가이드] 아래 href 속성의 파일 경로를 GitHub에 업로드된 PDF 파일의 경로로 수정해주세요.
                           현재 경로는 HTML 파일과 PDF 파일이 동일한 폴더에 있다고 가정합니다.
                         -->
-                        <a href="./CLASS 3 커리큘럼 (4).pdf" target="_blank" class="inline-block mt-6 bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-colors shadow-md">자세히 보기</a>
+                        <a href="https://drive.google.com/file/d/1691cMYEZVfAGBjrbOdpp6E0-lMt_M5J1/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-colors shadow-md">자세히 보기</a>
                     </div>
                 </div>
             </section>
