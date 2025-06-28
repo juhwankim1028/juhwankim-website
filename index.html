@@ -299,21 +299,21 @@
                         <h3 class="text-2xl font-bold text-sky-800">CLASS 1</h3>
                         <p class="mt-2 text-xl font-semibold text-gray-800">일반고 최상위권 도약반</p>
                         <p class="mt-1 text-gray-500 font-medium">(그룹)</p>
-                        <a href="https://drive.google.com/file/d/1OCqCVaXzz-kTWXPdLz6hhTA77ulo_9j4/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-sky-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-700 transition-colors shadow-md">자세히 보기</a>
+                        <a href="https://drive.google.com/file/d/12TGQucr-5OReRQU-GqyW7oNdbYe7-DwM/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-sky-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-700 transition-colors shadow-md">자세히 보기</a>
                     </div>
 
                     <div class="text-center bg-blue-50/70 p-8 rounded-2xl ring-1 ring-blue-200 shadow-lg">
                         <h3 class="text-2xl font-bold text-blue-800">CLASS 2</h3>
                         <p class="mt-2 text-xl font-semibold text-gray-800">중3 영재고·과학고 대비반</p>
                         <p class="mt-1 text-gray-500 font-medium">(그룹)</p>
-                        <a href="https://drive.google.com/file/d/17jpAWE691BPvE-rThumGBeBn7E6V7oIi/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-md">자세히 보기</a>
+                        <a href="https://drive.google.com/file/d/11CtgRchIOejFLPIxowHKqbu9JaEdYlOj/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-md">자세히 보기</a>
                     </div>
                     
                     <div class="text-center bg-indigo-50/70 p-8 rounded-2xl ring-1 ring-indigo-200 shadow-lg">
                         <h3 class="text-2xl font-bold text-indigo-800">CLASS 3</h3>
                         <p class="mt-2 text-xl font-semibold text-gray-800">대전동신과학고 내신 대비반</p>
                         <p class="mt-1 text-gray-500 font-medium">(1:1 or 그룹)</p>
-                        <a href="https://drive.google.com/file/d/1bL8sohBxOZswnmK-CSjqgR-b45zrLPiF/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md">자세히 보기</a>
+                        <a href="https://drive.google.com/file/d/1j79hTJpHqooMlEkQubf86YCMH9aJbe9L/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md">자세히 보기</a>
                     </div>
                 </div>
 
@@ -924,8 +924,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile scroll fix: Ensure page loads at the top
+            // --- START OF FIX for Mobile Scroll Issue ---
+            // Manually control scroll restoration to prevent the browser from auto-scrolling on refresh.
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            // Force scroll to the top as soon as the DOM is ready.
             window.scrollTo(0, 0);
+            // --- END OF FIX ---
 
             // Navbar scroll effect
             const nav = document.getElementById('navbar');
@@ -1298,6 +1304,16 @@
                     }
                 });
             });
+        });
+
+        // An additional, more robust scroll-to-top command that fires after all page resources (images, etc.)
+        // have fully loaded. This is often necessary for mobile browsers like Safari which can be aggressive
+        // with scroll positioning.
+        window.addEventListener('load', () => {
+            // A small timeout ensures this runs after any final browser rendering adjustments.
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 10);
         });
     </script>
 </body>
