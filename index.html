@@ -104,7 +104,7 @@
                 KAIST 전기및전자공학부 22학번
             </p>
              <p class="mt-12 text-base md:text-lg text-gray-200 max-w-xl mx-auto">
-                대전동신과학고 조기졸업, KAIST 조기입학 경험으로 증명하는 수학 실력 완성
+                대전동신과학고 조기졸업, KAIST 조기입학 경험로 증명하는 수학 실력 완성
              </p>
         </div>
         
@@ -730,7 +730,7 @@
                 </div>
 
                 <div id="form-container" class="hidden">
-                    <p class="text-center text-sm md:text-md font-semibold text-gray-600 mb-6">
+                    <p class="text-center text-xs sm:text-sm font-semibold text-gray-600 mb-6">
                         작성 후, 하단의 '신청서 내용 복사하기' 버튼을 눌러 문자 메시지(<strong id="trial-phone-number" class="text-blue-600">010-2124-7269</strong>)로 전송해주시면 정성껏 검토 후 빠르게 연락드리겠습니다.
                     </p>
                     <form id="trial-form-class1" class="hidden space-y-4 trial-form">
@@ -779,10 +779,11 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- START OF FIX for Mobile Scroll Issue ---
+            // Set scroll restoration to manual. This prevents the browser from
+            // automatically scrolling to a previous position on page refresh.
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
-            window.scrollTo(0, 0);
             // --- END OF FIX ---
 
             // Navbar scroll effect
@@ -1157,10 +1158,15 @@
             });
         });
 
+        // Use the 'load' event to ensure all content (like images) is loaded
+        // before we try to scroll. This is more reliable for ensuring the page starts at the top.
         window.addEventListener('load', () => {
+            // Force scroll to the top of the page.
+            // A small timeout helps ensure this command runs after any
+            // automatic browser scrolling has finished.
             setTimeout(() => {
                 window.scrollTo(0, 0);
-            }, 10);
+            }, 100); 
         });
     </script>
 </body>
