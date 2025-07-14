@@ -60,6 +60,35 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
+        /* FAQ 아코디언 아이콘 회전 */
+        .faq-toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-question.open .faq-toggle-icon {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+             max-height: 0;
+             overflow: hidden;
+             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+             padding-top: 0;
+             padding-bottom: 0;
+        }
+        .faq-answer.open {
+             max-height: 500px; /* 충분히 큰 값 */
+             padding-top: 1rem;
+             padding-bottom: 1rem;
+        }
+        /* 실시간 방문자 알림 */
+        #visitor-notification {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        #visitor-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -78,6 +107,7 @@
             <a href="#classroom" class="hover:text-blue-300 transition-colors nav-link">강의실</a>
             <a href="#closing" class="hover:text-blue-300 transition-colors nav-link">마치며</a>
             <a href="#contact" class="hover:text-blue-300 transition-colors nav-link">문의</a>
+            <a href="#qna" class="hover:text-blue-300 transition-colors nav-link">Q&A</a>
         </div>
         <button id="mobile-menu-button" class="md:hidden text-2xl">
             <i class="fas fa-bars"></i>
@@ -87,7 +117,7 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-white z-40 pt-16">
         <div class="flex flex-col items-center justify-center h-full space-y-6 text-xl text-blue-800 font-bold">
-            <a href="#introduction" class="mobile-nav-link">강사소개</a><a href="#history" class="mobile-nav-link">이력 & 경력</a><a href="#math-insight" class="mobile-nav-link">Insight</a><a href="#curriculum" class="mobile-nav-link">커리큘럼</a><a href="#results" class="mobile-nav-link">성과</a><a href="#trial" class="mobile-nav-link">시범과외</a><a href="#timetable" class="mobile-nav-link">시간표</a><a href="#classroom" class="mobile-nav-link">강의실</a><a href="#closing" class="mobile-nav-link">마치며</a><a href="#contact" class="mobile-nav-link">문의</a>
+            <a href="#introduction" class="mobile-nav-link">강사소개</a><a href="#history" class="mobile-nav-link">이력 & 경력</a><a href="#math-insight" class="mobile-nav-link">Insight</a><a href="#curriculum" class="mobile-nav-link">커리큘럼</a><a href="#results" class="mobile-nav-link">성과</a><a href="#trial" class="mobile-nav-link">시범과외</a><a href="#timetable" class="mobile-nav-link">시간표</a><a href="#classroom" class="mobile-nav-link">강의실</a><a href="#closing" class="mobile-nav-link">마치며</a><a href="#contact" class="mobile-nav-link">문의</a><a href="#qna" class="mobile-nav-link">Q&A</a>
         </div>
     </div>
 
@@ -114,11 +144,11 @@
     </section>
 
     <main class="w-full bg-slate-50">
-        <div class="max-w-6xl mx-auto px-4 py-16 sm:py-24 space-y-20">
+        <div class="max-w-6xl mx-auto px-4 py-16 sm:py-24 space-y-28">
             
             <!-- Introduction Section -->
             <section id="introduction" class="bg-white p-6 sm:p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
-                <h2 class="text-3xl font-bold text-blue-800 mb-12 text-center">강사소개</h2>
+                <h2 class="text-3xl font-black text-blue-800 mb-12 text-center">강사소개</h2>
                 <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
                     <div class="flex flex-col items-center">
                         <img src="https://static.wixstatic.com/media/d3bd7e_7800465610fb4009ba3c0fd81b9c3934~mv2.jpg/v1/fill/w_244,h_343,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/d3bd7e_7800465610fb4009ba3c0fd81b9c3934~mv2.jpg" alt="김주환 강사 사진" class="rounded-lg shadow-xl w-full max-w-[160px]">
@@ -216,7 +246,7 @@
             
             <!-- History & Career Section -->
             <section id="history" class="bg-white p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
-                <h2 class="text-3xl font-bold text-blue-800 mb-10 text-center">주요 이력 및 경력</h2>
+                <h2 class="text-3xl font-black text-blue-800 mb-10 text-center">주요 이력 및 경력</h2>
                 <div class="grid md:grid-cols-2 gap-x-16 gap-y-12">
                     <div class="space-y-12">
                         <div>
@@ -318,7 +348,7 @@
                         </div>
                         <div id="class2-insight-details" class="collapsible-content text-center mt-8">
                             <div class="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                                <a href="https://docs.google.com/document/d/1ex_3s_nC2y2y2g23g/edit?usp=sharing&ouid=1028&rtpof=true&sd=true" target="_blank" class="block w-full bg-white text-indigo-700 font-semibold p-4 rounded-lg shadow-md hover:bg-indigo-50 transition-colors text-sm">
+                                <a href="https://drive.google.com/file/d/1Et_o-1vd0ZypfOEqHY3T-0ppzHJu0GyK/view?usp=drive_link">
                                     <i class="fas fa-award mr-2"></i>전교 3등 성적 인증
                                 </a>
                                 <a href="https://docs.google.com/document/d/1ex_3s_nC2y2y2g23g/edit?usp=sharing&ouid=1028&rtpof=true&sd=true" target="_blank" class="block w-full bg-white text-indigo-700 font-semibold p-4 rounded-lg shadow-md hover:bg-indigo-50 transition-colors text-sm">
@@ -332,28 +362,61 @@
             
             <!-- Curriculum Section -->
             <section id="curriculum" class="bg-white p-6 sm:p-8 rounded-2xl shadow-xl ring-1 ring-slate-200">
-                <h2 class="text-4xl font-black text-blue-800 mb-4 text-center">커리큘럼</h2>
-                <p class="text-center text-gray-500 text-base mb-12">각 클래스별 상세 커리큘럼은 '자세히 보기'를 통해 확인하세요.</p>
-                
-                <div class="space-y-10">
-                    <div class="text-center bg-sky-50/70 p-8 rounded-2xl ring-1 ring-sky-200 shadow-lg">
-                        <h3 class="text-2xl font-bold text-sky-800">CLASS 1</h3>
-                        <p class="mt-2 text-xl font-semibold text-gray-800">중3 영재고·과학고 대비반</p>
-                        <p class="mt-1 text-gray-500 font-medium">(그룹)</p>
-                        <a href="https://drive.google.com/file/d/17xcNznScHei1Y7XS8frqZ9TuPr4MGmAN/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-sky-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-700 transition-colors shadow-md">자세히 보기</a>
+                <div class="space-y-20">
+                    <!-- Hooking Question -->
+                    <div class="text-center">
+                        <h2 class="text-3xl md:text-4xl font-black text-blue-800 leading-tight">
+                            수학에 <span class="text-violet-600">많은 시간을 투자해도</span> 성적이 오르지 않는다면,<br>
+                            이미 <span class="text-violet-600">공부 방법이 잘못된 걸지도</span> 모릅니다.
+                        </h2>
+                        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                            많은 학생들이 시간과 노력을 쏟아붓지만 성적이 오르지 않는 이유는 ‘방법’이 잘못되었기 때문입니다.
+                            최상위권으로 가는 길은 따로 있습니다.
+                        </p>
                     </div>
-                    
-                    <div class="text-center bg-indigo-50/70 p-8 rounded-2xl ring-1 ring-indigo-200 shadow-lg">
-                        <h3 class="text-2xl font-bold text-indigo-800">CLASS 2</h3>
-                        <p class="mt-2 text-xl font-semibold text-gray-800">대전동신과학고 내신 대비반</p>
-                        <p class="mt-1 text-gray-500 font-medium">(1:1 or 그룹)</p>
-                        <a href="https://drive.google.com/file/d/1bGRWMQ7DzK8iECa60HcYQPTAOZsju6zC/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md">자세히 보기</a>
+                    <!-- Two Choices -->
+                    <div>
+                        <div class="text-center mb-10">
+                           <h2 class="text-3xl md:text-4xl font-black text-blue-800 mt-2 whitespace-nowrap">이제 2가지의 선택지 중 하나를 골라야 합니다!</h2>
+                       </div>
+                       <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                           <div class="bg-white p-8 rounded-lg border-2 border-slate-200 text-center shadow-lg">
+                               <div class="inline-block bg-slate-200 text-slate-600 font-bold px-3 py-1 rounded-full text-sm mb-4">선택 1. 현상유지</div>
+                               <h3 class="text-2xl font-bold text-slate-800">지금 하던 방식 그대로</h3>
+                               <p class="mt-4 text-gray-600">지금까지와 같은 방법으로, 비슷한 결과를 얻으며 소중한 시간과 노력을 투입합니다.</p>
+                           </div>
+                           <div class="bg-white p-8 rounded-lg border-2 border-blue-500 shadow-2xl text-center ring-4 ring-blue-200">
+                               <div class="inline-block bg-blue-200 text-blue-700 font-bold px-3 py-1 rounded-full text-sm mb-4">선택 2. 변화시작</div>
+                               <h3 class="text-2xl font-bold text-blue-800">검증된 전문가와 함께</h3>
+                               <p class="mt-4 text-gray-700">최상위권의 학습 전략으로 빠르고 확실하게 목표를 달성하고, 원하는 결과를 만듭니다.</p>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+
+                <div class="pt-20 mt-20 border-t-2 border-slate-200">
+                    <h2 class="text-4xl font-black text-blue-800 mb-4 text-center">커리큘럼</h2>
+                    <p class="text-center text-gray-500 text-base mb-12">각 클래스별 상세 커리큘럼은 '자세히 보기'를 통해 확인하세요.</p>
+                    <div class="space-y-10">
+                        <div class="text-center bg-sky-50/70 p-8 rounded-2xl ring-1 ring-sky-200 shadow-lg">
+                            <h3 class="text-2xl font-bold text-sky-800">CLASS 1</h3>
+                            <p class="mt-2 text-xl font-semibold text-gray-800">중3 영재고·과학고 대비반</p>
+                            <p class="mt-1 text-gray-500 font-medium">(그룹)</p>
+                            <a href="https://drive.google.com/file/d/17xcNznScHei1Y7XS8frqZ9TuPr4MGmAN/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-sky-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-700 transition-colors shadow-md">자세히 보기</a>
+                        </div>
+                        
+                        <div class="text-center bg-indigo-50/70 p-8 rounded-2xl ring-1 ring-indigo-200 shadow-lg">
+                            <h3 class="text-2xl font-bold text-indigo-800">CLASS 2</h3>
+                            <p class="mt-2 text-xl font-semibold text-gray-800">대전동신과학고 내신 대비반</p>
+                            <p class="mt-1 text-gray-500 font-medium">(1:1 or 그룹)</p>
+                            <a href="https://drive.google.com/file/d/1bGRWMQ7DzK8iECa60HcYQPTAOZsju6zC/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md">자세히 보기</a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Textbooks Section -->
-                <div class="pt-12 mt-12 border-t-2 border-slate-200">
-                    <h3 class="text-3xl font-bold text-blue-700 border-b-2 border-blue-200 pb-4 mb-8 text-center">자체 제작 교재</h3>
+                <div class="pt-20 mt-20 border-t-2 border-slate-200">
+                    <h3 class="text-3xl font-black text-blue-700 border-b-2 border-blue-200 pb-4 mb-8 text-center">자체 제작 교재</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
                         <div class="flex flex-col items-center group">
                             <img src="https://static.wixstatic.com/media/d3bd7e_d039c888c49e41899e18608af3d29321~mv2.jpg/v1/fill/w_474,h_672,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%9E%90%EC%B2%B4%EA%B5%90%EC%9E%AC%201_edited.jpg" alt="자체 교재 개념서" class="h-80 w-auto rounded-lg shadow-lg object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/474x672/E2E8F0/4A5568?text=Image+Not+Found';">
@@ -376,7 +439,7 @@
             
             <!-- Results Section -->
             <section id="results" class="bg-white p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
-                <h2 class="text-3xl font-bold text-blue-800 mb-10 text-center">성적으로 증명된 결과</h2>
+                <h2 class="text-3xl font-black text-blue-800 mb-10 text-center">성적으로 증명된 결과</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                     <div class="bg-slate-50 rounded-xl shadow-md overflow-hidden flex flex-col">
@@ -436,105 +499,188 @@
             </section>
             
             <!-- Trial Lesson Section -->
-            <section id="trial" class="bg-white p-6 md:p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
-                <h2 class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 text-center">
-                    [실력 진단 + 전략 제시] 100% 무료 시범과외
-                </h2>
-                <p class="text-center text-gray-500 text-sm mt-4 mb-8">수업을 들어보고 결정하시면 됩니다.<br>지금 신청하고, 상위 1% 학습 전략을 경험해보세요.</p>
+            <section id="trial" class="space-y-20">
+                <!-- 4-Step Process -->
+                <div>
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-black text-blue-800">
+                            시범과외는 단 4단계로<br>간단하고 빠르게 진행됩니다!
+                        </h2>
+                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
+                            학생의 현재 위치를 정확히 진단하고, 최상위권으로 가는 가장 빠른 길을 제시합니다.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Step 1 -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold text-blue-600">1단계</span>
+                                <span class="text-sm font-bold text-blue-600">25%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 25%"></div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mt-4">실력 진단</h3>
+                            <p class="mt-2 text-gray-600">핵심 유형 문제풀이로 학생의 현재 실력과 취약점을 정확히 진단합니다.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold text-blue-600">2단계</span>
+                                <span class="text-sm font-bold text-blue-600">50%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 50%"></div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mt-4">풀이 분석</h3>
+                            <p class="mt-2 text-gray-600">'선배의 눈'으로 풀이 과정의 장점과 개선점을 꼼꼼하게 분석합니다.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold text-blue-600">3단계</span>
+                                <span class="text-sm font-bold text-blue-600">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mt-4">전략 제시</h3>
+                            <p class="mt-2 text-gray-600">진단 결과를 바탕으로 학생에게 꼭 맞는 최적의 학습 전략과 로드맵을 제시합니다.</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold text-blue-600">4단계</span>
+                                <span class="text-sm font-bold text-blue-600">100%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 100%"></div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mt-4">본수업 안내</h3>
+                            <p class="mt-2 text-gray-600">정규 수업이 어떻게 진행되는지, 차별화된 관리 시스템에 대해 안내합니다.</p>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="space-y-8">
-                     <div class="bg-sky-50/50 p-6 rounded-2xl ring-1 ring-sky-200">
-                         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                             <div class="text-left w-full">
-                                 <h3 class="text-2xl font-bold text-sky-800"><i class="fa-solid fa-flask-vial mr-3"></i>CLASS 1</h3>
-                                 <p class="text-lg font-semibold text-gray-700 mt-1">중3 영재고·과학고 대비반</p>
-                             </div>
-                             <button class="toggle-button bg-sky-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-700 w-full md:w-auto flex-shrink-0" data-target="class1-details-main">자세히 보기</button>
-                         </div>
-                         <div id="class1-details-main" class="collapsible-content text-left mt-8">
-                             <div class="relative pl-8 border-l-2 border-sky-200 space-y-6">
-                                 <div class="text-center mb-6 -ml-8">
-                                     <p class="inline-block bg-sky-100 text-sky-800 font-bold px-4 py-2 rounded-full text-lg">총 90분</p>
+                <!-- Detailed Trial Info -->
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
+                     <h2 class="text-3xl font-black text-blue-800 mb-8 text-center">
+                        CLASS별 상세 시범과외 안내
+                    </h2>
+                    <div class="space-y-8">
+                         <div class="bg-sky-50/50 p-6 rounded-2xl ring-1 ring-sky-200">
+                             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                                 <div class="text-left w-full">
+                                     <h3 class="text-2xl font-bold text-sky-800"><i class="fa-solid fa-flask-vial mr-3"></i>CLASS 1</h3>
+                                     <p class="text-lg font-semibold text-gray-700 mt-1">중3 영재고·과학고 대비반</p>
                                  </div>
-                                 <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">1</div><h5 class="text-xl font-bold text-sky-700">실전 문제 풀이 (25분)</h5><p class="mt-1 text-gray-600">난이도별 3문항으로 약점 파악 및 실력 진단</p></div>
-                                 <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">2</div><h5 class="text-xl font-bold text-sky-700">해설 및 풀이 점검 (25분)</h5><p class="mt-1 text-gray-600">핵심 개념 해설 및 개별 풀이 과정의 오류 체크</p></div>
-                                 <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">3</div><h5 class="text-xl font-bold text-sky-700">메타인지 강화 피드백 (30분)</h5><p class="mt-1 text-gray-600">자신의 풀이를 설명하며 사고 과정 점검 및 구조적 피드백 제공</p></div>
-                                 <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">4</div><h5 class="text-xl font-bold text-sky-700">본수업 안내 (10분)</h5><p class="mt-1 text-gray-600">학습 스타일에 따른 차별화된 정규 수업 방식 안내</p></div>
+                                 <button class="toggle-button bg-sky-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-700 w-full md:w-auto flex-shrink-0" data-target="class1-details-main">자세히 보기</button>
                              </div>
-                             <div class="mt-16 pt-8 border-t-2 border-dashed border-sky-300">
-                                 <h4 class="text-2xl font-bold text-slate-800 mb-5 text-center"><i class="fa-solid fa-gem mr-3 text-sky-600"></i>수업의 차별점</h4>
-                                 <div class="grid md:grid-cols-3 gap-4 text-center">
-                                     <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
-                                         <p class="text-xl font-bold text-sky-600">실전처럼,</p>
-                                         <p class="mt-1 text-gray-600">하지만 무작정 풀지 않는 수업</p>
+                             <div id="class1-details-main" class="collapsible-content text-left mt-8">
+                                 <div class="relative pl-8 border-l-2 border-sky-200 space-y-6">
+                                     <div class="text-center mb-6 -ml-8">
+                                         <p class="inline-block bg-sky-100 text-sky-800 font-bold px-4 py-2 rounded-full text-lg">총 90분</p>
                                      </div>
-                                     <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
-                                         <p class="text-xl font-bold text-sky-600">보이는 공부</p>
-                                         <p class="mt-1 text-gray-600">학생의 머릿속 구조를 끌어내는 수업</p>
-                                     </div>
-                                     <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
-                                         <p class="text-xl font-bold text-sky-600">입체적 설계</p>
-                                         <p class="mt-1 text-gray-600">풀이 → 인식 → 피드백 → 강화의 선순환</p>
+                                     <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">1</div><h5 class="text-xl font-bold text-sky-700">실전 문제 풀이 (25분)</h5><p class="mt-1 text-gray-600">난이도별 3문항으로 약점 파악 및 실력 진단</p></div>
+                                     <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">2</div><h5 class="text-xl font-bold text-sky-700">해설 및 풀이 점검 (25분)</h5><p class="mt-1 text-gray-600">핵심 개념 해설 및 개별 풀이 과정의 오류 체크</p></div>
+                                     <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">3</div><h5 class="text-xl font-bold text-sky-700">메타인지 강화 피드백 (30분)</h5><p class="mt-1 text-gray-600">자신의 풀이를 설명하며 사고 과정 점검 및 구조적 피드백 제공</p></div>
+                                     <div class="relative"><div class="absolute -left-[42px] top-0 h-8 w-8 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold ring-4 ring-white">4</div><h5 class="text-xl font-bold text-sky-700">본수업 안내 (10분)</h5><p class="mt-1 text-gray-600">학습 스타일에 따른 차별화된 정규 수업 방식 안내</p></div>
+                                 </div>
+                                 <div class="mt-16 pt-8 border-t-2 border-dashed border-sky-300">
+                                     <h4 class="text-2xl font-black text-slate-800 mb-5 text-center"><i class="fa-solid fa-gem mr-3 text-sky-600"></i>CLASS 1 수업의 차별점</h4>
+                                     <div class="grid md:grid-cols-3 gap-4 text-center">
+                                         <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
+                                             <p class="text-lg font-bold text-sky-600">실전처럼</p>
+                                             <p class="mt-1 text-sm text-gray-600">하지만 무작정 풀지 않는 수업</p>
+                                         </div>
+                                         <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
+                                             <p class="text-lg font-bold text-sky-600">보이는 공부</p>
+                                             <p class="mt-1 text-sm text-gray-600">학생의 머릿속 구조를 끌어내는 수업</p>
+                                         </div>
+                                         <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
+                                             <p class="text-lg font-bold text-sky-600">입체적 설계</p>
+                                             <p class="mt-1 text-sm text-gray-600">풀이 → 인식 → 피드백 → 강화의 선순환</p>
+                                         </div>
                                      </div>
                                  </div>
                                </div>
                          </div>
-                     </div>
-                    
-                     <div class="bg-indigo-50/50 p-6 rounded-2xl ring-1 ring-indigo-200">
-                         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                             <div class="text-left w-full">
-                                 <h3 class="text-2xl font-bold text-indigo-800"><i class="fa-solid fa-user-graduate mr-3"></i>CLASS 2</h3>
-                                 <p class="text-lg font-semibold text-gray-700 mt-1">대전동신과학고 내신 대비반</p>
-                             </div>
-                             <button class="toggle-button bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 w-full md:w-auto flex-shrink-0" data-target="class2-details-main">자세히 보기</button>
-                         </div>
-                         <div id="class2-details-main" class="collapsible-content text-left mt-8">
-                              <div class="grid md:grid-cols-2 gap-8">
-                                  <div>
-                                      <h4 class="text-xl font-bold text-slate-800 mb-4 text-center"><i class="fa-solid fa-user mr-2 text-indigo-600"></i>1:1 개인수업 (120분)</h4>
-                                      <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                          <li><strong class="text-black">실전 풀이 (30분):</strong> 동신과고 스타일 문제로 실력 정밀 분석</li>
-                                          <li><strong class="text-black">해설/점검 (30분):</strong> 출제 의도 파악 및 '선배의 눈'으로 감점 포인트 체크</li>
-                                          <li><strong class="text-black">피드백 (30분):</strong> '수학 전교 3등 선배'의 효율적 접근법 및 내신 팁 전수</li>
-                                          <li><strong class="text-black">클레임/안내 (30분):</strong> 최종 질의응답 및 정규 수업 시스템 안내</li>
-                                      </ul>
-                                  </div>
-                                  <div>
-                                      <h4 class="text-xl font-bold text-slate-800 mb-4 text-center"><i class="fa-solid fa-users mr-2 text-indigo-600"></i>그룹수업 (180분)</h4>
-                                      <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                          <li><strong class="text-black">실전 풀이 (30분):</strong> 동신과고 스타일 문제로 실력 정밀 분석</li>
-                                          <li><strong class="text-black">해설/점검 (40분):</strong> 출제 의도 파악 및 개별 사고 흐름 확인</li>
-                                          <li><strong class="text-black">메타인지 강화 (80분):</strong> 그룹 토의 및 '선배의 눈'으로 서술형 첨삭 피드백</li>
-                                          <li><strong class="text-black">클레임/안내 (30분):</strong> 최종 질의응답 및 정규 수업 시스템 안내</li>
-                                      </ul>
-                                  </div>
-                              </div>
-                              <div class="mt-16 pt-8 border-t-2 border-dashed border-indigo-300">
-                                  <h4 class="text-2xl font-bold text-slate-800 mb-5 text-center"><i class="fa-solid fa-gem mr-3 text-indigo-600"></i>수업의 차별점</h4>
-                                  <div class="grid md:grid-cols-3 gap-4 text-center">
-                                      <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
-                                          <p class="text-lg font-bold text-indigo-600">검증된 실력</p>
-                                          <p class="mt-1 text-sm text-gray-600">동신과고 수학 전교 3등 선배의 직강</p>
-                                      </div>
-                                      <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
-                                          <p class="text-lg font-bold text-indigo-600">살아있는 정보</p>
-                                          <p class="mt-1 text-xs sm:text-sm text-gray-600">선생님별 출제 스타일 및 내신 꿀팁 전수</p>
-                                      </div>
-                                      <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
-                                          <p class="text-lg font-bold text-indigo-600">완벽한 맞춤</p>
-                                          <p class="mt-1 text-xs sm:text-sm text-gray-600">오직 동신과고 학생만을 위한 내신 전략</p>
-                                      </div>
-                                  </div>
+                        
+                         <div class="bg-indigo-50/50 p-6 rounded-2xl ring-1 ring-indigo-200">
+                             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                                 <div class="text-left w-full">
+                                     <h3 class="text-2xl font-bold text-indigo-800"><i class="fa-solid fa-user-graduate mr-3"></i>CLASS 2</h3>
+                                     <p class="text-lg font-semibold text-gray-700 mt-1">대전동신과학고 내신 대비반</p>
                                  </div>
+                                 <button class="toggle-button bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 w-full md:w-auto flex-shrink-0" data-target="class2-details-main">자세히 보기</button>
+                             </div>
+                             <div id="class2-details-main" class="collapsible-content text-left mt-8">
+                                  <div class="grid md:grid-cols-2 gap-8">
+                                      <div>
+                                          <h4 class="text-xl font-bold text-slate-800 mb-4 text-center"><i class="fa-solid fa-user mr-2 text-indigo-600"></i>1:1 개인수업 (120분)</h4>
+                                          <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                              <li><strong class="text-black">실전 풀이 (30분):</strong> 동신과고 스타일 문제로 실력 정밀 분석</li>
+                                              <li><strong class="text-black">해설/점검 (30분):</strong> 출제 의도 파악 및 '선배의 눈'으로 감점 포인트 체크</li>
+                                              <li><strong class="text-black">피드백 (30분):</strong> '수학 전교 3등 선배'의 효율적 접근법 및 내신 팁 전수</li>
+                                              <li><strong class="text-black">클레임/안내 (30분):</strong> 최종 질의응답 및 정규 수업 시스템 안내</li>
+                                          </ul>
+                                      </div>
+                                      <div>
+                                          <h4 class="text-xl font-bold text-slate-800 mb-4 text-center"><i class="fa-solid fa-users mr-2 text-indigo-600"></i>그룹수업 (180분)</h4>
+                                          <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                              <li><strong class="text-black">실전 풀이 (30분):</strong> 동신과고 스타일 문제로 실력 정밀 분석</li>
+                                              <li><strong class="text-black">해설/점검 (40분):</strong> 출제 의도 파악 및 개별 사고 흐름 확인</li>
+                                              <li><strong class="text-black">메타인지 강화 (80분):</strong> 그룹 토의 및 '선배의 눈'으로 서술형 첨삭 피드백</li>
+                                              <li><strong class="text-black">클레임/안내 (30분):</strong> 최종 질의응답 및 정규 수업 시스템 안내</li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="mt-16 pt-8 border-t-2 border-dashed border-indigo-300">
+                                     <h4 class="text-2xl font-black text-slate-800 mb-5 text-center"><i class="fa-solid fa-gem mr-3 text-indigo-600"></i>CLASS 2 수업의 차별점</h4>
+                                     <div class="grid md:grid-cols-3 gap-4 text-center">
+                                         <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
+                                             <p class="text-lg font-bold text-indigo-600">검증된 실력</p>
+                                             <p class="mt-1 text-sm text-gray-600">동신과고 수학 전교 3등 선배의 직강</p>
+                                         </div>
+                                         <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
+                                             <p class="text-lg font-bold text-indigo-600">살아있는 정보</p>
+                                             <p class="mt-1 text-sm text-gray-600">선생님별 출제 스타일 및 내신 꿀팁 전수</p>
+                                         </div>
+                                         <div class="bg-white p-6 rounded-lg shadow-lg ring-1 ring-slate-100">
+                                             <p class="text-lg font-bold text-indigo-600">완벽한 맞춤</p>
+                                             <p class="mt-1 text-sm text-gray-600">오직 동신과고 학생만을 위한 내신 전략</p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
                          </div>
-                     </div>
+                    </div>
+                </div>
+
+                <!-- Combined CTA Banner -->
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl ring-1 ring-slate-200 text-center">
+                    <h2 class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">
+                        [실력 진단 + 전략 제시] 100% 무료 시범과외
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                        수업을 들어보고 결정하시면 됩니다.<br>지금 신청하고 상위 1% 학습 전략과 함께 아래 모든 혜택을 <span class="font-bold text-blue-600">무료</span>로 경험해보세요!
+                    </p>
+                    <div class="mt-8 flex justify-center items-center">
+                        <span class="text-2xl md:text-3xl font-bold text-gray-400 line-through">100,000원</span>
+                        <i class="fas fa-arrow-right text-2xl md:text-3xl text-gray-400 mx-4"></i>
+                        <span class="text-4xl md:text-5xl font-black text-blue-600">0원</span>
+                    </div>
+                    <div class="mt-8">
+                        <button id="trial-banner-button" class="bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold py-4 px-10 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform duration-300">
+                            무료 시범과외 신청하기
+                        </button>
+                    </div>
                 </div>
             </section>
             
             <!-- Timetable Section -->
             <section id="timetable" class="bg-white p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
-                <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center w-full">수업 시간표</h2>
+                <h2 class="text-3xl font-black text-blue-800 mb-8 text-center w-full">수업 시간표</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div id="class-status-board" class="md:col-span-1 bg-slate-50 p-6 rounded-lg shadow-inner">
                         <!-- Timetable status will be generated by script -->
@@ -558,7 +704,7 @@
             <!-- Classroom Section -->
             <section id="classroom" class="bg-white p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
                 <div class="max-w-6xl mx-auto space-y-12">
-                     <h3 class="text-3xl font-bold text-blue-800 mb-10 text-center">강의실</h3>
+                     <h3 class="text-3xl font-black text-blue-800 mb-10 text-center">강의실</h3>
                      
                      <div class="bg-white rounded-xl shadow-lg ring-1 ring-slate-200 overflow-hidden grid md:grid-cols-2 items-center hover:shadow-2xl transition-shadow duration-300">
                          <div class="p-8 order-2 md:order-1">
@@ -575,7 +721,7 @@
                              <img src="https://static.wixstatic.com/media/d3bd7e_d6869352e3cb48a889b1680918c55562~mv2.png/v1/fill/w_600,h_416,al_c,q_85,enc_avif,quality_auto/d3bd7e_d6869352e3cb48a889b1680918c55562~mv2.png" alt="카이스트 스터디룸 사진" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300">
                          </div>
                      </div>
-     
+ 
                      <div class="bg-white rounded-xl shadow-lg ring-1 ring-slate-200 overflow-hidden grid md:grid-cols-2 items-center hover:shadow-2xl transition-shadow duration-300">
                          <div class="p-8 order-2 md:order-1">
                              <div class="flex items-center gap-4 mb-4">
@@ -596,7 +742,7 @@
 
             <!-- Closing Section -->
             <section id="closing" class="bg-white p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
-                <h2 class="text-3xl font-bold text-blue-800 mb-10 text-center">마치며</h2>
+                <h2 class="text-3xl font-black text-blue-800 mb-10 text-center">마치며</h2>
                 <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 text-center">
                     <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
                         <div class="flex justify-center mb-4">
@@ -629,28 +775,76 @@
             </section>
 
             <!-- Contact Section -->
-            <section id="contact" class="bg-white p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
-                <h2 class="text-3xl font-bold text-blue-800 mb-2 text-center">문의</h2>
-                <p class="text-center text-gray-500 mb-10 text-sm">배너를 누르시면 즉시 연락이 가능합니다.</p>
-                <div class="max-w-2xl mx-auto grid sm:grid-cols-2 gap-8 text-center">
-                    <a href="tel:010-2124-7269" class="p-6 bg-slate-50 rounded-lg border hover:border-blue-400 hover:shadow-lg transition-all">
-                        <i class="fas fa-phone-alt text-4xl text-blue-500"></i>
-                        <h3 class="mt-4 text-xl font-bold text-gray-800">전화 & 문자</h3>
-                        <p class="text-gray-600 mt-1">010-2124-7269</p>
+            <section id="contact" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl ring-1 ring-slate-200">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-black text-blue-800">
+                        상담은 언제나 열려 있습니다
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                        모든 준비는 끝났습니다.<br>최고의 선택으로 최고의 결과를 만드세요.
+                    </p>
+                </div>
+                 <div class="mt-10 max-w-2xl mx-auto grid sm:grid-cols-2 gap-6 text-center">
+                    <a href="tel:010-2124-7269" class="p-6 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <i class="fas fa-phone-alt text-4xl"></i>
+                        <h3 class="mt-4 text-xl font-bold">전화 & 문자</h3>
+                        <p class="text-blue-600 mt-1">010-2124-7269</p>
                     </a>
-                    <a href="mailto:kimjuhuan1028@kaist.ac.kr" class="p-6 bg-slate-50 rounded-lg border hover:border-green-400 hover:shadow-lg transition-all">
-                        <i class="fas fa-envelope text-4xl text-green-500"></i>
-                        <h3 class="mt-4 text-xl font-bold text-gray-800">이메일</h3>
-                        <p class="text-gray-600 mt-1">kimjuhuan1028@kaist.ac.kr</p>
+                    <a href="mailto:kimjuhuan1028@kaist.ac.kr" class="p-6 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <i class="fas fa-envelope text-4xl"></i>
+                        <h3 class="mt-4 text-xl font-bold">이메일 문의</h3>
+                        <p class="text-green-600 mt-1">kimjuhuan1028@kaist.ac.kr</p>
                     </a>
                 </div>
-                <div class="mt-12 text-center bg-sky-100 text-sky-800 p-4 rounded-lg font-semibold">
-                    <p>수업에 대한 궁금한 점이 있으신가요?</p>
-                    <p class="text-lg sm:text-xl font-bold mt-1">전화, 카톡, 문자 24시간 언제든지<br> 편하게 연락 주세요!</p>
+            </section>
+
+            <!-- Q&A Section -->
+            <section id="qna" class="space-y-10">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-black text-blue-800">
+                        중요한 Q&A 살펴보기
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600">자주 묻는 질문들을 확인해보세요.</p>
                 </div>
-                <div class="mt-8 text-center">
-                    <p class="text-xl md:text-2xl font-bold text-gray-700 whitespace-nowrap">변화는 지금부터 시작됩니다.</p>
-                    <p class="text-2xl md:text-3xl font-black text-blue-600 mt-2 whitespace-nowrap">최고의 선택, 망설이지 마세요!</p>
+
+                <!-- FAQ -->
+                <div class="max-w-4xl mx-auto space-y-4">
+                    <div class="bg-white rounded-lg shadow-md">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                            <span class="text-lg font-semibold text-gray-800">Q. 시범과외는 정말 무료인가요? 추가 비용은 없나요?</span>
+                            <i class="fas fa-chevron-down faq-toggle-icon text-blue-500"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-700">
+                            <p>네, 100% 무료입니다. 학생의 현재 실력을 정확히 진단하고, 앞으로의 학습 방향에 대한 구체적인 로드맵을 제시해드리는 시간입니다. 수업을 받아보시고 결정하실 수 있도록 어떠한 비용도 청구하지 않으니 편하게 신청해주세요.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                            <span class="text-lg font-semibold text-gray-800">Q. 수업은 꼭 KAIST나 스터디 카페에서만 해야 하나요?</span>
+                            <i class="fas fa-chevron-down faq-toggle-icon text-blue-500"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-700">
+                            <p>최상의 면학 분위기를 위해 KAIST 스터디룸 또는 프리미엄 스터디 카페를 기본으로 하고 있습니다. 하지만 학생의 상황에 따라 방문 과외 등 다른 장소에 대한 협의도 가능하니, 편하게 문의해주시기 바랍니다.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                            <span class="text-lg font-semibold text-gray-800">Q. 그룹과외는 어떻게 구성되나요?</span>
+                            <i class="fas fa-chevron-down faq-toggle-icon text-blue-500"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-700">
+                            <p>그룹과외는 학생들 간의 시너지를 극대화하기 위해 비슷한 실력과 목표를 가진 2~4명의 소수 인원으로 구성됩니다. 친구와 함께 신청하는 것도 가능하며, 개별 신청 시에는 시범과외 결과를 바탕으로 가장 적합한 그룹에 배정해드립니다.</p>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-md">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                            <span class="text-lg font-semibold text-gray-800">Q. 수업료는 어떻게 되나요?</span>
+                            <i class="fas fa-chevron-down faq-toggle-icon text-blue-500"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-700">
+                            <p>수업료는 수업 형태(1:1 개인, 그룹)와 횟수, 학년에 따라 달라집니다. 시범과외 진행 후 학생에게 가장 적합한 커리큘럼을 설계해드리며, 이때 상세한 수업료를 안내해드리고 있습니다. 기타 궁금한 점은 아래 연락처로 문의주시면 친절하게 상담해드리겠습니다.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -664,6 +858,18 @@
              <a href="https://blog.naver.com/j__hwa_n" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-200 my-1"><i class="fa-solid fa-blog mr-1"></i> j__hwa_n님의 블로그</a>
         </div>
     </footer>
+
+    <!-- Visitor Notification -->
+    <div id="visitor-notification" class="fixed bottom-5 left-5 bg-white rounded-xl shadow-2xl p-4 flex items-center gap-4 z-50 border-l-4 border-blue-400">
+        <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-check text-blue-500"></i>
+        </div>
+        <div>
+            <p id="notification-text" class="text-sm font-semibold text-gray-800"></p>
+            <p class="text-xs text-gray-500">방금 전</p>
+        </div>
+    </div>
+
 
     <!-- Modals (Success Stories) -->
     <div id="modal-kyunghee" class="modal-backdrop hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-[60] opacity-0">
@@ -986,6 +1192,7 @@
             
             // --- Unified Trial Lesson Modal Logic ---
             const floatingButton = document.getElementById('floating-trial-button');
+            const trialBannerButton = document.getElementById('trial-banner-button');
             const trialModal = document.getElementById('modal-trial-unified');
             const trialModalTitle = document.getElementById('modal-trial-title');
             const backButton = document.getElementById('modal-trial-back-button');
@@ -1024,11 +1231,17 @@
                 trialModalTitle.textContent = '시범과외 신청';
             };
 
-            floatingButton.addEventListener('click', () => {
-                openModal(trialModal);
-            });
+            const openTrialModal = () => openModal(trialModal);
 
-            trialModal.querySelector('.modal-close-button').addEventListener('click', resetTrialModal);
+            floatingButton.addEventListener('click', openTrialModal);
+            if (trialBannerButton) {
+                trialBannerButton.addEventListener('click', openTrialModal);
+            }
+
+            trialModal.querySelector('.modal-close-button').addEventListener('click', () => {
+                 closeModal(trialModal);
+                 setTimeout(resetTrialModal, 300);
+            });
             
             backButton.addEventListener('click', resetTrialModal);
             
@@ -1156,6 +1369,52 @@
                     }
                 });
             });
+
+            // --- FAQ Accordion ---
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isOpen = question.classList.contains('open');
+
+                    // Close all other open answers
+                    document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                        if (openAnswer !== answer) {
+                            openAnswer.classList.remove('open');
+                            openAnswer.previousElementSibling.classList.remove('open');
+                        }
+                    });
+
+                    // Toggle current answer
+                    question.classList.toggle('open');
+                    answer.classList.toggle('open');
+                });
+            });
+
+            // --- Visitor Notification Logic ---
+            const notification = document.getElementById('visitor-notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            const names = ['김O진', '박O우', '이O연', '최O원', '정O윤', '강O민'];
+            const actions = ['사이트를 방문했습니다.', '시범과외를 신청했습니다.'];
+
+            function showNotification() {
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                const randomAction = actions[Math.floor(Math.random() * actions.length)];
+
+                notificationText.textContent = `${randomName} 학생이 ${randomAction}`;
+                notification.classList.add('show');
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 5000); // Hide after 5 seconds
+            }
+
+            // Show a notification every 8-15 seconds
+            setInterval(showNotification, Math.random() * (15000 - 8000) + 8000);
+            // Show first notification shortly after page load
+            setTimeout(showNotification, 3000);
+
         });
 
         // Use the 'load' event to ensure all content (like images) is loaded
