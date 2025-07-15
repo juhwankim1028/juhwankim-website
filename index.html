@@ -89,6 +89,40 @@
             opacity: 1;
             transform: translateY(0);
         }
+        /* 제목 줄간격 조정 */
+        .leading-230 {
+            line-height: 2.3;
+        }
+        /* 네비게이션 '더보기' 드롭다운 스타일 */
+        #more-dropdown-button .fa-chevron-down {
+            transition: transform 0.2s ease-in-out;
+        }
+        #more-dropdown-menu:not(.hidden) + #more-dropdown-button .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        .dropdown-link {
+            display: block;
+            padding: 0.5rem 1.25rem;
+            color: #e5e7eb;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            text-align: center;
+        }
+        .dropdown-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        #navbar.nav-scrolled #more-dropdown-menu {
+            background-color: white;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        #navbar.nav-scrolled .dropdown-link {
+            color: #374151;
+        }
+        #navbar.nav-scrolled .dropdown-link:hover {
+            background-color: #f3f4f6;
+            color: #1e40af;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -96,18 +130,28 @@
     <!-- Navigation Bar -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-3 text-white transition-all duration-300">
         <a href="#home" class="font-bold text-xl tracking-wider nav-brand">김주환</a>
-        <div class="hidden md:flex space-x-6 font-medium">
+        <div class="hidden md:flex items-center space-x-6 font-medium">
             <a href="#introduction" class="hover:text-blue-300 transition-colors nav-link">강사소개</a>
             <a href="#history" class="hover:text-blue-300 transition-colors nav-link">이력 & 경력</a>
             <a href="#math-insight" class="hover:text-blue-300 transition-colors nav-link">Insight</a>
             <a href="#curriculum" class="hover:text-blue-300 transition-colors nav-link">커리큘럼</a>
-            <a href="#results" class="hover:text-blue-300 transition-colors nav-link">성과</a>
-            <a href="#trial" class="hover:text-blue-300 transition-colors nav-link">시범과외</a>
-            <a href="#timetable" class="hover:text-blue-300 transition-colors nav-link">시간표</a>
-            <a href="#classroom" class="hover:text-blue-300 transition-colors nav-link">강의실</a>
-            <a href="#closing" class="hover:text-blue-300 transition-colors nav-link">마치며</a>
-            <a href="#contact" class="hover:text-blue-300 transition-colors nav-link">문의</a>
-            <a href="#qna" class="hover:text-blue-300 transition-colors nav-link">Q&A</a>
+            
+            <!-- Dropdown Menu -->
+            <div class="relative" id="more-dropdown-container">
+                <button id="more-dropdown-button" class="nav-link hover:text-blue-300 transition-colors flex items-center cursor-pointer">
+                    더보기
+                    <i class="fas fa-chevron-down ml-1.5 text-xs"></i>
+                </button>
+                <div id="more-dropdown-menu" class="absolute top-full right-0 mt-3 w-40 bg-white/10 backdrop-blur-lg rounded-lg shadow-xl py-2 hidden origin-top-right">
+                    <a href="#results" class="dropdown-link">성과</a>
+                    <a href="#trial" class="dropdown-link">시범과외</a>
+                    <a href="#timetable" class="dropdown-link">시간표</a>
+                    <a href="#classroom" class="dropdown-link">강의실</a>
+                    <a href="#closing" class="dropdown-link">마치며</a>
+                    <a href="#contact" class="dropdown-link">문의</a>
+                    <a href="#qna" class="dropdown-link">Q&A</a>
+                </div>
+            </div>
         </div>
         <button id="mobile-menu-button" class="md:hidden text-2xl">
             <i class="fas fa-bars"></i>
@@ -341,7 +385,7 @@
                                 </p>
                             </div>
                             <div class="md:col-span-4 text-center mt-4 md:mt-0">
-                                <button class="toggle-button w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md" data-target="class2-insight-details">
+                                <button class="toggle-button w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md" data-target="class2-insight-details" data-toggle-type="insight">
                                     <i class="fas fa-check-circle mr-2"></i>인증 자료 및 기출 확인
                                 </button>
                             </div>
@@ -365,19 +409,19 @@
                 <div class="space-y-20">
                     <!-- Hooking Question -->
                     <div class="text-center">
-                        <h2 class="text-3xl md:text-4xl font-black text-blue-800 leading-tight">
-                            수학에 <span class="text-violet-600">많은 시간을 투자해도</span> 성적이 오르지 않는다면,<br>
-                            이미 <span class="text-violet-600">공부 방법이 잘못된 걸지도</span> 모릅니다.
+                        <h2 class="text-3xl md:text-4xl font-black text-blue-800 leading-230">
+                            아무리 노력해도 성적이 오르지 않는다면, <br>
+                            <span class="text-violet-600">공부 방법에 문제가 있는 겁니다.</span>
                         </h2>
                         <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                            많은 학생들이 시간과 노력을 쏟아붓지만 성적이 오르지 않는 이유는 ‘방법’이 잘못되었기 때문입니다.
-                            최상위권으로 가는 길은 따로 있습니다.
+                            성적이 안 오르는 건 노력 부족이 아니라, '방법'이 틀렸기 때문입니다.<br>
+                            최상위권은 ‘다르게’ 공부합니다.
                         </p>
                     </div>
                     <!-- Two Choices -->
                     <div>
                         <div class="text-center mb-10">
-                           <h2 class="text-3xl md:text-4xl font-black text-blue-800 mt-2 whitespace-nowrap">이제 2가지의 선택지 중 하나를 골라야 합니다!</h2>
+                           <h2 class="text-3xl md:text-4xl font-black text-blue-800 mt-2 whitespace-nowrap">이제 2가지의 선택지 중 <br> 하나를 골라야 합니다!</h2>
                        </div>
                        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
                            <div class="bg-white p-8 rounded-lg border-2 border-slate-200 text-center shadow-lg">
@@ -503,7 +547,7 @@
                 <!-- 4-Step Process -->
                 <div>
                     <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-black text-blue-800">
+                        <h2 class="text-3xl md:text-4xl font-black text-blue-800 leading-230">
                             시범과외는 단 4단계로<br>간단하고 빠르게 진행됩니다!
                         </h2>
                         <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -515,49 +559,45 @@
                         <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
                             <div class="flex justify-between items-center">
                                 <span class="text-sm font-bold text-blue-600">1단계</span>
-                                <span class="text-sm font-bold text-blue-600">25%</span>
+                                <h3 class="text-xl font-bold text-gray-800">실력 진단</h3>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
                                 <div class="bg-blue-500 h-2.5 rounded-full" style="width: 25%"></div>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mt-4">실력 진단</h3>
-                            <p class="mt-2 text-gray-600">핵심 유형 문제풀이로 학생의 현재 실력과 취약점을 정확히 진단합니다.</p>
+                            <p class="mt-4 text-gray-600">핵심 유형 문제풀이로 학생의 현재 실력과 취약점을 정확히 진단합니다.</p>
                         </div>
                         <!-- Step 2 -->
                         <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
-                            <div class="flex justify-between items-center">
+                           <div class="flex justify-between items-center">
                                 <span class="text-sm font-bold text-blue-600">2단계</span>
-                                <span class="text-sm font-bold text-blue-600">50%</span>
+                                <h3 class="text-xl font-bold text-gray-800">풀이 분석</h3>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
                                 <div class="bg-blue-500 h-2.5 rounded-full" style="width: 50%"></div>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mt-4">풀이 분석</h3>
-                            <p class="mt-2 text-gray-600">'선배의 눈'으로 풀이 과정의 장점과 개선점을 꼼꼼하게 분석합니다.</p>
+                            <p class="mt-4 text-gray-600">'선배의 눈'으로 풀이 과정의 장점과 개선점을 꼼꼼하게 분석합니다.</p>
                         </div>
                         <!-- Step 3 -->
                         <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
                             <div class="flex justify-between items-center">
                                 <span class="text-sm font-bold text-blue-600">3단계</span>
-                                <span class="text-sm font-bold text-blue-600">75%</span>
+                                <h3 class="text-xl font-bold text-gray-800">전략 제시</h3>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
                                 <div class="bg-blue-500 h-2.5 rounded-full" style="width: 75%"></div>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mt-4">전략 제시</h3>
-                            <p class="mt-2 text-gray-600">진단 결과를 바탕으로 학생에게 꼭 맞는 최적의 학습 전략과 로드맵을 제시합니다.</p>
+                            <p class="mt-4 text-gray-600">진단 결과를 바탕으로 학생에게 꼭 맞는 최적의 학습 전략과 로드맵을 제시합니다.</p>
                         </div>
                         <!-- Step 4 -->
                         <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
                             <div class="flex justify-between items-center">
                                 <span class="text-sm font-bold text-blue-600">4단계</span>
-                                <span class="text-sm font-bold text-blue-600">100%</span>
+                                <h3 class="text-xl font-bold text-gray-800">본수업 안내</h3>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
                                 <div class="bg-blue-500 h-2.5 rounded-full" style="width: 100%"></div>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mt-4">본수업 안내</h3>
-                            <p class="mt-2 text-gray-600">정규 수업이 어떻게 진행되는지, 차별화된 관리 시스템에 대해 안내합니다.</p>
+                            <p class="mt-4 text-gray-600">정규 수업이 어떻게 진행되는지, 차별화된 관리 시스템에 대해 안내합니다.</p>
                         </div>
                     </div>
                 </div>
@@ -565,9 +605,9 @@
                 <!-- Detailed Trial Info -->
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg ring-1 ring-slate-200">
                      <h2 class="text-3xl font-black text-blue-800 mb-8 text-center">
-                        CLASS별 상세 시범과외 안내
-                    </h2>
-                    <div class="space-y-8">
+                         CLASS별 시범과외 안내
+                     </h2>
+                     <div class="space-y-8">
                          <div class="bg-sky-50/50 p-6 rounded-2xl ring-1 ring-sky-200">
                              <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                                  <div class="text-left w-full">
@@ -605,7 +645,7 @@
                                  </div>
                                </div>
                          </div>
-                        
+                         
                          <div class="bg-indigo-50/50 p-6 rounded-2xl ring-1 ring-indigo-200">
                              <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                                  <div class="text-left w-full">
@@ -651,11 +691,11 @@
                                              <p class="mt-1 text-sm text-gray-600">오직 동신과고 학생만을 위한 내신 전략</p>
                                          </div>
                                      </div>
-                                 </div>
-                             </div>
+                                  </div>
+                               </div>
                          </div>
-                    </div>
-                </div>
+                     </div>
+                 </div>
 
                 <!-- Combined CTA Banner -->
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl ring-1 ring-slate-200 text-center">
@@ -663,7 +703,7 @@
                         [실력 진단 + 전략 제시] 100% 무료 시범과외
                     </h2>
                     <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                        수업을 들어보고 결정하시면 됩니다.<br>지금 신청하고 상위 1% 학습 전략과 함께 아래 모든 혜택을 <span class="font-bold text-blue-600">무료</span>로 경험해보세요!
+                        지금 신청하고 상위 1% 학습 전략을 <span class="font-bold text-blue-600">무료</span>로 경험해보세요!
                     </p>
                     <div class="mt-8 flex justify-center items-center">
                         <span class="text-2xl md:text-3xl font-bold text-gray-400 line-through">100,000원</span>
@@ -860,7 +900,7 @@
     </footer>
 
     <!-- Visitor Notification -->
-    <div id="visitor-notification" class="fixed bottom-5 left-5 bg-white rounded-xl shadow-2xl p-4 flex items-center gap-4 z-50 border-l-4 border-blue-400">
+    <div id="visitor-notification" class="fixed bottom-24 right-8 bg-white rounded-xl shadow-2xl p-4 flex items-center gap-4 z-50 border-l-4 border-blue-400">
         <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
             <i class="fas fa-check text-blue-500"></i>
         </div>
@@ -1014,6 +1054,34 @@
                     mobileMenu.classList.add('hidden');
                 });
             });
+
+            // --- 'More' Dropdown Logic ---
+            const dropdownContainer = document.getElementById('more-dropdown-container');
+            const dropdownButton = document.getElementById('more-dropdown-button');
+            const dropdownMenu = document.getElementById('more-dropdown-menu');
+
+            if (dropdownButton && dropdownMenu && dropdownContainer) {
+                dropdownButton.addEventListener('click', (event) => {
+                    // Stop the click from bubbling up to the window listener
+                    event.stopPropagation();
+                    // Toggle the dropdown menu
+                    dropdownMenu.classList.toggle('hidden');
+                });
+
+                // Close dropdown when a link inside is clicked
+                dropdownMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        dropdownMenu.classList.add('hidden');
+                    });
+                });
+                
+                // Close the dropdown if the user clicks outside of it
+                window.addEventListener('click', (event) => {
+                    if (!dropdownContainer.contains(event.target)) {
+                        dropdownMenu.classList.add('hidden');
+                    }
+                });
+            }
 
             // --- Timetable generation ---
             const timetableSection = document.getElementById('timetable');
@@ -1354,15 +1422,19 @@
                         const targetContent = document.getElementById(targetId);
                         if (targetContent && targetContent.classList.contains('collapsible-content')) {
                             const isShown = targetContent.classList.contains('show');
-                            // Toggle the 'show' class to trigger the transition
                             targetContent.classList.toggle('show');
                             
-                            // Update button text with a slight delay to allow the expand/collapse to start
+                            const toggleType = buttonElement.dataset.toggleType;
+
                             setTimeout(() => {
-                                if (buttonElement.innerHTML.includes('인증 자료') || buttonElement.innerHTML.includes('기출 확인')) {
-                                     buttonElement.innerHTML = isShown ? `<i class="fas fa-check-circle mr-2"></i>인증 자료 및 기출 확인` : `<i class="fas fa-times mr-2"></i>닫기`;
+                                if (toggleType === 'insight') {
+                                    if (isShown) { // It was shown, now it's hidden
+                                        buttonElement.innerHTML = `<i class="fas fa-check-circle mr-2"></i>인증 자료 및 기출 확인`;
+                                    } else { // It was hidden, now it's shown
+                                        buttonElement.innerHTML = `<i class="fas fa-times mr-2"></i>간략히 보기`;
+                                    }
                                 } else {
-                                     buttonElement.textContent = isShown ? '자세히 보기' : '간략히 보기';
+                                    buttonElement.textContent = isShown ? '자세히 보기' : '간략히 보기';
                                 }
                             }, 100);
                         }
