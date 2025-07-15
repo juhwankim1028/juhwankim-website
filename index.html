@@ -159,7 +159,7 @@
     </nav>
     
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-white z-40 pt-16">
+    <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-white z-40 pt-16 overflow-y-auto">
         <div class="flex flex-col items-center justify-center h-full space-y-6 text-xl text-blue-800 font-bold">
             <a href="#introduction" class="mobile-nav-link">강사소개</a><a href="#history" class="mobile-nav-link">이력 & 경력</a><a href="#math-insight" class="mobile-nav-link">Insight</a><a href="#curriculum" class="mobile-nav-link">커리큘럼</a><a href="#results" class="mobile-nav-link">성과</a><a href="#trial" class="mobile-nav-link">시범과외</a><a href="#timetable" class="mobile-nav-link">시간표</a><a href="#classroom" class="mobile-nav-link">강의실</a><a href="#closing" class="mobile-nav-link">마치며</a><a href="#contact" class="mobile-nav-link">문의</a><a href="#qna" class="mobile-nav-link">Q&A</a>
         </div>
@@ -410,8 +410,8 @@
                     <!-- Hooking Question -->
                     <div class="text-center">
                         <h2 class="text-3xl md:text-4xl font-black text-blue-800 leading-230">
-                            아무리 노력해도 성적이 오르지 않는다면, <br>
-                            <span class="text-violet-600">공부 방법에 문제가 있는 겁니다.</span>
+                            노력해도 안 오른다면, <br>
+                            <span class="text-violet-600">공부 방법이 틀린 겁니다.</span>
                         </h2>
                         <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
                             성적이 안 오르는 건 노력 부족이 아니라, '방법'이 틀렸기 때문입니다.<br>
@@ -421,7 +421,7 @@
                     <!-- Two Choices -->
                     <div>
                         <div class="text-center mb-10">
-                           <h2 class="text-3xl md:text-4xl font-black text-blue-800 mt-2 whitespace-nowrap">이제 2가지의 선택지 중 <br> 하나를 골라야 합니다!</h2>
+                           <h2 class="text-3xl md:text-4xl font-black text-blue-800 mt-2 whitespace-nowrap">이제 2가지의 선택지 중 <br> <span class="text-violet-600">하나를 골라야</span> 합니다!</h2>
                        </div>
                        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
                            <div class="bg-white p-8 rounded-lg border-2 border-slate-200 text-center shadow-lg">
@@ -703,7 +703,7 @@
                         [실력 진단 + 전략 제시] 100% 무료 시범과외
                     </h2>
                     <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                        지금 신청하고 상위 1% 학습 전략을 <span class="font-bold text-blue-600">무료</span>로 경험해보세요!
+                        지금 신청하고 상위 1% 학습 전략을 <br class="sm:hidden"> <span class="font-bold text-blue-600">무료</span>로 경험해보세요!
                     </p>
                     <div class="mt-8 flex justify-center items-center">
                         <span class="text-2xl md:text-3xl font-bold text-gray-400 line-through">100,000원</span>
@@ -900,7 +900,7 @@
     </footer>
 
     <!-- Visitor Notification -->
-    <div id="visitor-notification" class="fixed bottom-24 right-8 bg-white rounded-xl shadow-2xl p-4 flex items-center gap-4 z-50 border-l-4 border-blue-400">
+    <div id="visitor-notification" class="fixed top-20 right-8 bg-white rounded-xl shadow-2xl p-4 flex items-center gap-4 z-40 border-l-4 border-blue-400">
         <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
             <i class="fas fa-check text-blue-500"></i>
         </div>
