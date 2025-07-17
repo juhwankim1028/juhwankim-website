@@ -123,6 +123,29 @@
             background-color: #f3f4f6;
             color: #1e40af;
         }
+        /* '마치며' 섹션 아코디언 스타일 */
+        .closing-toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .closing-question.open .closing-toggle-icon {
+            transform: rotate(180deg);
+        }
+        .closing-answer {
+             max-height: 0;
+             overflow: hidden;
+             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out, margin 0.5s ease-in-out;
+             padding-left: 0;
+             padding-right: 0;
+             padding-bottom: 0;
+             margin-top: 0;
+        }
+        .closing-answer.open {
+             max-height: 500px; /* 충분히 큰 값 */
+             padding-left: 1.5rem;
+             padding-right: 1.5rem;
+             padding-bottom: 1.5rem;
+             margin-top: -0.5rem; /* To reduce space between button and content */
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -408,12 +431,11 @@
                 <div class="space-y-20">
                     <!-- Hooking Question -->
                     <div class="text-center">
-                        <h2 class="text-3xl md:text-4xl font-black text-white leading-230">
-                            노력해도 안 오른다면, <br>
-                            <span class="text-violet-400">공부 방법이 틀린 겁니다.</span>
+                        <h2 class="text-3xl md:text-4xl font-black text-white leading-snug md:leading-230">
+                            성적이 안 오르는 건 노력 부족이 아니라,<br class="sm:hidden"> 
+                            <span class="text-violet-400"> '방법'이 틀렸기 때문입니다.</span>
                         </h2>
                         <p class="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
-                            성적이 안 오르는 건 노력 부족이 아니라, '방법'이 틀렸기 때문입니다.<br>
                             최상위권은 ‘다르게’ 공부합니다.
                         </p>
                     </div>
@@ -426,12 +448,12 @@
                            <div class="bg-blue-900/80 p-8 rounded-lg border-2 border-blue-800 text-center shadow-lg">
                                <div class="inline-block bg-slate-600 text-slate-200 font-bold px-3 py-1 rounded-full text-sm mb-4">선택 1. 현상유지</div>
                                <h3 class="text-2xl font-bold text-white">지금 하던 방식 그대로</h3>
-                               <p class="mt-4 text-gray-300">지금까지와 같은 방법으로, 비슷한 결과를 얻으며 소중한 시간과 노력을 투입합니다.</p>
+                               <p class="mt-4 text-sm sm:text-base text-gray-300">지금까지와 같은 방법으로, 비슷한 결과를 얻으며 소중한 시간과 노력을 투입합니다.</p>
                            </div>
                            <div class="bg-blue-900/80 p-8 rounded-lg border-2 border-violet-500 shadow-2xl text-center ring-4 ring-violet-500/20">
                                <div class="inline-block bg-violet-200 text-violet-700 font-bold px-3 py-1 rounded-full text-sm mb-4">선택 2. 변화시작</div>
                                <h3 class="text-2xl font-bold text-white">검증된 전문가와 함께</h3>
-                               <p class="mt-4 text-gray-300">최상위권의 학습 전략으로 빠르고 확실하게 목표를 달성하고, 원하는 결과를 만듭니다.</p>
+                               <p class="mt-4 text-sm sm:text-base text-gray-300">최상위권의 학습 전략으로 빠르고 확실하게 목표를 달성하고, 원하는 결과를 만듭니다.</p>
                            </div>
                        </div>
                     </div>
@@ -439,7 +461,7 @@
 
                 <div class="pt-20 mt-20 border-t-2 border-blue-900">
                     <h2 class="text-4xl font-black text-white mb-4 text-center">커리큘럼</h2>
-                    <p class="text-center text-gray-400 text-base mb-12">각 클래스별 상세 커리큘럼은 '자세히 보기'를 통해 확인하세요.</p>
+                    <p class="text-center text-gray-400 text-base mb-12">각 클래스별 상세 커리큘럼은<br class="sm:hidden"> '자세히 보기'를 통해 확인하세요.</p>
                     <div class="space-y-10">
                         <div class="text-center bg-slate-800 p-8 rounded-2xl ring-1 ring-sky-700 shadow-lg">
                             <h3 class="text-2xl font-bold text-sky-400">CLASS 1</h3>
@@ -546,8 +568,8 @@
                 <!-- 4-Step Process -->
                 <div>
                     <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-black text-white leading-230">
-                            시범과외는 단 4단계로<br>간단하고 빠르게 진행됩니다!
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight sm:leading-230">
+                            시범과외는 단 4단계로<br class="sm:hidden"> 간단하고 빠르게 진행됩니다!
                         </h2>
                         <p class="mt-4 text-gray-300 max-w-2xl mx-auto">
                             학생의 현재 위치를 정확히 진단하고, 최상위권으로 가는 가장 빠른 길을 제시합니다.
@@ -604,7 +626,7 @@
                 <!-- Detailed Trial Info -->
                 <div class="bg-blue-900/80 p-6 md:p-8 rounded-xl shadow-lg ring-1 ring-blue-800 mt-20">
                      <h2 class="text-3xl font-black text-white mb-8 text-center">
-                         CLASS별 시범과외 안내
+                         CLASS별 시범과외
                      </h2>
                      <div class="space-y-8">
                          <div class="bg-slate-700/50 p-6 rounded-2xl ring-1 ring-sky-700">
@@ -698,8 +720,8 @@
 
                 <!-- Combined CTA Banner -->
                 <div class="bg-blue-900/80 p-8 md:p-12 rounded-2xl shadow-xl ring-1 ring-blue-800 mt-20 text-center">
-                    <h2 class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
-                        [실력 진단 + 전략 제시] 100% 무료 시범과외
+                    <h2 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
+                        [실력 진단 + 전략 제시]<br class="sm:hidden"> 100% 무료 시범과외
                     </h2>
                     <p class="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
                         지금 신청하고 상위 1% 학습 전략을 <br class="sm:hidden"> <span class="font-bold text-sky-400">무료</span>로 경험해보세요!
@@ -765,41 +787,56 @@
                            모든 노력이 결실을 맺는 것은 아닙니다.<br><strong class="text-gray-800">올바른 방향으로 향하는 노력</strong>만이 값진 결과를 만듭니다.
                         </p>
                     </div>
-                    <div class="space-y-8">
+                    <div class="space-y-4">
                         <!-- Promise Item 1 -->
-                        <div class="flex items-start gap-6 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                            <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
-                                <i class="fas fa-hand-holding-heart text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">진심을 다하는 수업</h3>
-                                <p class="mt-1 text-gray-600">모든 수업을 하나의 '작품'처럼 정성을 다해 준비합니다. 단순한 지식 전달을 넘어 학생의 멘탈, 생활 패턴까지 신경 쓰는 든든한 조력자가 되겠습니다.</p>
+                        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <button class="closing-question w-full flex justify-between items-center text-left p-6">
+                                <span class="flex items-center gap-4">
+                                    <span class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
+                                        <i class="fas fa-hand-holding-heart text-2xl"></i>
+                                    </span>
+                                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">진심을 다하는 수업</h3>
+                                </span>
+                                <i class="fas fa-chevron-down closing-toggle-icon text-blue-500"></i>
+                            </button>
+                            <div class="closing-answer" id="closing-answer-1">
+                                <p class="text-gray-600 leading-relaxed">모든 수업을 하나의 '작품'처럼 정성을 다해 준비합니다. 단순한 지식 전달을 넘어 학생의 멘탈, 생활 패턴까지 신경 쓰는 든든한 조력자가 되겠습니다.</p>
                             </div>
                         </div>
                         <!-- Promise Item 2 -->
-                        <div class="flex items-start gap-6 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                            <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
-                                <i class="fas fa-fire-alt text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">열정 있는 학생을 위한 약속</h3>
-                                <p class="mt-1 text-gray-600">성장 의지와 열정이 있는 학생을 환영합니다. 잠재력을 최고의 결과로 이끌어내기 위해, 끝까지 책임지고 함께 나아가겠습니다.</p>
+                        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <button class="closing-question w-full flex justify-between items-center text-left p-6">
+                                <span class="flex items-center gap-4">
+                                    <span class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
+                                        <i class="fas fa-fire-alt text-2xl"></i>
+                                    </span>
+                                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">열정 있는 학생을 위한 약속</h3>
+                                </span>
+                                <i class="fas fa-chevron-down closing-toggle-icon text-blue-500"></i>
+                            </button>
+                            <div class="closing-answer" id="closing-answer-2">
+                                <p class="text-gray-600 leading-relaxed">성장 의지와 열정이 있는 학생을 환영합니다. 잠재력을 최고의 결과로 이끌어내기 위해, 끝까지 책임지고 함께 나아가겠습니다.</p>
                             </div>
                         </div>
                         <!-- Promise Item 3 -->
-                        <div class="flex items-start gap-6 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                            <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
-                                <i class="fas fa-user-check text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">소수 정예, 완벽한 관리</h3>
-                                <p class="mt-1 text-gray-600">학생 한 명에게 모든 에너지를 쏟아붓습니다. 정원이 차면 대기자로 전환될 만큼, 수업의 질을 약속합니다.</p>
+                        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <button class="closing-question w-full flex justify-between items-center text-left p-6">
+                                <span class="flex items-center gap-4">
+                                    <span class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
+                                        <i class="fas fa-user-check text-2xl"></i>
+                                    </span>
+                                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">소수 정예, 완벽한 관리</h3>
+                                </span>
+                                <i class="fas fa-chevron-down closing-toggle-icon text-blue-500"></i>
+                            </button>
+                            <div class="closing-answer" id="closing-answer-3">
+                                <p class="text-gray-600 leading-relaxed">학생 한 명에게 모든 에너지를 쏟아붓습니다. 정원이 차면 대기자로 전환될 만큼, 수업의 질을 약속합니다.</p>
                             </div>
                         </div>
                     </div>
                      <div class="mt-12 text-center">
-                        <p class="text-gray-700 font-semibold text-lg">
-                            제가 가진 모든 노하우를 쏟아부어 학생의 가능성을 <strong class="text-blue-600">최고의 결과로 증명해 보이겠습니다.</strong>
+                        <p class="text-base sm:text-lg text-gray-700 font-semibold">
+                            제가 가진 모든 노하우를 쏟아부어 학생의 가능성을<br class="sm:hidden"> <strong class="text-blue-600">최고의 결과로 증명해 보이겠습니다.</strong>
                         </p>
                     </div>
                 </div>
@@ -814,7 +851,7 @@
                     <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
                         모든 준비는 끝났습니다.<br>최고의 선택으로 최고의 결과를 만드세요.
                     </p>
-                     <p class="mt-2 text-[11px] text-gray-400 max-w-2xl mx-auto">
+                     <p class="mt-2 text-[10px] sm:text-xs text-gray-400 max-w-2xl mx-auto">
                         ※ 하단의 배너를 클릭하시면, 곧바로 연결 가능합니다.
                     </p>
                 </div>
@@ -1328,6 +1365,33 @@
                 });
             });
 
+            // --- Closing Section Accordion ---
+            const closingQuestions = document.querySelectorAll('.closing-question');
+            closingQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = document.getElementById(question.dataset.target);
+                    const isOpen = question.classList.contains('open');
+
+                    // Close all other open answers
+                    document.querySelectorAll('.closing-answer.open').forEach(openAnswer => {
+                        if (openAnswer !== answer) {
+                            openAnswer.classList.remove('open');
+                            const prevSibling = openAnswer.previousElementSibling;
+                            if (prevSibling && prevSibling.classList.contains('closing-question')) {
+                                prevSibling.classList.remove('open');
+                            }
+                        }
+                    });
+
+                    // Toggle current answer
+                    question.classList.toggle('open');
+                    if (answer) {
+                        answer.classList.toggle('open');
+                    }
+                });
+            });
+
+
             // --- Visitor Notification Logic ---
             const notification = document.getElementById('visitor-notification');
             const notificationText = document.getElementById('notification-text');
@@ -1367,3 +1431,4 @@
     </script>
 </body>
 </html>
+"
