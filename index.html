@@ -510,7 +510,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-auto pt-4 border-t border-gray-200">
-                                    <button data-modal-target="modal-kyunghee" class="modal-open-button w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors fast-tap">학생 후기</button>
+                                    <button data-modal-target="modal-kyunghee" class="modal-open-button w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">학생 후기</button>
                                 </div>
                             </div>
                         </div>
@@ -529,7 +529,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-auto pt-4 border-t border-gray-200">
-                                    <button data-modal-target="modal-konkuk" class="modal-open-button w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors fast-tap">학생 후기</button>
+                                    <button data-modal-target="modal-konkuk" class="modal-open-button w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">학생 후기</button>
                                 </div>
                             </div>
                         </div>
@@ -543,7 +543,7 @@
                                      <p class="mt-4 font-semibold text-gray-700">심화 수학부터 면접까지<br/>완벽 대비하여 최종합격!</p>
                                  </div>
                                 <div class="mt-auto pt-4 border-t border-gray-200">
-                                    <button data-modal-target="modal-daeseong" class="modal-open-button w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors fast-tap">학생 후기</button>
+                                    <button data-modal-target="modal-daeseong" class="modal-open-button w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">학생 후기</button>
                                 </div>
                             </div>
                         </div>
@@ -1173,7 +1173,7 @@
             });
 
             // Success Story Modal Openers
-            document.querySelectorAll('.modal-open-button[data-modal-target^="modal-kyunghee"], .modal-open-button[data-modal-target^="modal-konkuk"], .modal-open-button[data-modal-target^="modal-daeseong"]').forEach(button => {
+            document.querySelectorAll('.modal-open-button').forEach(button => {
                  button.addEventListener('click', () => {
                      const modalId = button.dataset.modalTarget;
                      const modal = document.getElementById(modalId);
