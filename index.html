@@ -1055,6 +1055,35 @@
             }
             // --- END OF FIX ---
 
+            // --- START OF FIX for Mobile Touch Delay ---
+            // This script eliminates the ~300ms delay on touch devices by listening for
+            // a 'touchstart' event and immediately triggering a navigation.
+            function fastTapHandler(event) {
+                // Prevent the default touch behavior, which can include the delay.
+                event.preventDefault();
+                // Get the URL from the link's href attribute.
+                const targetUrl = event.currentTarget.href;
+                // Get the target attribute (_blank, _self, etc.).
+                const target = event.currentTarget.target;
+
+                if (target === '_blank') {
+                    // If the link is meant to open in a new tab, use window.open.
+                    window.open(targetUrl, '_blank');
+                } else {
+                    // Otherwise, navigate in the current window.
+                    window.location.href = targetUrl;
+                }
+            }
+
+            // Find all elements with the 'fast-tap' class and apply the handler.
+            const fastTapElements = document.querySelectorAll('.fast-tap');
+            fastTapElements.forEach(element => {
+                // We listen for 'touchstart' as it's the beginning of a touch interaction.
+                element.addEventListener('touchstart', fastTapHandler, { passive: false });
+            });
+            // --- END OF FIX for Mobile Touch Delay ---
+
+
             // Navbar scroll effect
             const nav = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
