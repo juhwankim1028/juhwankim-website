@@ -13,7 +13,11 @@
         /* 기본 폰트 및 배경 설정 */
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #0f172a; /* Slate-900 for dark background */
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .dark-section {
+            background-color: #020617; /* slate-950 */
+            color: #e2e8f0; /* slate-200 */
         }
         .font-poppins {
             font-family: 'Poppins', sans-serif;
@@ -28,16 +32,25 @@
         #navbar.nav-scrolled {
             background-color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            color: #1e3a8a;
         }
-        #navbar.nav-scrolled .nav-link {
-            color: #1e40af;
+        #navbar.nav-scrolled .nav-link,
+        #navbar.nav-scrolled .nav-brand,
+        #navbar.nav-scrolled #mobile-menu-button {
+            color: #1e3a8a;
         }
         #navbar.nav-scrolled .nav-link:hover {
             color: #1d4ed8;
         }
-        #navbar.nav-scrolled .nav-brand, #navbar.nav-scrolled #mobile-menu-button {
-             color: #1e3a8a;
+        #navbar.nav-scrolled #more-dropdown-menu {
+            background-color: white;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        #navbar.nav-scrolled .dropdown-link {
+            color: #374151;
+        }
+        #navbar.nav-scrolled .dropdown-link:hover {
+            background-color: #f3f4f6;
+            color: #1e40af;
         }
         /* 모달 애니메이션 */
         .modal-backdrop {
@@ -112,25 +125,14 @@
             text-align: center;
         }
         .dropdown-link:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
             color: white;
-        }
-        #navbar.nav-scrolled #more-dropdown-menu {
-            background-color: white;
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-        #navbar.nav-scrolled .dropdown-link {
-            color: #374151;
-        }
-        #navbar.nav-scrolled .dropdown-link:hover {
-            background-color: #f3f4f6;
-            color: #1e40af;
         }
         /* 모바일 터치 지연 해결 */
         .fast-tap {
             touch-action: manipulation;
         }
-        /* Online Coaching Modal Styles */
+        /* Online Coaching Styles */
         .gradient-text {
             background: linear-gradient(90deg, #4F46E5, #A855F7);
             -webkit-background-clip: text;
@@ -158,7 +160,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-900">
+<body class="antialiased">
 
     <!-- Navigation Bar -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-3 text-white transition-all duration-300">
@@ -377,7 +379,7 @@
             </section>
             
             <!-- Curriculum Section -->
-            <section id="curriculum" class="bg-slate-800 text-white py-20 px-6 sm:px-8">
+            <section id="curriculum" class="dark-section py-20 px-6 sm:px-8">
                 <div class="max-w-7xl mx-auto">
                     <div class="space-y-20">
                         <!-- Hooking Question -->
@@ -428,12 +430,6 @@
                                 <p class="mt-1 text-gray-400 font-medium">(1:1 or 그룹)</p>
                                 <a href="https://drive.google.com/file/d/1bGRWMQ7DzK8iECa60HcYQPTAOZsju6zC/view?usp=drive_link" target="_blank" class="inline-block mt-6 bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md fast-tap">자세히 보기</a>
                             </div>
-                             <div class="text-center bg-slate-700/80 p-8 rounded-2xl ring-1 ring-emerald-700 shadow-lg">
-                                <h3 class="text-2xl font-bold text-emerald-400">ONLINE COACHING</h3>
-                                <p class="mt-2 text-xl font-semibold text-gray-200">비대면 자소서·면접 코칭</p>
-                                <p class="mt-1 text-gray-400 font-medium">(1:1 Zoom or 이메일)</p>
-                                <button data-modal-target="modal-online-coaching" class="modal-open-button inline-block mt-6 bg-emerald-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-emerald-700 transition-colors shadow-md fast-tap">자세히 보기</button>
-                            </div>
                         </div>
                     </div>
 
@@ -458,6 +454,162 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+            
+             <!-- Online Coaching Section -->
+            <section id="online-coaching" class="dark-section py-20 px-4 sm:px-8">
+                 <div class="container mx-auto">
+                    <!-- Header Section -->
+                    <header class="text-center mb-16">
+                        <h1 class="font-poppins font-bold text-5xl md:text-7xl tracking-tight">
+                            <span class="gradient-text">ONLINE</span> COACHING
+                        </h1>
+                        <p class="mt-4 text-xl md:text-2xl text-slate-400">비대면 자소서·면접 1:1 코칭</p>
+                        <p class="mt-2 text-lg text-slate-500">(Zoom or 이메일)</p>
+                    </header>
+
+                    <!-- Comparison Section -->
+                    <section class="mb-20">
+                        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-white">어떤 차이가 있나요?</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                            
+                            <!-- On-site Group Mentoring -->
+                            <div class="card rounded-2xl p-8 highlight-card">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <i class="fa-solid fa-users text-3xl text-purple-400"></i>
+                                    <h3 class="text-2xl font-bold text-white">대면 그룹 자소서 특강</h3>
+                                </div>
+                                <p class="text-purple-300 font-semibold mb-6">정규 수강생 우선 제공</p>
+                                <ul class="space-y-4 text-slate-300">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">압도적인 비용 효율성</strong><br>
+                                            정규 수강생에게 우선 제공되는 혜택으로, 합리적인 비용으로 참여 가능
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">실시간 피드백 및 빠른 수정</strong><br>
+                                            현장에서 즉시 피드백을 받고 동료들과 함께 자소서를 빠르게 완성
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">수업 시간을 활용한 상시 피드백</strong><br>
+                                            일요일 첨삭 시간 외에도, 정규 수학 수업 시간에 언제든지 자소서 관련 질문 및 첨삭 가능
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">긴밀한 소통과 즉각적인 Q&A</strong><br>
+                                            궁금한 점을 언제든지 해결하며 집단 지성의 시너지 효과 극대화
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Online 1:1 Coaching -->
+                            <div class="card rounded-2xl p-8">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <i class="fa-solid fa-laptop text-3xl text-slate-400"></i>
+                                    <h3 class="text-2xl font-bold text-white">비대면 1:1 코칭</h3>
+                                </div>
+                                <p class="text-slate-400 font-semibold mb-6">외부생 전용 프로그램</p>
+                                <ul class="space-y-4 text-slate-300">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-circle-xmark text-slate-500 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">상대적으로 높은 비용</strong><br>
+                                            1:1 맞춤형으로 진행되어 그룹 특강 대비 비용 부담 발생
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-circle-xmark text-slate-500 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">비동기 피드백</strong><br>
+                                            이메일, Zoom 일정에 맞춰 피드백이 진행되어 실시간 수정은 어려움
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-circle-xmark text-slate-500 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">제한적인 소통</strong><br>
+                                            정해진 일정 외 즉각적인 질의응답 및 동료 학생과의 교류는 제한됨
+                                        </div>
+                                    </li>
+                                     <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-circle-xmark text-slate-500 mt-1"></i>
+                                        <div class="word-break-kor">
+                                            <strong class="text-white">정해진 횟수와 시간</strong><br>
+                                            약속된 코칭 시간 외에는 추가적인 피드백이나 질의응답이 제한되어 유연성이 떨어짐
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="text-center mt-8 text-slate-400 max-w-3xl mx-auto word-break-kor">
+                            <i class="fa-solid fa-circle-info mr-2"></i>정규 과외 수강생은 <strong class="text-purple-400">대면 그룹 자소서 특강</strong>에 우선적으로 참여하게 됩니다. <br>비대면 1:1 코칭은 <strong class="text-white">정규 수업을 듣지 않는 학생들만</strong>을 위한 프로그램입니다.
+                        </p>
+                    </section>
+
+                    <!-- Curriculum Details Section -->
+                    <section>
+                        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">1:1 온라인 코칭, 이렇게 진행됩니다</h2>
+                        <div class="max-w-4xl mx-auto space-y-8">
+                            
+                            <!-- Step 1 -->
+                            <div class="flex flex-col md:flex-row items-center gap-8 card rounded-2xl p-8">
+                                <div class="text-5xl font-black gradient-text w-24 text-center">01</div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-bold text-white mb-2">자소서 기본기 다지기 (2주 과정 PDF 강의)</h3>
+                                    <p class="text-slate-300 word-break-kor">
+                                        본격적인 첨삭 전, 총 2주에 걸쳐 <strong class="text-purple-300">매주 1회씩 핵심 PDF 강의 자료</strong>를 발송합니다. 각 자료는 디지털 저작권 관리(DRM) 기술이 적용되어 <strong class="text-purple-300">발송 후 1주일간만 열람 가능</strong>하며, 복사 및 다운로드가 제한됩니다. 이를 통해 합격하는 자소서의 기본 포맷과 내용 구성법 등 A to Z를 체계적으로 학습합니다.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="flex flex-col md:flex-row items-center gap-8 card rounded-2xl p-8">
+                                <div class="text-5xl font-black gradient-text w-24 text-center">02</div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-bold text-white mb-2">1:1 맞춤 자소서 첨삭 (2개월 과정)</h3>
+                                    <p class="text-slate-300 word-break-kor">
+                                        학생의 경험과 강점을 분석하여 합격할 수밖에 없는 <strong class="text-purple-300">'나만의 스토리'</strong>를 설계합니다. Zoom 또는 이메일을 통해 총 2개월간 주기적으로 피드백을 주고받으며 문장의 완성도를 최고 수준으로 끌어올립니다.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="flex flex-col md:flex-row items-center gap-8 card rounded-2xl p-8">
+                                <div class="text-5xl font-black gradient-text w-24 text-center">03</div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-bold text-white mb-2">실전 모의 면접 및 피드백</h3>
+                                    <p class="text-slate-300 word-break-kor">
+                                        완성된 자소서를 기반으로, 실제 면접과 동일한 환경에서 <strong class="text-purple-300">1:1 비대면 모의 면접</strong>을 진행합니다. 예상 질문부터 돌발 질문까지 완벽하게 대비하고, 답변 태도와 말투까지 교정하여 자신감을 완성합니다.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Call to Action -->
+                    <section class="text-center mt-20">
+                        <h2 class="text-3xl font-bold text-white">지금 바로, 합격의 문을 여세요</h2>
+                        <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto word-break-kor">
+                            정규 수업을 듣지 않아도, 전문가의 1:1 코칭을 통해 당신의 잠재력을 합격으로 증명할 수 있습니다.
+                        </p>
+                        <div class="mt-8">
+                            <a href="#contact" class="btn-primary text-white font-bold text-xl py-4 px-8 rounded-full inline-block">
+                                1:1 코칭 문의하기 <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </section>
                 </div>
             </section>
 
@@ -595,7 +747,7 @@
             </section>
             
             <!-- Trial Lesson Section -->
-            <section id="trial" class="bg-slate-800 text-white py-20 px-8">
+            <section id="trial" class="dark-section py-20 px-8">
                 <div class="max-w-7xl mx-auto">
                     <!-- 4-Step Process -->
                     <div>
@@ -933,7 +1085,7 @@
             </section>
             
             <!-- Contact Section -->
-            <section id="contact" class="bg-slate-800 text-white py-20 px-8 md:px-12">
+            <section id="contact" class="dark-section py-20 px-8 md:px-12">
                 <div class="max-w-7xl mx-auto text-center">
                     <h2 class="text-3xl md:text-4xl font-black text-white">
                         문의
@@ -945,15 +1097,15 @@
                         ※ 하단의 배너를 클릭하시면, 곧바로 연결 가능합니다.
                      </p>
                     <div class="mt-10 max-w-2xl mx-auto grid sm:grid-cols-2 gap-6 text-center">
-                        <a href="tel:010-2124-7269" class="p-6 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <a href="tel:010-2124-7269" class="p-6 bg-slate-700/50 text-blue-400 rounded-lg hover:bg-slate-700/80 hover:shadow-lg transition-all transform hover:-translate-y-1">
                             <i class="fas fa-phone-alt text-4xl"></i>
-                            <h3 class="mt-4 text-xl font-bold">전화 & 문자</h3>
-                            <p class="text-blue-600 mt-1">010-2124-7269</p>
+                            <h3 class="mt-4 text-xl font-bold text-slate-100">전화 & 문자</h3>
+                            <p class="text-blue-400 mt-1">010-2124-7269</p>
                         </a>
-                        <a href="mailto:kimjuhuan1028@kaist.ac.kr" class="p-6 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <a href="mailto:kimjuhuan1028@kaist.ac.kr" class="p-6 bg-slate-700/50 text-green-400 rounded-lg hover:bg-slate-700/80 hover:shadow-lg transition-all transform hover:-translate-y-1">
                             <i class="fas fa-envelope text-4xl"></i>
-                            <h3 class="mt-4 text-xl font-bold">이메일 문의</h3>
-                            <p class="text-green-600 mt-1">kimjuhuan1028@kaist.ac.kr</p>
+                            <h3 class="mt-4 text-xl font-bold text-slate-100">이메일 문의</h3>
+                            <p class="text-green-400 mt-1">kimjuhuan1028@kaist.ac.kr</p>
                         </a>
                     </div>
                 </div>
@@ -1087,7 +1239,7 @@
             </p>
         </div>
     </div>
-    
+
     <!-- Online Coaching Modal -->
     <div id="modal-online-coaching" class="modal-backdrop hidden fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center p-4 z-[60] opacity-0">
         <div class="modal-content bg-slate-900 text-slate-200 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative transform scale-95">
@@ -1132,6 +1284,13 @@
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
                                     <div class="word-break-kor">
+                                        <strong class="text-white">수업 시간을 활용한 상시 피드백</strong><br>
+                                        일요일 첨삭 시간 외에도, 정규 수학 수업 시간에 언제든지 자소서 관련 질문 및 첨삭 가능
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
+                                    <div class="word-break-kor">
                                         <strong class="text-white">긴밀한 소통과 즉각적인 Q&A</strong><br>
                                         궁금한 점을 언제든지 해결하며 집단 지성의 시너지 효과 극대화
                                     </div>
@@ -1168,6 +1327,13 @@
                                         정해진 일정 외 즉각적인 질의응답 및 동료 학생과의 교류는 제한됨
                                     </div>
                                 </li>
+                                 <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-xmark text-slate-500 mt-1"></i>
+                                    <div class="word-break-kor">
+                                        <strong class="text-white">정해진 횟수와 시간</strong><br>
+                                        약속된 코칭 시간 외에는 추가적인 피드백이나 질의응답이 제한되어 유연성이 떨어짐
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -1185,9 +1351,9 @@
                         <div class="flex flex-col md:flex-row items-center gap-6 card rounded-2xl p-6">
                             <div class="text-4xl font-black gradient-text w-20 text-center flex-shrink-0">01</div>
                             <div class="flex-1">
-                                <h3 class="text-xl font-bold text-white mb-2">자소서 기본기 다지기 (2주 과정 영상 강의)</h3>
+                                <h3 class="text-xl font-bold text-white mb-2">자소서 기본기 다지기 (2주 과정 PDF 강의)</h3>
                                 <p class="text-slate-300 word-break-kor text-sm">
-                                    본격적인 첨삭 전, '자소서란 무엇인가'에 대한 핵심을 담은 <strong class="text-purple-300">대면 특강 녹화본</strong>을 제공합니다. 합격하는 자소서의 기본 포맷과 내용 구성법, 반드시 피해야 할 실수 등 자소서 작성의 A to Z를 학습합니다.
+                                    본격적인 첨삭 전, 총 2주에 걸쳐 <strong class="text-purple-300">매주 1회씩 핵심 PDF 강의 자료</strong>를 발송합니다. 각 자료는 디지털 저작권 관리(DRM) 기술이 적용되어 <strong class="text-purple-300">발송 후 1주일간만 열람 가능</strong>하며, 복사 및 다운로드가 제한됩니다. 이를 통해 합격하는 자소서의 기본 포맷과 내용 구성법 등 A to Z를 체계적으로 학습합니다.
                                 </p>
                             </div>
                         </div>
@@ -1338,7 +1504,7 @@
             const nav = document.getElementById('navbar');
             if (nav) {
                 window.addEventListener('scroll', () => {
-                    if (window.scrollY > window.innerHeight * 0.9) {
+                    if (window.scrollY > 50) {
                         nav.classList.add('nav-scrolled');
                     } else {
                         nav.classList.remove('nav-scrolled');
