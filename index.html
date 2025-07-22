@@ -46,6 +46,19 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #A78BFA;
+            color: #A78BFA;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #A78BFA;
+            color: #0B1120;
+        }
         .word-break-kor {
             word-break: keep-all;
             overflow-wrap: break-word;
@@ -56,9 +69,9 @@
             border-radius: 0.75rem; /* rounded-xl */
             padding: 1.5rem; /* p-6 */
             display: flex;
-            align-items: flex-start;
-            gap: 1.5rem; /* gap-6 */
+            flex-direction: column; /* 키워드 나열을 위해 column으로 변경 */
             transition: all 0.3s ease;
+            height: 100%; /* for equal height in grid */
         }
         .criterion-box:hover {
              transform: translateY(-5px);
@@ -68,7 +81,7 @@
             color: #818CF8; /* text-indigo-400 */
             font-size: 1.875rem; /* text-3xl */
             flex-shrink: 0;
-            margin-top: 0.25rem;
+            margin-bottom: 1rem;
         }
         .highlight-text {
             color: #A78BFA; /* text-purple-400 */
@@ -93,34 +106,46 @@
         </header>
 
         <!-- Why Me Section -->
-        <section class="mb-24 max-w-4xl mx-auto">
+        <section class="mb-24 max-w-6xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">"왜 저여야만 할까요?"</h2>
             <p class="text-center text-lg text-slate-300 mb-12 max-w-3xl mx-auto word-break-kor">
                 특목고 입시는 정보 싸움입니다. 하지만 진짜 정보는 책상 위가 아닌, <br class="hidden sm:block">'<span class="text-purple-300 font-semibold">그 길을 직접 걸어본 사람</span>'의 경험 속에 있습니다.
             </p>
-            <div class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Criterion 1 -->
                 <div class="criterion-box">
                     <div class="criterion-icon"><i class="fa-solid fa-circle-dot"></i></div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-2">기준 1) 학교별 '특화' 전략</h3>
-                        <p class="text-slate-300 word-break-kor">단순한 첨삭이 아닌, <span class="highlight-text">학교별 최신 인재상과 선호 활동, 면접 질문 스타일까지 완벽하게 분석</span>합니다. 이를 통해 학생의 기록을 합격에 가장 유리한 스토리로 재해석하고 <span class="highlight-text">입학사정관을 사로잡는 합격 서사를 설계</span>합니다.</p>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="highlight-text">완벽 분석</span></span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="highlight-text">합격 스토리로 재해석</span></span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="highlight-text">합격 서사 설계</span></span></li>
+                        </ul>
                     </div>
                 </div>
                 <!-- Criterion 2 -->
                 <div class="criterion-box">
                     <div class="criterion-icon"><i class="fa-solid fa-book-open-reader"></i></div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-2">기준 2) 압도적인 '전문 지식'</h3>
-                        <p class="text-slate-300 word-break-kor"><span class="highlight-text">과학고 조기졸업 및 KAIST 입학 경험</span>은 단순한 이론이 아닌, <span class="highlight-text">실제 합격과 불합격 사례에 기반한 살아있는 데이터</span>입니다. 이 빅데이터를 통해 <span class="highlight-text">가장 확실하고 검증된 합격의 길</span>을 제시합니다.</p>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="highlight-text">과학고 조기졸업 & KAIST</span> 입학 경험</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="highlight-text">살아있는 데이터</span></span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="highlight-text">가장 확실한 합격 로드맵</span></span></li>
+                        </ul>
                     </div>
                 </div>
                 <!-- Criterion 3 -->
                 <div class="criterion-box">
                     <div class="criterion-icon"><i class="fa-solid fa-database"></i></div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-2">기준 3) 합격 자소서 '다수 보유'</h3>
-                        <p class="text-slate-300 word-break-kor">영재고, 과학고, 자사고 <span class="highlight-text">실제 합격 자소서 10건 이상을 직접 분석</span>하며 합격하는 글의 논리 구조와 흐름을 체득시킵니다. 막연한 글쓰기가 아닌, <span class="highlight-text">합격의 공식</span>을 배우게 됩니다.</p>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="highlight-text">합격 자소서 10+건</span> 직접 분석</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="highlight-text">논리 구조 & 흐름</span> 체득</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="highlight-text">'합격의 공식'</span> 전수</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -203,92 +228,35 @@
         </section>
 
         <!-- Curriculum Details Section -->
-        <section class="space-y-20">
+        <section class="space-y-16">
+            <!-- In-person Curriculum -->
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">대면 그룹 특강, 이렇게 진행됩니다</h2>
-                <div class="max-w-4xl mx-auto space-y-8">
-                    <!-- Step 1 -->
-                    <div class="flex flex-col md:flex-row items-start gap-8 card rounded-2xl p-8">
-                        <div class="text-5xl font-black gradient-text w-24 text-center flex-shrink-0">01</div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-4">'합격 구조' 기반 스토리 설계 (2주~1개월)</h3>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-pencil text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">'나만의 스토리' 구성:</strong> 학생의 개별 성향과 경험을 분석하여, 진부한 스토리가 아닌 <span class="highlight-text">독창적이고 매력적인 서사</span>를 구축합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-people-group text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">'공통 합격 구조' 적용:</strong> 저만의 합격 빅데이터를 바탕으로 해당 학교의 인재상에 맞춰 <span class="highlight-text">'선발될 수밖에 없는' 스토리 라인</span>을 완성합니다.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Step 2 -->
-                    <div class="flex flex-col md:flex-row items-start gap-8 card rounded-2xl p-8">
-                        <div class="text-5xl font-black gradient-text w-24 text-center flex-shrink-0">02</div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-4">학교별 '특화' 자소서 첨삭 (2개월)</h3>
-                             <ul class="space-y-4">
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-file-lines text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">합격 자소서 비교 분석:</strong> <span class="highlight-text">실제 영재고·과학고 합격 자소서 10건 이상</span>을 비교 분석하며 합격하는 글의 <span class="highlight-text">논리와 흐름, 공식</span>을 체득합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-comments text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">그룹 피드백 및 개별 첨삭:</strong> 그룹 수업을 통해 <span class="highlight-text">다양한 관점의 피드백</span>을 받고, 개별 첨삭으로 문장의 완성도를 극대화합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-user-tie text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">입학사정관 관점 최종 검토:</strong> 학교 맞춤형 어휘와 논리로 <span class="highlight-text">입학사정관의 시선을 사로잡는 최종 결과물</span>을 만들어냅니다.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Step 3 -->
-                    <div class="flex flex-col md:flex-row items-start gap-8 card rounded-2xl p-8">
-                        <div class="text-5xl font-black gradient-text w-24 text-center flex-shrink-0">03</div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-4">'압박 면접' 완벽 방어 훈련 (입시 일정에 맞춰 진행)</h3>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-chalkboard-user text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">유형별 실전 연습:</strong> 수학/인성 면접, 그룹 토론 등 <span class="highlight-text">학교별 모든 면접 유형</span>에 대한 실전 훈련을 진행합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-file-shield text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">자소서 & 생기부 기반 압박 대비:</strong> 제출 서류를 기반으로 나올 수 있는 모든 예상 <span class="highlight-text">'꼬리 질문'과 '압박 질문'</span>에 완벽히 대비합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-video text-purple-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">영상 촬영 및 1:1 피드백:</strong> 모의 면접을 영상으로 촬영하고 실제 합격생 피드백과 기출 질문을 바탕으로, 어떤 상황에서도 자신감 있게 답변하도록 <span class="highlight-text">자세부터 말투까지 교정</span>합니다.</span></li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold">대면 그룹 특강 커리큘럼</h2>
+                    <p class="text-slate-400 mt-2">합격의 시너지를 만드는 All-in-One 솔루션</p>
+                    <https://drive.google.com/file/d/1jYFcVYeEWjEI_bcAl8hwknpBSiYqmk4Y/view?usp=drive_link>
+                    <a href="#" class="btn-secondary mt-4 inline-block">
+                        자세히 보기 <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
             </div>
 
+            <!-- Online Curriculum -->
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">비대면 1:1 코칭, 이렇게 진행됩니다</h2>
-                <div class="max-w-4xl mx-auto space-y-8">
-                    <!-- Step 1 -->
-                    <div class="flex flex-col md:flex-row items-start gap-8 card rounded-2xl p-8">
-                        <div class="text-5xl font-black gradient-text w-24 text-center flex-shrink-0">01</div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-4">자소서 기본기 다지기 (2주)</h3>
-                            <ul class="space-y-4">
-                               <li class="flex items-start gap-3"><i class="fa-solid fa-file-pdf text-indigo-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">핵심 강의 자료 제공:</strong> 본격적인 첨삭 전, 총 2주에 걸쳐 <span class="highlight-text-online">매주 1회씩 핵심 PDF 강의 자료</span>를 발송합니다.</span></li>
-                               <li class="flex items-start gap-3"><i class="fa-solid fa-lock text-indigo-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">보안 및 집중 학습:</strong> 각 자료는 DRM 기술이 적용되어 <span class="highlight-text-online">발송 후 1주일간만 열람 가능</span>하며, 이를 통해 자소서 작성의 A to Z를 집중적으로 학습합니다.</span></li>
-                           </ul>
-                        </div>
-                    </div>
-                    <!-- Step 2 -->
-                    <div class="flex flex-col md:flex-row items-start gap-8 card rounded-2xl p-8">
-                        <div class="text-5xl font-black gradient-text w-24 text-center flex-shrink-0">02</div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-4">1:1 맞춤 자소서 첨삭 (2개월)</h3>
-                             <ul class="space-y-4">
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-user-pen text-indigo-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">개인 맞춤 스토리 설계:</strong> 학생의 경험과 강점을 심층 분석하여 합격할 수밖에 없는 <span class="highlight-text-online">'나만의 스토리'</span>를 설계합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-file-lines text-indigo-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">합격 자소서 비교 분석:</strong> <span class="highlight-text-online">실제 영재고·과학고 합격 자소서 10건 이상</span>을 비교 분석하며 합격하는 글의 <span class="highlight-text-online">논리와 흐름, 공식</span>을 체득합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-envelope-open-text text-indigo-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">주기적인 피드백:</strong> Zoom 또는 이메일을 통해 <span class="highlight-text-online">총 2개월간 주기적으로 피드백</span>을 주고받으며 문장의 완성도를 최고 수준으로 끌어올립니다.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Step 3 -->
-                    <div class="flex flex-col md:flex-row items-start gap-8 card rounded-2xl p-8">
-                        <div class="text-5xl font-black gradient-text w-24 text-center flex-shrink-0">03</div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-4">실전 모의 면접 및 피드백</h3>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-headset text-indigo-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">1:1 비대면 모의 면접:</strong> 완성된 자소서를 기반으로, 실제 면접과 동일한 환경에서 <span class="highlight-text-online">1:1 비대면 모의 면접</span>을 진행합니다.</span></li>
-                                <li class="flex items-start gap-3"><i class="fa-solid fa-circle-question text-indigo-400 mt-1 w-5 text-center"></i><span class="word-break-kor"><strong class="text-white">완벽한 실전 대비:</strong> <span class="highlight-text-online">예상 질문부터 돌발 질문까지 완벽하게 대비</span>하고, 답변 태도와 말투까지 교정하여 자신감을 완성합니다.</span></li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold">비대면 1:1 코칭 커리큘럼</h2>
+                    <p class="text-slate-400 mt-2">당신만을 위한 1:1 맞춤 전략</p>
+                     <https://drive.google.com/file/d/1WNw9GHb9a2bmKO2qYPfc2x8852wBjXP7/view?usp=drive_link>
+                    <a href="#" class="btn-secondary mt-4 inline-block">
+                        자세히 보기 <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Call to Action -->
         <section class="text-center mt-20">
-            <h2 class="text-3xl font-bold text-white">지금 바로, 합격의 여정을 시작하세요</h2>
+            <h2 class="text-3xl font-bold text-white">지금 바로, 합격의 여정을<br class="sm:hidden"> 시작하세요</h2>
             <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto word-break-kor">
                 정규 수강생이라면 대면 특강의 혜택을, 외부 학생이라면 1:1 코칭을 통해 합격의 가능성을 높여보세요.
             </p>
