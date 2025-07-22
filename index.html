@@ -24,20 +24,57 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+        
+        /* --- 글래스모피즘 & 오로라 배경 --- */
+        .aurora-bg {
+            background-color: #0B1120;
+            position: relative;
+            overflow: hidden;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .aurora-bg::before, .aurora-bg::after {
+            content: '';
+            position: absolute;
+            filter: blur(100px);
+            opacity: 0.15;
+            animation: aurora-animation 15s infinite alternate;
+            z-index: 1;
+        }
+        .aurora-bg::before {
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #89f7fe, #66a6ff);
+            top: 10%; left: 15%;
+        }
+        .aurora-bg::after {
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #d299ff, #a6c1ee);
+            bottom: 5%; right: 10%;
+            animation-delay: -7s;
+        }
+        @keyframes aurora-animation {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, 120px) scale(1.2); }
+            100% { transform: translate(-80px, -40px) scale(0.9); }
+        }
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
         }
         .highlight-card {
             border-color: #A855F7;
             box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
         }
+
         .btn-primary {
             background: linear-gradient(90deg, #4F46E5, #A855F7);
             transition: all 0.3s ease;
@@ -63,182 +100,154 @@
             word-break: keep-all;
             overflow-wrap: break-word;
         }
-        /* '왜 저여야만 할까요?' 섹션 전용 스타일 */
+        /* '왜 저여야만 할까요?' 섹션 아이콘 정렬 수정 */
         .criterion-box {
-            background-color: #1E293B; /* bg-slate-800 */
-            border-radius: 0.75rem; /* rounded-xl */
-            padding: 1.5rem; /* p-6 */
             display: flex;
             align-items: flex-start;
-            gap: 1.25rem; /* gap-5 */
-            transition: all 0.3s ease;
-            height: 100%; /* for equal height in grid */
-        }
-        .criterion-box:hover {
-             transform: translateY(-5px);
-             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            gap: 1.25rem;
         }
         .criterion-icon {
-            color: #818CF8; /* text-indigo-400 */
-            font-size: 1.5rem; /* text-2xl */
             flex-shrink: 0;
             margin-top: 0.25rem;
+            font-size: 1.5rem;
+            color: #818CF8;
         }
         .highlight-text {
-            color: #A78BFA; /* text-purple-400 */
-            font-weight: 700; /* font-bold */
-        }
-        .highlight-text-online {
-            color: #818CF8; /* text-indigo-400 */
-            font-weight: 600; /* font-semibold */
+            color: #A78BFA;
+            font-weight: 700;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="container mx-auto px-4 py-16 sm:py-24">
-
+    <div class="overflow-x-hidden">
         <!-- Header Section -->
-        <header class="text-center mb-20">
+        <header class="text-center py-16 sm:py-24 px-4">
             <h1 class="font-poppins font-extrabold text-5xl md:text-7xl tracking-tight">
                 최상위 <span class="gradient-text">자소서 & 면접</span> 컨설팅
             </h1>
             <p class="mt-4 text-xl md:text-2xl text-slate-400">최종 합격을 결정짓는 단 하나의 컨설팅</p>
         </header>
 
-        <!-- Why Me Section -->
-        <section class="mb-24 max-w-6xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">"왜 저여야만 할까요?"</h2>
-            <p class="text-center text-lg text-slate-300 mb-12 max-w-3xl mx-auto word-break-kor">
-                특목고 입시는 정보 싸움입니다. 하지만 진짜 정보는 책상 위가 아닌, <br class="hidden sm:block">'<span class="text-purple-300 font-semibold">그 길을 직접 걸어본 사람</span>'의 경험 속에 있습니다.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Criterion 1 -->
-                <div class="criterion-box">
-                    <div class="criterion-icon"><i class="fa-solid fa-circle-dot"></i></div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3>
-                        <ul class="space-y-2 text-slate-300">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="highlight-text">완벽 분석</span></span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="highlight-text">합격 스토리로 재해석</span></span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="highlight-text">합격 서사 설계</span></span></li>
-                        </ul>
+        <!-- Why Me Section with Aurora BG -->
+        <section id="why-me" class="aurora-bg py-24">
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-6xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-center mb-6 text-white">"왜 저여야만 할까요?"</h2>
+                    <p class="text-center text-lg text-slate-300 mb-12 max-w-3xl mx-auto word-break-kor">
+                        특목고 입시는 정보 싸움입니다. 하지만 진짜 정보는 책상 위가 아닌, <br class="hidden sm:block">'<span class="text-purple-300 font-semibold">그 길을 직접 걸어본 사람</span>'의 경험 속에 있습니다.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Criterion 1 -->
+                        <div class="glass-card rounded-2xl p-6 criterion-box">
+                            <div class="criterion-icon"><i class="fa-solid fa-circle-dot"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3>
+                                <ul class="space-y-2 text-slate-300">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="highlight-text">완벽 분석</span></span></li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="highlight-text">합격 스토리로 재해석</span></span></li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="highlight-text">합격 서사 설계</span></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Criterion 2 -->
+                        <div class="glass-card rounded-2xl p-6 criterion-box">
+                            <div class="criterion-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3>
+                                <ul class="space-y-2 text-slate-300">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="highlight-text">과학고 조기졸업 & KAIST</span> 입학 경험</span></li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="highlight-text">살아있는 데이터</span></span></li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="highlight-text">가장 확실한 합격 로드맵</span></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Criterion 3 -->
+                        <div class="glass-card rounded-2xl p-6 criterion-box">
+                            <div class="criterion-icon"><i class="fa-solid fa-database"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3>
+                                <ul class="space-y-2 text-slate-300">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="highlight-text">합격 자소서 10+건</span> 직접 분석</span></li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="highlight-text">논리 구조 & 흐름</span> 체득</span></li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="highlight-text">'합격의 공식'</span> 전수</span></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!-- Criterion 2 -->
-                <div class="criterion-box">
-                    <div class="criterion-icon"><i class="fa-solid fa-book-open-reader"></i></div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3>
-                        <ul class="space-y-2 text-slate-300">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="highlight-text">과학고 조기졸업 & KAIST</span> 입학 경험</span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="highlight-text">살아있는 데이터</span></span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="highlight-text">가장 확실한 합격 로드맵</span></span></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Criterion 3 -->
-                <div class="criterion-box">
-                    <div class="criterion-icon"><i class="fa-solid fa-database"></i></div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3>
-                        <ul class="space-y-2 text-slate-300">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="highlight-text">합격 자소서 10+건</span> 직접 분석</span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="highlight-text">논리 구조 & 흐름</span> 체득</span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="highlight-text">'합격의 공식'</span> 전수</span></li>
-                        </ul>
-                    </div>
+                     <p class="text-center text-xl font-bold text-white mt-12">특목고 합격, <span class="highlight-text">3가지</span>로 결정됩니다. <br>이를 완벽히 충족할 수 있는 건 <span class="highlight-text">저뿐입니다</span>.</p>
                 </div>
             </div>
-             <p class="text-center text-xl font-bold text-white mt-12">특목고 합격, <span class="highlight-text">3가지</span>로 결정됩니다. <br>이를 완벽히 충족할 수 있는 건 <span class="highlight-text">저뿐입니다</span>.</p>
         </section>
 
-
         <!-- Program Information Section -->
-        <section class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">컨설팅 프로그램 안내</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                
-                <!-- In-person Group Coaching -->
-                <div class="card rounded-2xl p-8 highlight-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <i class="fa-solid fa-users text-3xl text-purple-400"></i>
-                        <h3 class="text-2xl font-bold text-white">대면 그룹 특강</h3>
+        <section id="programs" class="aurora-bg py-24">
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-white">컨설팅 프로그램 안내</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- In-person Group Coaching -->
+                        <div class="glass-card rounded-2xl p-8 highlight-card">
+                            <div class="flex items-center gap-4 mb-4">
+                                <i class="fa-solid fa-users text-3xl text-purple-400"></i>
+                                <h3 class="text-2xl font-bold text-white">대면 그룹 특강</h3>
+                            </div>
+                            <p class="text-purple-300 font-semibold mb-6">정규 수강생을 위한 All-in-One 솔루션</p>
+                            <ul class="space-y-4 text-slate-300">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">압도적인 시너지</strong></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">즉각적인 피드백과 상시 코칭</strong></li>
+                                 <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">실전과 같은 면접 훈련</strong></li>
+                            </ul>
+                        </div>
+                        <!-- Online 1:1 Coaching -->
+                        <div class="glass-card rounded-2xl p-8">
+                            <div class="flex items-center gap-4 mb-4">
+                                <i class="fa-solid fa-laptop text-3xl text-slate-400"></i>
+                                <h3 class="text-2xl font-bold text-white">비대면 1:1 코칭</h3>
+                            </div>
+                            <p class="text-slate-400 font-semibold mb-6">외부생을 위한 맞춤 코칭</p>
+                            <ul class="space-y-4 text-slate-300">
+                                 <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">1:1 맞춤형 심층 코칭</strong></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">유연한 일정 관리</strong></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">체계적인 온라인 학습 자료</strong></li>
+                            </ul>
+                        </div>
                     </div>
-                    <p class="text-purple-300 font-semibold mb-6">정규 수강생을 위한 All-in-One 솔루션</p>
-                    <ul class="space-y-4 text-slate-300">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
-                            <strong class="text-white">압도적인 시너지</strong>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
-                            <strong class="text-white">즉각적인 피드백과 상시 코칭</strong>
-                        </li>
-                         <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
-                            <strong class="text-white">실전과 같은 면접 훈련</strong>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Online 1:1 Coaching -->
-                <div class="card rounded-2xl p-8">
-                    <div class="flex items-center gap-4 mb-4">
-                        <i class="fa-solid fa-laptop text-3xl text-slate-400"></i>
-                        <h3 class="text-2xl font-bold text-white">비대면 1:1 코칭</h3>
-                    </div>
-                    <p class="text-slate-400 font-semibold mb-6">외부생을 위한 맞춤 코칭</p>
-                    <ul class="space-y-4 text-slate-300">
-                         <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i>
-                            <strong class="text-white">1:1 맞춤형 심층 코칭</strong>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i>
-                            <strong class="text-white">유연한 일정 관리</strong>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i>
-                            <strong class="text-white">체계적인 온라인 학습 자료</strong>
-                        </li>
-                    </ul>
+                    <p class="text-center mt-8 text-slate-400 max-w-3xl mx-auto word-break-kor">
+                        <i class="fa-solid fa-circle-info mr-2"></i>정규 과외 수강생은 <strong class="text-purple-400">대면 그룹 특강</strong>에 우선적으로 참여하게 됩니다. <br><strong class="text-white">비대면 1:1 코칭</strong>은 정규 수업을 듣지 않는 학생들만을 위한 프로그램입니다.
+                    </p>
                 </div>
             </div>
-            <p class="text-center mt-8 text-slate-400 max-w-3xl mx-auto word-break-kor">
-                <i class="fa-solid fa-circle-info mr-2"></i>정규 과외 수강생은 <strong class="text-purple-400">대면 그룹 특강</strong>에 우선적으로 참여하게 됩니다. <br><strong class="text-white">비대면 1:1 코칭</strong>은 정규 수업을 듣지 않는 학생들만을 위한 프로그램입니다.
-            </p>
         </section>
 
         <!-- Curriculum Details Section -->
-        <section class="space-y-16">
-            <!-- In-person Curriculum -->
-            <div>
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl md:text-4xl font-bold">대면 그룹 특강 커리큘럼</h2>
-                    <p class="text-slate-400 mt-2">합격의 시너지를 만드는 All-in-One 솔루션</p>
-                    <!-- Google Drive 링크를 여기에 입력하세요 -->
-                    <a href="https://drive.google.com/file/d/1jYFcVYeEWjEI_bcAl8hwknpBSiYqmk4Y/view?usp=drive_link" target="_blank" class="btn-secondary mt-4 inline-block">
-                        자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                    </a>
+        <section id="curriculum" class="aurora-bg py-24">
+            <div class="container mx-auto px-4 relative z-10 space-y-16">
+                <!-- In-person Curriculum -->
+                <div>
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white">대면 그룹 특강 커리큘럼</h2>
+                        <p class="text-slate-400 mt-2">합격의 시너지를 만드는 All-in-One 솔루션</p>
+                        <a href="https://drive.google.com/file/d/1jYFcVYeEWjEI_bcAl8hwknpBSiYqmk4Y/view?usp=drive_link" target="_blank" class="btn-secondary mt-4 inline-block">
+                            자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Online Curriculum -->
-            <div>
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl md:text-4xl font-bold">비대면 1:1 코칭 커리큘럼</h2>
-                    <p class="text-slate-400 mt-2">당신만을 위한 1:1 맞춤 전략</p>
-                     <!-- Google Drive 링크를 여기에 입력하세요 -->
-                    <a href="https://drive.google.com/file/d/1WNw9GHb9a2bmKO2qYPfc2x8852wBjXP7/view?usp=drive_link" target="_blank" class="btn-secondary mt-4 inline-block">
-                        자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                    </a>
+                <!-- Online Curriculum -->
+                <div>
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white">비대면 1:1 코칭 커리큘럼</h2>
+                        <p class="text-slate-400 mt-2">당신만을 위한 1:1 맞춤 전략</p>
+                        <a href="https://drive.google.com/file/d/1WNw9GHb9a2bmKO2qYPfc2x8852wBjXP7/view?usp=drive_link" target="_blank" class="btn-secondary mt-4 inline-block">
+                            자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Call to Action -->
-        <section class="text-center mt-20">
+        <section class="text-center py-20 px-4">
             <h2 class="text-3xl font-bold text-white">지금 바로, 합격의 여정을<br class="sm:hidden"> 시작하세요</h2>
             <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto word-break-kor">
                 정규 수강생이라면 대면 특강의 혜택을, 외부 학생이라면 1:1 코칭을 통해 합격의 가능성을 높여보세요.
