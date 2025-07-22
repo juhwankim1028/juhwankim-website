@@ -69,7 +69,8 @@
             border-radius: 0.75rem; /* rounded-xl */
             padding: 1.5rem; /* p-6 */
             display: flex;
-            flex-direction: column; /* 키워드 나열을 위해 column으로 변경 */
+            align-items: flex-start;
+            gap: 1.25rem; /* gap-5 */
             transition: all 0.3s ease;
             height: 100%; /* for equal height in grid */
         }
@@ -79,13 +80,13 @@
         }
         .criterion-icon {
             color: #818CF8; /* text-indigo-400 */
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 1.5rem; /* text-2xl */
             flex-shrink: 0;
-            margin-bottom: 1rem;
+            margin-top: 0.25rem;
         }
         .highlight-text {
             color: #A78BFA; /* text-purple-400 */
-            font-weight: 600; /* font-semibold */
+            font-weight: 700; /* font-bold */
         }
         .highlight-text-online {
             color: #818CF8; /* text-indigo-400 */
@@ -149,7 +150,7 @@
                     </div>
                 </div>
             </div>
-             <p class="text-center text-xl font-bold text-white mt-12">특목고 합격, 이 세 가지 기준이면 끝입니다. <br>그리고 오직 <span class="gradient-text">저만이</span> 이 기준을 충족시킬 수 있습니다.</p>
+             <p class="text-center text-xl font-bold text-white mt-12">특목고 합격, <span class="highlight-text">3가지</span>로 결정됩니다. <br>이를 완벽히 충족할 수 있는 건 <span class="highlight-text">저뿐입니다</span>.</p>
         </section>
 
 
@@ -168,24 +169,15 @@
                     <ul class="space-y-4 text-slate-300">
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
-                            <div class="word-break-kor">
-                                <strong class="text-white">압도적인 시너지</strong><br>
-                                동료들과의 실시간 피드백과 토론을 통해 집단 지성의 힘으로 함께 성장합니다.
-                            </div>
+                            <strong class="text-white">압도적인 시너지</strong>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
-                            <div class="word-break-kor">
-                                <strong class="text-white">즉각적인 피드백과 상시 코칭</strong><br>
-                                현장에서 즉시 첨삭이 가능하며, 정규 수업 시간에도 언제든지 질문할 수 있습니다.
-                            </div>
+                            <strong class="text-white">즉각적인 피드백과 상시 코칭</strong>
                         </li>
                          <li class="flex items-start gap-3">
                             <i class="fa-solid fa-check-circle text-purple-400 mt-1"></i>
-                            <div class="word-break-kor">
-                                <strong class="text-white">실전과 같은 면접 훈련</strong><br>
-                                실제 면접 환경을 재현한 모의 면접을 통해 실전 감각을 극대화합니다.
-                            </div>
+                            <strong class="text-white">실전과 같은 면접 훈련</strong>
                         </li>
                     </ul>
                 </div>
@@ -200,24 +192,15 @@
                     <ul class="space-y-4 text-slate-300">
                          <li class="flex items-start gap-3">
                             <i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i>
-                            <div class="word-break-kor">
-                                <strong class="text-white">1:1 맞춤형 심층 코칭</strong><br>
-                                오직 한 사람에게 집중하여 개인의 경험과 강점을 극대화하는 맞춤 전략을 설계합니다.
-                            </div>
+                            <strong class="text-white">1:1 맞춤형 심층 코칭</strong>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i>
-                            <div class="word-break-kor">
-                                <strong class="text-white">유연한 일정 관리</strong><br>
-                                원하는 시간과 장소에서 코칭을 받을 수 있어 학업 및 다른 활동과 병행하기 용이합니다.
-                            </div>
+                            <strong class="text-white">유연한 일정 관리</strong>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i>
-                            <div class="word-break-kor">
-                                <strong class="text-white">체계적인 온라인 학습 자료</strong><br>
-                                DRM 보안이 적용된 핵심 PDF 자료를 통해 자신만의 속도에 맞춰 체계적으로 학습할 수 있습니다.
-                            </div>
+                            <strong class="text-white">체계적인 온라인 학습 자료</strong>
                         </li>
                     </ul>
                 </div>
