@@ -15,23 +15,25 @@
             font-family: 'Noto Sans KR', sans-serif;
             background-color: #f8fafc; /* slate-50 */
             color: #1e293b; /* slate-800 */
+            overflow-x: hidden;
         }
         .dark-section {
             background-color: #020617; /* slate-950 */
             color: #e2e8f0; /* slate-200 */
         }
         
-        /* Glassmorphism Background Effect for Dark Sections */
-        .dark-section::before {
+        /* Glassmorphism Background Effect */
+        body::before {
             content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100vw;
+            height: 100vh;
             background-image: 
-                radial-gradient(circle at 15% 20%, rgba(79, 70, 229, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 15% 20%, rgba(79, 70, 229, 0.2) 0%, transparent, 40%),
                 radial-gradient(circle at 85% 70%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
+            filter: blur(100px);
             z-index: -1;
         }
 
@@ -45,9 +47,13 @@
             background-position: center;
         }
         /* 스크롤 시 네비게이션 바 스타일 변경 */
+        #navbar {
+            background-color: rgba(15, 23, 42, 0.5); /* slate-900/50 */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
         #navbar.nav-scrolled {
             background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
             border-bottom-color: #e5e7eb;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
@@ -193,7 +199,7 @@
 <body class="antialiased">
 
     <!-- Navigation Bar -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-3 text-white transition-all duration-300 border-b border-white/10">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-3 text-white transition-all duration-300">
         <a href="#home" class="font-bold text-xl tracking-wider nav-brand">김주환</a>
         <div class="hidden md:flex items-center space-x-6 font-medium">
             <a href="#introduction" class="hover:text-blue-300 transition-colors nav-link">강사소개</a>
@@ -1120,6 +1126,8 @@
             </p>
         </div>
     </div>
+    
+    <!-- Online Coaching Modal -->
     <div id="modal-online-coaching" class="modal-backdrop hidden fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center p-4 z-[60] opacity-0">
         <div class="modal-content bg-slate-900/80 border border-slate-700 text-slate-200 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative transform scale-95">
             <button class="modal-close-button absolute top-4 right-6 text-slate-400 hover:text-white text-3xl z-10">&times;</button>
@@ -1264,12 +1272,7 @@
         </div>
     </div>
 
-    <!-- Floating Button -->
-    <button id="floating-trial-button" class="float-button fixed bottom-8 right-8 bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold py-3 px-5 rounded-full shadow-2xl z-50 flex items-center gap-2 transform hover:scale-110 transition-transform duration-300">
-        <i class="fa-solid fa-pen-to-square"></i>
-        <span>무료 시범과외 신청</span>
-    </button>
-    
+
     <!-- Unified Trial Lesson Modal -->
     <div id="modal-trial-unified" class="modal-backdrop hidden fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center p-4 z-[100] opacity-0">
         <div id="modal-trial-content" class="modal-content bg-slate-800/80 border border-slate-700 text-slate-200 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col transform scale-95">
@@ -1346,37 +1349,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- START OF FIX for Mobile Scroll Issue ---
-            // Set scroll restoration to manual. This prevents the browser from
-            // automatically scrolling to a previous position on page refresh.
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
             // --- END OF FIX ---
 
             // --- START OF FIX for Mobile Touch Delay ---
-            // This script eliminates the ~300ms delay on touch devices by listening for
-            // a 'touchstart' event and immediately triggering a navigation.
             function fastTapHandler(event) {
-                // Prevent the default touch behavior, which can include the delay.
                 event.preventDefault();
-                // Get the URL from the link's href attribute.
                 const targetUrl = event.currentTarget.href;
-                // Get the target attribute (_blank, _self, etc.).
                 const target = event.currentTarget.target;
 
                 if (target === '_blank') {
-                    // If the link is meant to open in a new tab, use window.open.
                     window.open(targetUrl, '_blank');
                 } else {
-                    // Otherwise, navigate in the current window.
                     window.location.href = targetUrl;
                 }
             }
-
-            // Find all elements with the 'fast-tap' class and apply the handler.
             const fastTapElements = document.querySelectorAll('.fast-tap');
             fastTapElements.forEach(element => {
-                // We listen for 'touchstart' as it's the beginning of a touch interaction.
                 element.addEventListener('touchstart', fastTapHandler, { passive: false });
             });
             // --- END OF FIX for Mobile Touch Delay ---
@@ -1384,24 +1375,30 @@
 
             // Navbar scroll effect
             const nav = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    nav.classList.add('nav-scrolled');
-                } else {
-                    nav.classList.remove('nav-scrolled');
-                }
-            });
+            if (nav) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('nav-scrolled');
+                    } else {
+                        nav.classList.remove('nav-scrolled');
+                    }
+                });
+            }
 
             // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
             const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
                 });
             });
 
@@ -1412,20 +1409,16 @@
 
             if (dropdownButton && dropdownMenu && dropdownContainer) {
                 dropdownButton.addEventListener('click', (event) => {
-                    // Stop the click from bubbling up to the window listener
                     event.stopPropagation();
-                    // Toggle the dropdown menu
                     dropdownMenu.classList.toggle('hidden');
                 });
 
-                // Close dropdown when a link inside is clicked
                 dropdownMenu.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', () => {
                         dropdownMenu.classList.add('hidden');
                     });
                 });
                 
-                // Close the dropdown if the user clicks outside of it
                 window.addEventListener('click', (event) => {
                     if (!dropdownContainer.contains(event.target)) {
                         dropdownMenu.classList.add('hidden');
@@ -1512,27 +1505,36 @@
             };
 
             const resetTrialModal = () => {
-                classSelectionView.classList.remove('hidden');
-                formContainer.classList.add('hidden');
-                modalFooter.classList.add('hidden');
-                backButton.classList.add('hidden');
+                if (classSelectionView) classSelectionView.classList.remove('hidden');
+                if (formContainer) formContainer.classList.add('hidden');
+                if (modalFooter) modalFooter.classList.add('hidden');
+                if (backButton) backButton.classList.add('hidden');
                 trialForms.forEach(form => form.classList.add('hidden'));
-                trialModalTitle.textContent = '시범과외 신청';
+                if (trialModalTitle) trialModalTitle.textContent = '시범과외 신청';
             };
 
             const openTrialModal = () => openModal(trialModal);
 
-            floatingButton.addEventListener('click', openTrialModal);
+            if (floatingButton) {
+                floatingButton.addEventListener('click', openTrialModal);
+            }
             if (trialBannerButton) {
                 trialBannerButton.addEventListener('click', openTrialModal);
             }
 
-            trialModal.querySelector('.modal-close-button').addEventListener('click', () => {
-                 closeModal(trialModal);
-                 setTimeout(resetTrialModal, 300);
-            });
+            if (trialModal) {
+                const closeBtn = trialModal.querySelector('.modal-close-button');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        closeModal(trialModal);
+                        setTimeout(resetTrialModal, 300);
+                    });
+                }
+            }
             
-            backButton.addEventListener('click', resetTrialModal);
+            if (backButton) {
+                backButton.addEventListener('click', resetTrialModal);
+            }
             
             classSelectButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -1540,28 +1542,26 @@
                     const selectedForm = document.getElementById(`trial-form-class${classNumber}`);
                     const colors = trialClassColors[classNumber];
 
-                    // Change colors
                     if (colors) {
-                        // Reset button classes
-                        copyButton.classList.remove('bg-sky-600', 'hover:bg-sky-700', 'bg-indigo-600', 'hover:bg-indigo-700');
-                        // Add new button classes
-                        copyButton.classList.add(colors.bg, colors.hoverBg);
-
-                        // Reset phone number text classes
-                        trialPhoneNumber.classList.remove('text-sky-400', 'text-indigo-400');
-                        // Add new phone number text class
-                        trialPhoneNumber.classList.add(colors.text);
+                        if (copyButton) {
+                            copyButton.classList.remove('bg-sky-600', 'hover:bg-sky-700', 'bg-indigo-600', 'hover:bg-indigo-700');
+                            copyButton.classList.add(colors.bg, colors.hoverBg);
+                        }
+                        if (trialPhoneNumber) {
+                            trialPhoneNumber.classList.remove('text-sky-400', 'text-indigo-400');
+                            trialPhoneNumber.classList.add(colors.text);
+                        }
                     }
                     
-                    classSelectionView.classList.add('hidden');
-                    formContainer.classList.remove('hidden');
-                    modalFooter.classList.remove('hidden');
-                    backButton.classList.remove('hidden');
+                    if(classSelectionView) classSelectionView.classList.add('hidden');
+                    if(formContainer) formContainer.classList.remove('hidden');
+                    if(modalFooter) modalFooter.classList.remove('hidden');
+                    if(backButton) backButton.classList.remove('hidden');
                     
                     trialForms.forEach(form => form.classList.add('hidden'));
-                    selectedForm.classList.remove('hidden');
+                    if(selectedForm) selectedForm.classList.remove('hidden');
                     
-                    trialModalTitle.textContent = trialClassTitles[classNumber];
+                    if(trialModalTitle) trialModalTitle.textContent = trialClassTitles[classNumber];
                 });
             });
 
@@ -1588,49 +1588,51 @@
                 }, 3000);
             };
 
-            copyButton.addEventListener('click', () => {
-                const visibleForm = document.querySelector('.trial-form:not(.hidden)');
-                if (!visibleForm) return;
+            if (copyButton) {
+                copyButton.addEventListener('click', () => {
+                    const visibleForm = document.querySelector('.trial-form:not(.hidden)');
+                    if (!visibleForm) return;
 
-                const classNumber = visibleForm.id.replace('trial-form-class', '');
-                const className = trialClassTitles[classNumber];
+                    const classNumber = visibleForm.id.replace('trial-form-class', '');
+                    const className = trialClassTitles[classNumber];
 
-                const elements = visibleForm.elements;
-                let contentToCopy = `[${className} 시범과외 신청서]\n\n`;
-                for (let i = 0; i < elements.length; i++) {
-                    const item = elements[i];
-                    if (item.type !== 'button' && item.name && item.value.trim()) {
-                        const label = visibleForm.querySelector(`label[for="${item.id}"]`);
-                        const labelText = label ? label.textContent.split('\n')[0].trim() : item.name;
-                        contentToCopy += `■ ${labelText}\n- ${item.value.trim()}\n\n`;
+                    const elements = visibleForm.elements;
+                    let contentToCopy = `[${className} 시범과외 신청서]\n\n`;
+                    for (let i = 0; i < elements.length; i++) {
+                        const item = elements[i];
+                        if (item.type !== 'button' && item.name && item.value.trim()) {
+                            const label = visibleForm.querySelector(`label[for="${item.id}"]`);
+                            const labelText = label ? label.textContent.split('\n')[0].trim() : item.name;
+                            contentToCopy += `■ ${labelText}\n- ${item.value.trim()}\n\n`;
+                        }
                     }
-                }
-                
-                const fallbackCopy = (text) => {
-                    const textArea = document.createElement("textarea");
-                    textArea.value = text;
-                    textArea.style.position = "fixed";
-                    textArea.style.top = "-9999px";
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        showCopyFeedback(copyButton, '✅ 복사 완료! 문자로 보내주세요.');
-                    } catch (err) {
-                        showCopyFeedback(copyButton, '❌ 복사에 실패했습니다.', true);
-                    }
-                    document.body.removeChild(textArea);
-                };
+                    
+                    const fallbackCopy = (text) => {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = text;
+                        textArea.style.position = "fixed";
+                        textArea.style.top = "-9999px";
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        try {
+                            document.execCommand('copy');
+                            showCopyFeedback(copyButton, '✅ 복사 완료! 문자로 보내주세요.');
+                        } catch (err) {
+                            showCopyFeedback(copyButton, '❌ 복사에 실패했습니다.', true);
+                        }
+                        document.body.removeChild(textArea);
+                    };
 
-                if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(contentToCopy.trim()).then(() => {
-                        showCopyFeedback(copyButton, '✅ 복사 완료! 문자로 보내주세요.');
-                    }).catch(err => fallbackCopy(contentToCopy.trim()));
-                } else {
-                    fallbackCopy(contentToCopy.trim());
-                }
-            });
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(contentToCopy.trim()).then(() => {
+                            showCopyFeedback(copyButton, '✅ 복사 완료! 문자로 보내주세요.');
+                        }).catch(err => fallbackCopy(contentToCopy.trim()));
+                    } else {
+                        fallbackCopy(contentToCopy.trim());
+                    }
+                });
+            }
 
             // --- Toggle button for details ---
             const allToggleButtons = document.querySelectorAll('.toggle-button');
@@ -1715,6 +1717,7 @@
             const actions = ['사이트를 방문했습니다.', '시범과외를 신청했습니다.'];
 
             function showNotification() {
+                if(!notification || !notificationText) return;
                 const randomName = names[Math.floor(Math.random() * names.length)];
                 const randomAction = actions[Math.floor(Math.random() * actions.length)];
 
