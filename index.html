@@ -22,12 +22,13 @@
             height: 150px;
             background: linear-gradient(270deg, #0f172a, #e2e8f0, #ffffff, #e2e8f0);
             background-size: 600% 600%;
-            animation: gradient-bw-animation 15s ease infinite;
         }
         .animated-gradient-divider.bottom {
              background: linear-gradient(270deg, #f0f4f8, #0f172a, #0f172a, #0f172a);
              background-size: 600% 600%;
-             animation: gradient-bw-animation 15s ease infinite;
+        }
+        .animated-gradient-divider.in-view {
+            animation: gradient-bw-animation 15s ease infinite;
         }
         @keyframes gradient-bw-animation {
             0% { background-position: 0% 50%; }
@@ -447,8 +448,8 @@
                 <div class="pt-20 mt-20 border-t-2 border-slate-800">
                     <div class="container mx-auto px-4">
                         <header class="text-center mb-12">
-                            <h1 class="font-poppins font-extrabold text-3xl sm:text-4xl md:text-6xl tracking-tight text-white">No.1 <span class="gradient-text">자소서 & 면접</span> 컨설팅</h1>
-                            <p class="mt-4 text-sm md:text-2xl text-slate-400">최종 합격을 결정짓는 단 하나의 컨설팅</p>
+                            <h1 class="font-extrabold text-3xl sm:text-4xl md:text-6xl tracking-tight text-white">No.1 <span class="gradient-text">자소서 & 면접</span> 컨설팅</h1>
+                            <p class="mt-4 text-2xl md:text-3xl text-slate-400">최종 합격을 결정짓는 단 하나의 컨설팅</p>
                         </header>
                         
                         <!-- New Infographic Section -->
@@ -478,13 +479,13 @@
                         </section>
 
                         <section class="mb-24 max-w-6xl mx-auto">
-                            <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 text-white">수많은 선택지 속, <br class="sm:hidden">결과를 바꾸는 한 사람</h2>
+                            <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 text-white">불확실한 특목 입시, 답은 <span class="text-purple-400">걸어본 자</span>에게 있습니다</h2>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                                 <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="text-purple-300 font-bold">완벽 분석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="text-purple-300 font-bold">합격 스토리로 재해석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="text-purple-300 font-bold">합격 서사 설계</span></span></li></ul></div></div>
                                 <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="text-purple-300 font-bold">과학고 조기졸업 & KAIST</span> 입학 경험</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="text-purple-300 font-bold">살아있는 데이터</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="text-purple-300 font-bold">가장 확실한 합격 로드맵</span></span></li></ul></div></div>
                                 <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="text-purple-300 font-bold">합격 자소서 10+건</span> 직접 분석</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="text-purple-300 font-bold">논리 구조 & 흐름</span> 체득</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="text-purple-300 font-bold">'합격의 공식'</span> 전수</span></li></ul></div></div>
                             </div>
-                             <p class="text-xl md:text-2xl text-center font-bold text-white mt-12">특목고 합격, <span class="text-purple-400 font-bold">3가지</span>로 결정됩니다. <br class="md:hidden"> 이를 완벽히 충족할 수 있는 건 <br class="md:hidden"> <span class="text-purple-400 font-bold">오직 저뿐</span>입니다.</p>
+                             <p class="text-2xl md:text-3xl text-center font-bold text-white mt-12">특목고 합격, <span class="text-purple-400 font-bold">3가지</span>로 결정됩니다.<br>이를 완벽히 충족할 수 있는 건 <span class="text-purple-400 font-bold">오직 저뿐</span>입니다.</p>
                         </section>
                         <section class="mb-20">
                             <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-white">컨설팅 프로그램 안내</h2>
@@ -642,14 +643,14 @@
                                         <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600"><i class="fas fa-university text-xl text-white"></i></div>
                                         <h4 class="font-bold text-slate-800 text-lg">최상위권 학습 환경</h4>
                                     </div>
-                                    <p class="text-slate-600 text-sm leading-relaxed mt-2 pl-16">미래의 캠퍼스를 미리 체험하며 대한민국 0.1%의 꿈을 키웁니다.</p>
+                                    <p class="text-slate-600 text-sm md:text-base leading-relaxed mt-2 pl-16">미래의 캠퍼스를 미리 체험하며 대한민국 0.1%의 꿈을 키웁니다.</p>
                                 </div>
                                 <div>
                                     <div class="flex items-center gap-4">
                                         <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600"><i class="fas fa-brain text-xl text-white"></i></div>
                                         <h4 class="font-bold text-slate-800 text-lg">몰입도 극대화</h4>
                                     </div>
-                                    <p class="text-slate-600 text-sm leading-relaxed mt-2 pl-16">학업에만 집중하도록 설계된 공간에서 학습 효율을 극대화합니다.</p>
+                                    <p class="text-slate-600 text-sm md:text-base leading-relaxed mt-2 pl-16">학업에만 집중하도록 설계된 공간에서 학습 효율을 극대화합니다.</p>
                                 </div>
                             </div>
                         </div>
@@ -664,14 +665,14 @@
                                         <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-green-500 to-teal-600"><i class="fas fa-map-marker-alt text-xl text-white"></i></div>
                                         <h4 class="font-bold text-slate-800 text-lg">최적의 접근성</h4>
                                     </div>
-                                    <p class="text-slate-600 text-sm leading-relaxed mt-2 pl-16">학생의 동선을 최우선으로 고려하여 이동 시간을 줄이고 학습 시간을 확보합니다.</p>
+                                    <p class="text-slate-600 text-sm md:text-base leading-relaxed mt-2 pl-16">학생의 동선을 최우선으로 고려하여 이동 시간을 줄이고 학습 시간을 확보합니다.</p>
                                 </div>
                                 <div>
                                     <div class="flex items-center gap-4">
                                         <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-green-500 to-teal-600"><i class="fas fa-users text-xl text-white"></i></div>
                                         <h4 class="font-bold text-slate-800 text-lg">그룹 스터디 최적화</h4>
                                     </div>
-                                    <p class="text-slate-600 text-sm leading-relaxed mt-2 pl-16">쾌적하고 방음이 잘 되는 그룹룸에서 오직 수업에만 몰입할 수 있습니다.</p>
+                                    <p class="text-slate-600 text-sm md:text-base leading-relaxed mt-2 pl-16">쾌적하고 방음이 잘 되는 그룹룸에서 오직 수업에만 몰입할 수 있습니다.</p>
                                 </div>
                             </div>
                         </div>
@@ -953,6 +954,22 @@
                     }
                 }
             }, false);
+
+            // Intersection Observer for gradient animation
+            const dividers = document.querySelectorAll('.animated-gradient-divider');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    } else {
+                        entry.target.classList.remove('in-view');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            dividers.forEach(divider => {
+                observer.observe(divider);
+            });
         });
 
         window.addEventListener('load', () => setTimeout(() => window.scrollTo(0, 0), 100));
