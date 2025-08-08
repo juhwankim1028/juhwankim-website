@@ -107,7 +107,7 @@
             font-family: 'Poppins', sans-serif;
         }
         .bg-kaist-hero {
-            background-image: linear-gradient(to bottom, rgba(0, 20, 50, 0.4), rgba(0, 10, 30, 0.7)), url('https://static.wixstatic.com/media/d3bd7e_4abeffc938974531a1ddd591f6ab8a93~mv2.png/v1/fill/w_600,h_361,al_c,q_85,enc_avif,quality_auto/d3bd7e_4abeffc938974531a1ddd591f6ab8a93~mv2.png');
+            background-image: linear-gradient(to bottom, rgba(0, 20, 50, 0.4), rgba(0, 10, 30, 0.7)), url('https://static.wixstatic.com/media/d3bd7e_4abeffc938974531a1ddd591f6ab8a93~mv2.png/v1/fill/w_600,h_361,al_c,q_85,enc_avif,quality_auto/d3bd7e_4abeffc93899f6ab8a93~mv2.png');
             background-size: cover;
             background-position: center;
         }
@@ -228,7 +228,21 @@
         }
         /* Custom line-height for better readability */
         .h2-line-height-extra-loose {
-            line-height: 2.5; /* Further increased line-height */
+            line-height: 3; /* Increased line-height for more spacing within lines */
+        }
+        /* New styling for the footer for better mobile responsiveness */
+        .footer-link-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        @media (min-width: 640px) {
+            .footer-link-group {
+                flex-direction: row;
+                justify-content: center;
+                gap: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -410,18 +424,22 @@
         
         <div class="animated-gradient-divider bottom"></div>
 
-        <section id="curriculum" class="py-10 px-6 sm:px-8 bg-slate-900">
+        <section id="curriculum" class="pt-10 px-6 sm:px-8 bg-slate-900">
             <div class="max-w-7xl mx-auto">
                 <div class="space-y-20">
                     <div class="text-center">
-                        <!-- Applied custom line-height class directly to h2 for internal line spacing -->
-                        <h2 class="text-3xl md:text-4xl font-black text-white h2-line-height-extra-loose">노력해도 안 오른다면,<br><span class="text-violet-400">공부 방법이 틀린 겁니다.</span></h2>
+                        <h2 class="text-3xl md:text-4xl font-black text-white h2-line-height-extra-loose">
+                            노력해도 안 오른다면,<br>
+                            <span class="text-violet-400">공부 방법이 틀린 겁니다.</span>
+                        </h2>
                         <p class="mt-6 text-base sm:text-lg text-gray-300 max-w-3xl mx-auto">성적이 안 오르는 건 노력 부족이 아니라, <br class="sm:hidden">'방법'이 틀렸기 때문입니다.<br>최상위권은 ‘다르게’ 공부합니다.</p>
                     </div>
-                    <div class="mt-10"> <!-- Adjusted margin-top to reduce space from previous section -->
+                    <div class="mt-10">
                         <div class="text-center mb-10">
-                            <!-- Applied custom line-height class directly to h2 for internal line spacing -->
-                            <h2 class="text-3xl md:text-4xl font-black text-white whitespace-nowrap h2-line-height-extra-loose">이제 2가지의 선택지 중 <br> <span class="text-violet-400">하나를 골라야</span> 합니다!</h2>
+                            <h2 class="text-3xl md:text-4xl font-black text-white whitespace-nowrap h2-line-height-extra-loose">
+                                이제 2가지의 선택지 중 <br> 
+                                <span class="text-violet-400">하나를 골라야</span> 합니다!
+                            </h2>
                         </div>
                         <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
                             <div class="dark-glass-card p-8 rounded-lg text-center shadow-lg">
@@ -511,7 +529,7 @@
                             <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white">불확실한 특목 입시, 답은 <br class="sm:hidden"><span class="text-purple-400">걸어본 자</span>에게 있습니다</h2>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                                 <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="text-purple-300 font-bold">완벽 분석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="text-purple-300 font-bold">합격 스토리로 재해석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="text-purple-300 font-bold">합격 서사 설계</span></span></li></ul></div></div>
-                                <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="text-purple-300 font-bold">과학고 조기졸업 & KAIST</span> 입학 경험</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="text-purple-300 font-bold">살아있는 데이터</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="text-purple-300 font-bold">가장 확실한 합격 로드맵</span></span></li></ul></div></div>
+                                <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="text-purple-300 font-bold">과학고 조기졸업 & KAIST</span> 입학 경험</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="text-purple-300 font-bold">살아있는 데이터</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="text-purple-300 font-bold">가장 확실한 합격 로드맵</span></span></span></li></ul></div></div>
                                 <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="text-purple-300 font-bold">합격 자소서 10+건</span> 직접 분석</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="text-purple-300 font-bold">'논리 구조 & 흐름'</span> 체득</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="text-purple-300 font-bold">'합격의 공식'</span> 전수</span></li></ul></div></div>
                             </div>
                              <p class="text-xl md:text-2xl text-center font-bold text-white mt-12 leading-loose">특목고 합격, <span class="text-purple-400 font-bold">3가지</span>로 결정됩니다.<br>이를 완벽히 충족할 수 있는 건<br class="md:hidden"> <span class="text-purple-400 font-bold">오직 저뿐</span>입니다.</p>
@@ -591,7 +609,7 @@
                         <p class="mt-1 text-sm text-slate-500 font-medium">(영재고·과학고 대비)</p>
                         <p class="mt-4 text-sm md:text-base text-slate-700 leading-relaxed"><strong class="text-sky-700 font-bold">'합격 자소서들'</strong>의 성공 공식을 압축해, 학생의 경험과 잠재력을 증명하는 단 하나의 자소서를 완성합니다. 또한, 제가 직접 제시하는 문제 풀이 전략을 통해 답지와는 다른 <strong class="text-sky-700 font-bold">최상위권의 사고 과정</strong>을 익힐 수 있습니다.</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
-                            <a href="https://drive.google.com/file/d/1szmILdp7ORE7BDhD8yuclF3m4P7eRnd7/view?usp=drive_link" target="_blank" class="block bg-white/80 py-12 px-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 text-center border border-slate-200 flex flex-col justify-center items-center">
+                            <a href="https://drive.google.com/file/d/112VBFdNGiEuKX54Dq2vvp0SPRrzr9Zh-/view?usp=drive_link" target="_blank" class="block bg-white/80 py-12 px-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 text-center border border-slate-200 flex flex-col justify-center items-center">
                                 <i class="fas fa-file-signature text-5xl text-sky-600 mb-4"></i>
                                 <h4 class="text-lg font-bold text-slate-800">합격 자소서 보기</h4>
                             </a>
@@ -757,7 +775,35 @@
         </section>
 
         <section id="contact" class="pt-20 pb-20 px-8 md:px-12 bg-slate-900">
-            <div class="max-w-7xl mx-auto text-center"><h2 class="text-3xl md:text-4xl font-black text-white">문의</h2><p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">모든 준비는 끝났습니다.<br>최고의 선택으로 최고의 결과를 만드세요.</p><p class="mt-2 text-[10px] sm:text-xs text-gray-400 max-w-2xl mx-auto">※ 하단의 배너를 클릭하시면, 곧바로 연결 가능합니다.</p><div class="mt-10 max-w-2xl mx-auto grid sm:grid-cols-2 gap-6 text-center"><a href="tel:010-2124-7269" class="p-6 dark-glass-card text-blue-400 rounded-lg hover:bg-slate-700/50 hover:shadow-lg transition-all transform hover:-translate-y-1"><i class="fas fa-phone-alt text-4xl"></i><h3 class="mt-4 text-xl font-bold text-slate-100">전화 & 문자</h3><p class="text-blue-400 mt-1">010-2124-7269</p></a><a href="mailto:kimjuhuan1028@kaist.ac.kr" class="p-6 dark-glass-card text-green-400 rounded-lg hover:bg-slate-700/50 hover:shadow-lg transition-all transform hover:-translate-y-1"><i class="fas fa-envelope text-4xl"></i><h3 class="mt-4 text-xl font-bold text-slate-100">이메일 문의</h3><p class="text-green-400 mt-1">kimjuhuan1028@kaist.ac.kr</p></a></div></div>
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-black text-white">문의</h2>
+                <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">모든 준비는 끝났습니다.<br>최고의 선택으로 최고의 결과를 만드세요.</p>
+                <p class="mt-2 text-[10px] sm:text-xs text-gray-400 max-w-2xl mx-auto">※ 하단의 배너를 클릭하시면, 곧바로 연결 가능합니다.</p>
+                <div class="mt-10 max-w-2xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <a href="tel:010-2124-7269" class="p-6 dark-glass-card text-blue-400 rounded-lg hover:bg-slate-700/50 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <i class="fas fa-phone-alt text-4xl"></i>
+                        <h3 class="mt-4 text-xl font-bold text-slate-100">전화</h3>
+                        <p class="text-blue-400 mt-1 text-sm">010-2124-7269</p>
+                    </a>
+                    <a href="mailto:kimjuhuan1028@kaist.ac.kr" class="p-6 dark-glass-card text-green-400 rounded-lg hover:bg-slate-700/50 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <i class="fas fa-envelope text-4xl"></i>
+                        <h3 class="mt-4 text-xl font-bold text-slate-100">이메일</h3>
+                        <p class="text-green-400 mt-1 text-sm">kimjuhuan1028@kaist.ac.kr</p>
+                    </a>
+                    <!-- KakaoTalk Contact Card -->
+                    <a href="http://pf.kakao.com/_UxiZxjG" target="_blank" class="p-6 dark-glass-card text-yellow-400 rounded-lg hover:bg-slate-700/50 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <i class="fas fa-comment text-4xl"></i>
+                        <h3 class="mt-4 text-xl font-bold text-slate-100">카카오톡</h3>
+                        <p class="text-yellow-400 mt-1 text-sm">@김주환_과외</p>
+                    </a>
+                    <!-- Instagram Contact Card -->
+                    <a href="https://www.instagram.com/jhwan_kaist_udy/" target="_blank" class="p-6 dark-glass-card text-purple-400 rounded-lg hover:bg-slate-700/50 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        <i class="fab fa-instagram text-4xl"></i>
+                        <h3 class="mt-4 text-xl font-bold text-slate-100">인스타그램</h3>
+                        <p class="text-purple-400 mt-1 text-sm">@jhwan_kaist_udy</p>
+                    </a>
+                </div>
+            </div>
         </section>
         
         <section id="qna" class="aurora-bg py-20 px-8">
@@ -776,12 +822,13 @@
     </main>
 
     <footer class="bg-slate-900 text-white w-full text-center py-10 border-t border-slate-700">
-        <div class="flex items-center justify-center space-x-6 flex-wrap">
+        <!-- Modified layout for mobile to prevent overlap with floating button -->
+        <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 flex-wrap">
             <a href="tel:010-2124-7269" class="text-gray-300 hover:text-white transition-colors duration-200 my-1"><i class="fas fa-phone-alt mr-1"></i> 010-2124-7269</a>
             <a href="mailto:kimjuhuan1028@kaist.ac.kr" class="text-gray-300 hover:text-white transition-colors duration-200 my-1"><i class="fas fa-envelope mr-1"></i> kimjuhuan1028@kaist.ac.kr</a>
             <a href="https://blog.naver.com/j__hwa_n" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-200 my-1"><i class="fa-solid fa-blog mr-1"></i> j__hwa_n</a>
-            <!-- Instagram link updated with shorter text -->
-            <a href="https://www.instagram.com/kaist_udy/?utm_source=ig_web_button_share_sheet" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-200 my-1"><i class="fab fa-instagram mr-1"></i> kaist_udy</a>
+            <!-- Instagram link updated -->
+            <a href="https://www.instagram.com/jhwan_kaist_udy/" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-200 my-1"><i class="fab fa-instagram mr-1"></i> jhwan_kaist_udy</a>
         </div>
     </footer>
 
