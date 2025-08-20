@@ -164,7 +164,7 @@
             padding-right: 1.5rem;
         }
         .toggle-answer.open {
-            max-height: 500px;
+            max-height: 1000px; /* Increased max-height for longer content */
             padding-top: 1rem;
             padding-bottom: 1rem;
         }
@@ -200,6 +200,8 @@
             background: linear-gradient(90deg, #4F46E5, #A855F7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            /* Fallback for browsers that don't support all properties */
+            color: #A855F7;
         }
         .btn-primary {
             background: linear-gradient(90deg, #4F46E5, #A855F7);
@@ -228,7 +230,7 @@
         }
         /* Custom line-height for better readability */
         .h2-line-height-extra-loose {
-            line-height: 3; /* Increased line-height for more spacing within lines */
+            line-height: 1.8; 
         }
         /* New styling for the footer for better mobile responsiveness */
         .footer-link-group {
@@ -243,6 +245,131 @@
                 justify-content: center;
                 gap: 1.5rem;
             }
+        }
+        
+        /* NEW & UPDATED STYLES FOR INTERACTIVE SECTIONS */
+        .interactive-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+        .interactive-page {
+            width: 100%;
+            max-width: 900px;
+            padding: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            position: absolute;
+            visibility: hidden;
+        }
+        .interactive-page.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+            visibility: visible;
+        }
+        .gauge-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        .gauge-bg {
+            width: 100%;
+            height: 0;
+            padding-bottom: 50%; /* Aspect ratio for semi-circle */
+            background-color: #e5e7eb; /* Fallback */
+            background-image: conic-gradient(
+                from -90deg at 50% 100%,
+                #ef4444 0% 12.5%,      /* red */
+                #f87171 12.5% 25%,     /* light red */
+                #facc15 25% 37.5%,     /* yellow */
+                #a3e635 37.5% 62.5%,   /* lime */
+                #4ade80 62.5% 87.5%,   /* light green */
+                #22c55e 87.5% 100%     /* green */
+            );
+            border-radius: 200px 200px 0 0;
+            position: relative;
+            -webkit-mask-image: radial-gradient(circle at 50% 100%, transparent 65%, black 66%);
+            mask-image: radial-gradient(circle at 50% 100%, transparent 65%, black 66%);
+        }
+        .gauge-ticks {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+        }
+        .gauge-tick {
+            position: absolute;
+            bottom: 35%; /* Position inside the arc */
+            left: 50%;
+            width: 2px;
+            height: 10px;
+            background: rgba(15, 23, 42, 0.2);
+            transform-origin: bottom center;
+        }
+        .gauge-inner-bg {
+            position: absolute;
+            top: 10%; left: 10%; right: 10%; bottom: 10%;
+            background: #0f172a;
+            border-radius: 180px 180px 0 0;
+        }
+        .gauge-needle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            height: 45%;
+            background: #e2e8f0;
+            transform-origin: bottom center;
+            transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateX(-50%) rotate(80deg); 
+            border-radius: 2px;
+        }
+        .gauge-needle.animate {
+            transform: translateX(-50%) rotate(-80deg);
+        }
+        .gauge-center {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 5px solid #0f172a;
+        }
+        .info-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(51, 65, 85, 0.7);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .checklist-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .next-btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -283,14 +410,18 @@
         </div>
     </div>
 
+    <!-- REVERTED & MODIFIED HERO SECTION -->
     <section id="home" class="bg-kaist-hero h-screen w-full flex flex-col items-center justify-center p-4 text-white text-center">
-        <div class="bg-black/30 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-2xl max-w-4xl border border-white/10">
+        <div class="bg-black/40 backdrop-blur-md p-8 md:p-12 rounded-2xl shadow-2xl max-w-4xl border border-white/10">
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">
                 최상위권의 길,<br class="sm:hidden"> 성적으로 증명합니다
             </h1>
             <p class="mt-4 text-xl md:text-2xl font-bold text-blue-300 tracking-wider">김주환</p>
             <p class="mt-1 text-base md:text-lg text-gray-200">KAIST 전기및전자공학부 22학번</p>
-            <p class="mt-12 text-base md:text-lg text-gray-200 max-w-xl mx-auto">대전동신과학고 조기졸업, KAIST 조기입학 경험으로 증명하는 수학 실력 완성</p>
+            <p class="mt-12 text-base md:text-lg text-gray-200 max-w-2xl mx-auto">
+                학원에서 부족했던 <strong class="text-white">마지막 2%</strong>를 채워주는 소수 정예 <strong class="text-white">학원 보완 전문</strong> 과외.<br>
+                KAIST 선배가 직접 관리하는 <strong class="text-white">프리미엄 그룹 스터디</strong>로 합격의 격을 높입니다.
+            </p>
         </div>
         <a href="#introduction" class="absolute bottom-10 animate-bounce text-white/70 hover:text-white transition"><i class="fas fa-chevron-down text-4xl"></i></a>
     </section>
@@ -301,7 +432,6 @@
             <div class="max-w-7xl mx-auto glass-card-light rounded-2xl p-8 md:p-12">
                 <h2 class="text-3xl font-black text-blue-900 mb-12 text-center">강사소개</h2>
                 <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
-                    <!-- MODIFIED: Increased margin-bottom between text and images -->
                     <div class="flex flex-col items-center text-center">
                         <div class="mb-12">
                             <h3 class="text-3xl font-bold text-slate-800">김주환</h3>
@@ -424,84 +554,297 @@
         
         <div class="animated-gradient-divider bottom"></div>
 
-        <section id="curriculum" class="pt-10 pb-20 px-6 sm:px-8 bg-slate-900">
-            <div class="max-w-7xl mx-auto">
-                <div class="space-y-20">
-                    <div class="text-center">
-                        <h2 class="text-3xl md:text-4xl font-black text-white h2-line-height-extra-loose">
-                            노력해도 안 오른다면,<br>
-                            <span class="text-violet-400">공부 방법이 틀린 겁니다.</span>
-                        </h2>
-                        <p class="mt-6 text-base sm:text-lg text-gray-300 max-w-3xl mx-auto">성적이 안 오르는 건 노력 부족이 아니라, <br class="sm:hidden">'방법'이 틀렸기 때문입니다.<br>최상위권은 ‘다르게’ 공부합니다.</p>
-                    </div>
-                    <div class="mt-10">
-                        <div class="text-center mb-10">
-                            <h2 class="text-3xl md:text-4xl font-black text-white whitespace-nowrap h2-line-height-extra-loose">
-                                이제 2가지의 선택지 중 <br> 
-                                <span class="text-violet-400">하나를 골라야</span> 합니다!
-                            </h2>
+        <!-- NEW & EXPANDED INTERACTIVE CURRICULUM INTRODUCTION -->
+        <section id="curriculum" class="bg-slate-900 relative overflow-hidden">
+            <div id="interactive-container" class="interactive-section">
+                <!-- Page 1: The Problem -->
+                <div id="page1" class="interactive-page active">
+                    <h2 class="text-3xl md:text-5xl font-black text-white leading-tight">
+                        혹시 우리 아이가 학원에서<br>
+                        <span class="text-violet-400">‘잘하고 있다’고 착각</span>하고 계신가요?
+                    </h2>
+                    <div class="gauge-container" id="gauge">
+                        <div class="gauge-bg">
+                           <div class="gauge-ticks"></div>
+                           <div class="gauge-inner-bg"></div>
                         </div>
-                        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-                            <div class="dark-glass-card p-8 rounded-lg text-center shadow-lg">
-                                <div class="inline-block bg-slate-700 text-slate-200 font-bold px-3 py-1 rounded-full text-sm mb-4">선택 1. 현상유지</div>
-                                <h3 class="text-2xl font-bold text-white">지금 하던 방식 그대로</h3>
-                                <p class="mt-4 text-sm sm:text-base text-gray-300">지금까지와 같은 방법으로, 비슷한 결과를 얻으며 소중한 시간과 노력을 투입합니다.</p>
-                            </div>
-                            <div class="dark-glass-card border-2 border-violet-500 shadow-2xl text-center ring-4 ring-violet-500/20 p-8 rounded-lg">
-                                <div class="inline-block bg-violet-200 text-violet-700 font-bold px-3 py-1 rounded-full text-sm mb-4">선택 2. 변화시작</div>
-                                <h3 class="text-2xl font-bold text-white">검증된 전문가와 함께</h3>
-                                <p class="mt-4 text-sm sm:text-base text-gray-300">최상위권의 학습 전략으로 빠르고 확실하게 목표를 달성하고, 원하는 결과를 만듭니다.</p>
-                            </div>
-                        </div>
+                        <div class="gauge-needle"></div>
+                        <div class="gauge-center"></div>
                     </div>
+                    <div class="flex items-center justify-center gap-2 bg-slate-800/50 border border-slate-700 rounded-full px-4 py-2 max-w-xs mx-auto">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
+                        <p class="text-sm font-semibold text-slate-200">성적 정체, 시간과 돈만 낭비되고 있습니다.</p>
+                    </div>
+                    <p class="mt-8 text-lg text-slate-300 max-w-3xl mx-auto">
+                        학원만으로는 채울 수 없는 <strong class="text-white">마지막 2%의 디테일</strong>이<br class="sm:hidden"> 최상위권의 성패를 결정합니다.
+                    </p>
+                    <button data-next="page2" class="next-btn mt-10 bg-violet-600 text-white hover:bg-violet-500">
+                        무엇이 문제일까요? <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
                 </div>
 
-                <div class="pt-20 mt-20 border-t-2 border-slate-800">
-                    <h2 class="text-4xl font-black text-white mb-4 text-center">커리큘럼</h2>
-                    <p class="text-center text-gray-400 text-base mb-12">각 클래스별 상세 커리큘럼은<br class="sm:hidden"> '자세히 보기'를 통해 확인하세요.</p>
-                    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- CLASS 1 Card -->
-                        <div class="dark-glass-card p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-sky-500">
-                            <div class="bg-sky-500/10 rounded-full p-4 mb-4">
-                                <i class="fas fa-atom text-4xl text-sky-400"></i>
+                <!-- Page 2: The Why (Academies' limits) -->
+                <div id="page2" class="interactive-page">
+                    <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
+                        대형 학원 수업의<br><span class="gradient-text">치명적인 3가지 맹점</span>
+                    </h2>
+                    <p class="mt-4 text-lg text-slate-400">성실한 학생조차 성적이 오르지 않는 이유입니다.</p>
+                    <div class="mt-12 grid md:grid-cols-3 gap-6">
+                        <div class="info-card">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 flex-shrink-0 bg-slate-700 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-users-viewfinder text-2xl text-violet-400"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white">개인별 약점 방치</h3>
                             </div>
-                            <h3 class="text-2xl font-bold text-white">중3 영재고·과학고 대비반</h3>
-                            <p class="mt-2 text-slate-400 font-medium">(그룹)</p>
-                            <p class="mt-4 text-slate-300 flex-grow">영재고와 과학고 입시를 위한<br>심화 개념 및 문제 해결 전략</p>
-                            <a href="https://drive.google.com/file/d/1yBUb1tRhbxQZmiZC3SC063nl9vqNBy2x/view?usp=drive_link" class="mt-8 inline-flex items-center justify-center border-2 border-sky-500 text-sky-400 font-bold py-2 px-8 rounded-full hover:bg-sky-500 hover:text-slate-900 transition-colors duration-300">
-                                자세히 보기
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
-                            </a>
+                            <p class="mt-4 text-slate-400 text-sm">정해진 진도를 따라가는 집단 수업에선 학생 개인의 취약점을 찾아 해결하기 어렵습니다. 결국 아는 것만 반복하고, 모르는 것은 계속 모르게 됩니다.</p>
                         </div>
-                        <!-- CLASS 2 Card -->
-                        <div class="dark-glass-card p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-indigo-500">
-                            <div class="bg-indigo-500/10 rounded-full p-4 mb-4">
-                                <i class="fas fa-book-open text-4xl text-indigo-400"></i>
+                        <div class="info-card">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 flex-shrink-0 bg-slate-700 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-comment-slash text-2xl text-violet-400"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white">질문 없는 공부</h3>
                             </div>
-                            <h3 class="text-2xl font-bold text-white">대전동신과학고 내신 대비반</h3>
-                            <p class="mt-2 text-slate-400 font-medium">(1:1 or 그룹)</p>
-                            <p class="mt-4 text-slate-300 flex-grow">학교별 내신 경향 완벽 분석<br>최상위권 성적 달성을 위한 맞춤 수업</p>
-                            <a href="https://drive.google.com/file/d/1bGRWMQ7DzK8iECa60HcYQPTAOZsju6zC/view?usp=drive_link" class="mt-8 inline-flex items-center justify-center border-2 border-indigo-500 text-indigo-400 font-bold py-2 px-8 rounded-full hover:bg-indigo-500 hover:text-slate-900 transition-colors duration-300">
-                                자세히 보기
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
-                            </a>
+                            <p class="mt-4 text-slate-400 text-sm">수십 명 앞에서 질문하기란 쉽지 않습니다. ‘나만 모르는 걸까?’ 하는 불안감에 질문을 포기하고, 의문점은 해결되지 못한 채 그대로 쌓여갑니다.</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 flex-shrink-0 bg-slate-700 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-arrow-down-long text-2xl text-violet-400"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white">성적 정체기 고착</h3>
+                            </div>
+                            <p class="mt-4 text-slate-400 text-sm">상위권 도약의 문턱에서 성적이 오르지 않는 ‘정체기’는 잘못된 공부법의 신호입니다. 개인 맞춤 전략 없이는 이 벽을 넘기 힘듭니다.</p>
                         </div>
                     </div>
+                       <button data-next="page3" class="next-btn mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        해결책 확인하기 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
                 </div>
+
+                <!-- Page 3: The Solution -->
+                <div id="page3" class="interactive-page">
+                       <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
+                        정답은 <span class="gradient-text">‘학원 보완 전문’</span> 과외입니다
+                    </h2>
+                    <p class="mt-4 text-lg text-slate-400">학원의 장점은 살리고, 단점은 완벽하게 보완합니다.</p>
+                    <div class="mt-10 max-w-2xl mx-auto p-8 rounded-2xl checklist-card">
+                        <ul class="space-y-5 text-left">
+                            <li class="flex items-center gap-4">
+                                <i class="fa-solid fa-circle-check text-2xl text-violet-400"></i>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">1:1 약점 클리닉</h4>
+                                    <p class="text-slate-400 text-sm">학원에서 놓친 단 하나의 개념, 단 하나의 문제 유형까지 집요하게 파고들어 완벽하게 보완합니다.</p>
+                                </div>
+                            </li>
+                             <li class="flex items-center gap-4">
+                                <i class="fa-solid fa-circle-check text-2xl text-violet-400"></i>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">최상위권 선배의 밀착 코칭</h4>
+                                    <p class="text-slate-400 text-sm">KAIST 선배가 직접 전수하는 실전 개념, 문제 접근법, 시간 관리 노하우로 공부의 격을 높입니다.</p>
+                                </div>
+                            </li>
+                             <li class="flex items-center gap-4">
+                                <i class="fa-solid fa-circle-check text-2xl text-violet-400"></i>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">학원 진도 + α 시너지</h4>
+                                    <p class="text-slate-400 text-sm">학원 숙제와 진도를 존중하며, 그 이상의 심화 학습과 개인별 맞춤 전략으로 학습 효과를 극대화합니다.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                       <button data-next="page4" class="next-btn mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        핵심 가치 더 알아보기 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- Page 4: Headline (New) -->
+                <div id="page4" class="interactive-page">
+                    <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
+                        학원에서 채울 수 없는 <span class="gradient-text">마지막 2%</span><br>최상위권 선배의 밀착 관리로 완성됩니다.
+                    </h2>
+                    <p class="mt-8 text-lg text-slate-300 max-w-3xl mx-auto">
+                        혹시 우리 아이가 학원에서 잘 따라가고 있다고 생각하시나요?<br>
+                        하지만 <strong class="text-white">최상위권의 문턱</strong>에서 결과가 바뀌는 것은 <strong class="text-white">아주 작은 차이</strong>입니다.
+                    </p>
+                    <button data-next="page5" class="next-btn mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        필요한 진짜 이유 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- Page 5: The Real Reason (New) -->
+                <div id="page5" class="interactive-page">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="text-center">
+                            <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
+                                소수 정예 보강 과외가<br><span class="gradient-text">필요한 진짜 이유</span>
+                            </h2>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="info-card">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 flex-shrink-0 bg-slate-800 rounded-lg flex items-center justify-center">
+                                        <i class="fa-solid fa-users-slash text-2xl text-violet-400"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-white">집단 수업의 한계 보완</h3>
+                                </div>
+                                <p class="mt-3 text-slate-400 text-sm">학원 정규반은 개별 약점 보완이 어렵습니다. 소수 정예는 학생 한 명 한 명을 꼼꼼하게 지도할 수 있습니다.</p>
+                            </div>
+                            <div class="info-card">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 flex-shrink-0 bg-slate-800 rounded-lg flex items-center justify-center">
+                                        <i class="fa-solid fa-gem text-2xl text-violet-400"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-white">최상위권의 마지막 디테일</h3>
+                                </div>
+                                <p class="mt-3 text-slate-400 text-sm">상위권의 합격을 가르는 사소한 오류, 사고력 확장, 시험 전략 등 마지막 2%를 집중 보강합니다.</p>
+                            </div>
+                            <div class="info-card">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 flex-shrink-0 bg-slate-800 rounded-lg flex items-center justify-center">
+                                        <i class="fa-solid fa-chart-pie text-2xl text-violet-400"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-white">균형 잡힌 성장</h3>
+                                </div>
+                                <p class="mt-3 text-slate-400 text-sm">개별 약점을 놓치지 않으면서, 그룹 학습의 시너지로 건전한 학습 분위기를 만듭니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button data-next="page6" class="next-btn mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        어떤 장점이 있는가? <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- Page 6: The Advantages (New) -->
+                <div id="page6" class="interactive-page">
+                    <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
+                        어떤 <span class="gradient-text">장점</span>이 있는가?
+                    </h2>
+                    <div class="mt-12 grid md:grid-cols-3 gap-8">
+                        <div class="info-card items-center text-center">
+                            <div class="w-16 h-16 flex-shrink-0 bg-slate-800 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-users-gear text-3xl text-violet-400"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-white mt-4">개인 맞춤 + 그룹 시너지</h3>
+                            <p class="mt-2 text-slate-400 text-sm flex-grow">개별 맞춤 피드백과 그룹의 경쟁/협력 효과를 동시에 얻습니다.</p>
+                        </div>
+                         <div class="info-card items-center text-center">
+                            <div class="w-16 h-16 flex-shrink-0 bg-slate-800 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-lightbulb text-3xl text-violet-400"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-white mt-4">최상위권 노하우 전수</h3>
+                            <p class="mt-2 text-slate-400 text-sm flex-grow">단순 지식이 아닌, 공부 습관, 시험 전략 등 실전형 노하우를 배웁니다.</p>
+                        </div>
+                         <div class="info-card items-center text-center">
+                            <div class="w-16 h-16 flex-shrink-0 bg-slate-800 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-check-double text-3xl text-violet-400"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-white mt-4">진도 누락 없는 관리</h3>
+                            <p class="mt-2 text-slate-400 text-sm flex-grow">학습의 빈틈이 생기지 않도록 개별 상황을 놓치지 않고 관리합니다.</p>
+                        </div>
+                    </div>
+                    <div class="mt-12 pt-8 border-t border-slate-700">
+                        <h3 class="font-bold text-xl text-white">학부모 입장에서의 확실한 효과</h3>
+                        <p class="mt-3 text-slate-300 max-w-2xl mx-auto">단순히 “학원 수업만 듣는 것”과 달리, 우리 아이 개인을 챙긴다는 신뢰감으로 <strong class="text-violet-300">‘투자 대비 효과’</strong>를 더욱 확실하게 느낄 수 있습니다.</p>
+                    </div>
+                       <a href="#curriculum-details" class="next-btn mt-12 bg-violet-500 text-white hover:bg-violet-400">
+                        내 아이를 위한 커리큘럼 보기 <i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Original Curriculum Cards Section -->
+            <div id="curriculum-details" class="py-24 px-6 sm:px-8">
+                <h2 class="text-4xl font-black text-white mb-4 text-center">커리큘럼</h2>
+                <p class="text-center text-gray-400 text-base mb-12">각 클래스별 상세 커리큘럼은 '자세히 보기'를 통해 확인하세요.</p>
                 
-                <div class="pt-20 mt-20 border-t-2 border-slate-800">
-                    <div class="container mx-auto px-4">
-                        <header class="text-center mb-12">
-                            <h1 class="font-extrabold tracking-tight text-white leading-tight">
-                                <span class="gradient-text text-5xl sm:text-4xl md:text-6xl">자소서 & 면접<span class="hidden md:inline">,</span></span><br class="sm:hidden">
-                                <span class="inline-block mt-4 sm:mt-0 text-3xl sm:text-4xl md:text-6xl">검증된 합격 컨설팅</span>
-                            </h1>
-                                <p class="mt-8 text-lg md:text-xl text-slate-400">최종 합격을 결정짓는 단 하나의 컨설팅</p>
-                        </header>
-                        
-                        <!-- New Infographic Section -->
-                        <section class="mb-16 max-w-5xl mx-auto">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- CLASS 1 Card -->
+                    <div class="dark-glass-card p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-sky-500">
+                        <div class="bg-sky-500/10 rounded-full p-4 mb-4">
+                            <i class="fas fa-rocket text-4xl text-sky-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">중1-2 특목고 준비반</h3>
+                        <p class="mt-2 text-slate-400 font-medium">(소수 정예 그룹)</p>
+                        <div class="my-3"><span class="bg-sky-500/20 text-sky-300 text-xs font-bold px-3 py-1 rounded-full">영재고·과학고 대비</span></div>
+                        <p class="text-slate-300 flex-grow">최상위권으로 가는<br>가장 단단한 초석을 다지는 과정</p>
+                        <a href="https://drive.google.com/file/d/1kN3gi9QaIPuJDdsBa3yL6anizjyz4ubL/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-sky-500 text-sky-400 font-bold py-2 px-8 rounded-full hover:bg-sky-500 hover:text-slate-900 transition-colors duration-300">
+                            자세히 보기
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
+                        </a>
+                    </div>
+                    <!-- CLASS 2 Card (Blue - MODIFIED) -->
+                    <div class="dark-glass-card p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-blue-600">
+                        <div class="bg-blue-600/10 rounded-full p-4 mb-4">
+                            <i class="fas fa-bullseye text-4xl text-blue-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">중3 특목고 실전반</h3>
+                        <p class="mt-2 text-slate-400 font-medium">(소수 정예 그룹)</p>
+                        <div class="my-3"><span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full">영재고·과학고 대비</span></div>
+                        <p class="text-slate-300 flex-grow">오직 최종 합격만을 위한<br>시기별 맞춤 전략</p>
+                        <a href="https://drive.google.com/file/d/1KCAgIr0Et_fNuP7v3_vkfdlpqGRVKbqc/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-blue-600 text-blue-400 font-bold py-2 px-8 rounded-full hover:bg-blue-600 hover:text-slate-900 transition-colors duration-300">
+                            자세히 보기
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
+                        </a>
+                    </div>
+                    <!-- CLASS 3 Card (Navy/Indigo - MODIFIED) -->
+                    <div class="dark-glass-card p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-indigo-700">
+                        <div class="bg-indigo-700/10 rounded-full p-4 mb-4">
+                            <i class="fas fa-book-open text-4xl text-indigo-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">대전동신과학고 내신 대비반</h3>
+                        <p class="mt-2 text-slate-400 font-medium">(1:1 or 그룹)</p>
+                        <div class="my-3"><span class="bg-indigo-500/20 text-indigo-300 text-sm font-bold px-3 py-1 rounded-full">재학생 및 입학 예정생(합격자) 대상</span></div>
+                        <p class="text-slate-300 flex-grow">동신과학고 내신 경향 완벽 분석<br>최상위권 성적 달성을 위한 맞춤 수업</p>
+                        <a href="https://drive.google.com/file/d/1a02GDOJ8U6dyfARiYGwr_PrlRzkA9kYM/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-indigo-700 text-indigo-400 font-bold py-2 px-8 rounded-full hover:bg-indigo-700 hover:text-slate-900 transition-colors duration-300">
+                            자세히 보기
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RESTORED Materials Section -->
+            <div class="pt-20 mt-20 border-t-2 border-slate-800 px-6 sm:px-8">
+                <h3 class="text-3xl font-black text-white border-b-2 border-slate-700 pb-4 mb-8 text-center">자체 제작 교재</h3>
+                <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                    <div class="flex flex-col items-center group">
+                        <img src="https://static.wixstatic.com/media/d3bd7e_d039c888c49e41899e18608af3d29321~mv2.jpg/v1/fill/w_474,h_672,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%9E%90%EC%B2%B4%EA%B5%90%EC%9E%AC%201_edited.jpg" alt="자체 교재 개념서" class="h-80 w-auto rounded-lg shadow-lg object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/474x672/E2E8F0/4A5568?text=Image+Not+Found';">
+                        <p class="mt-5 text-2xl font-bold text-white">실전 개념서</p>
+                        <p class="mt-2 text-gray-300 px-4">흩어져 있는 모든 최신 개념들을 단 한 권으로 압축하여, 실전에 가장 빠르고 정확하게 적용하는 방법을 제시합니다.</p>
+                    </div>
+                    <div class="flex flex-col items-center group">
+                        <img src="https://static.wixstatic.com/media/d3bd7e_0aa3021999cf4ca7a9f1313e0ee76085~mv2.jpg/v1/fill/w_444,h_672,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%9E%90%EC%B2%B4%EA%B5%90%EC%9E%AC2_edited.jpg" alt="자체 교재 실전서" class="h-80 w-auto rounded-lg shadow-lg object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/444x672/E2E8F0/4A5568?text=Image+Not+Found';">
+                        <p class="mt-5 text-2xl font-bold text-white">실전 기출 모음집</p>
+                        <p class="mt-2 text-gray-300 px-4">최신 내신 및 모의고사 기출 경향을 완벽히 분석하여, 어떤 변형 문제에도 흔들리지 않는 압도적인 문제 해결 능력을 완성합니다.</p>
+                    </div>
+                    <div class="flex flex-col items-center group">
+                        <img src="https://static.wixstatic.com/media/d3bd7e_06ef271c115949408f07538e5b64d891~mv2.png/v1/fill/w_419,h_600,al_c,q_85,enc_avif,quality_auto/d3bd7e_06ef271c115949408f07538e5b64d891~mv2.png" alt="자체 교재 오답노트" class="h-80 w-auto rounded-lg shadow-lg object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/419x600/E2E8F0/4A5568?text=Image+Not+Found';">
+                        <p class="mt-5 text-2xl font-bold text-white">실전 오답노트</p>
+                        <p class="mt-2 text-gray-300 px-4">개인별 취약점을 집요하게 파고들어, 한 번 틀린 문제는 두 번 다시 틀리지 않도록 오답 체화 시스템을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW INTERACTIVE CONSULTING SECTION -->
+            <div id="consulting-interactive-container" class="interactive-section mt-16">
+                <!-- Consulting Page 1: Title -->
+                <div id="consulting-page1" class="interactive-page active">
+                    <!-- MODIFIED HEADING -->
+                    <h2 class="font-extrabold tracking-tight text-white leading-tight text-center">
+                        <span class="gradient-text text-5xl sm:text-4xl md:text-6xl">자소서 & 면접</span>
+                        <br>
+                        <span class="inline-block mt-4 text-3xl sm:text-4xl md:text-6xl">검증된 합격 컨설팅</span>
+                    </h2>
+                    <p class="mt-8 text-lg md:text-xl text-slate-400">최종 합격을 결정짓는 단 하나의 컨설팅</p>
+                    <button data-next-consulting="consulting-page2" class="next-btn next-btn-consulting mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        무엇이 다른가요? <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <!-- Consulting Page 2: Strengths -->
+                <div id="consulting-page2" class="interactive-page">
+                           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
                                 <div class="dark-glass-card p-6 rounded-xl">
                                     <i class="fas fa-university text-4xl text-purple-400 mb-3"></i>
                                     <h4 class="text-xl font-bold text-white">KAIST 재학생</h4>
@@ -523,76 +866,70 @@
                                     <p class="text-slate-300 mt-1 text-sm">개인/그룹 최적화 수업</p>
                                 </div>
                             </div>
-                        </section>
-
-                        <section class="mb-24 max-w-6xl mx-auto">
-                            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white">불확실한 특목 입시, 답은 <br class="sm:hidden"><span class="text-purple-400">걸어본 자</span>에게 있습니다</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="text-purple-300 font-bold">완벽 분석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="text-purple-300 font-bold">합격 스토리로 재해석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="text-purple-300 font-bold">합격 서사 설계</span></span></li></ul></div></div>
-                                <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="text-purple-300 font-bold">과학고 조기졸업 & KAIST</span> 입학 경험</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="text-purple-300 font-bold">살아있는 데이터</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="text-purple-300 font-bold">가장 확실한 합격 로드맵</span></span></span></li></ul></div></div>
-                                <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="text-purple-300 font-bold">합격 자소서 10+건</span> 직접 분석</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="text-purple-300 font-bold">'논리 구조 & 흐름'</span> 체득</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="text-purple-300 font-bold">'합격의 공식'</span> 전수</span></li></ul></div></div>
-                            </div>
-                            <p class="text-xl md:text-2xl text-center font-bold text-white mt-12 leading-loose">특목고 합격, <span class="text-purple-400 font-bold">3가지</span>로 결정됩니다.<br>이를 완벽히 충족할 수 있는 건<br class="md:hidden"> <span class="text-purple-400 font-bold">오직 저뿐</span>입니다.</p>
-                        </section>
-                        <section class="mb-20">
-                            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-white">컨설팅 프로그램 안내</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                                <div class="dark-glass-card rounded-2xl p-8 highlight-card">
-                                    <div class="flex items-center gap-4 mb-4"><i class="fa-solid fa-users text-3xl text-purple-400"></i><h3 class="text-2xl font-bold text-white">대면 그룹 특강</h3></div>
-                                    <p class="text-purple-300 font-semibold mb-6 text-sm sm:text-base">정규 수강생을 위한 All-in-One 솔루션</p>
-                                    <ul class="space-y-4 text-slate-300"><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">압도적인 시너지</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">즉각적인 피드백과 상시 코칭</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">실전과 같은 면접 훈련</strong></li></ul>
-                                </div>
-                                <div class="dark-glass-card rounded-2xl p-8">
-                                    <div class="flex items-center gap-4 mb-4"><i class="fa-solid fa-laptop text-3xl text-slate-400"></i><h3 class="text-2xl font-bold text-white">비대면 1:1 코칭</h3></div>
-                                    <p class="text-slate-400 font-semibold mb-6 text-sm sm:text-base">외부생을 위한 맞춤 코칭</p>
-                                    <ul class="space-y-4 text-slate-300"><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">1:1 맞춤형 심층 코칭</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">유연한 일정 관리</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">체계적인 온라인 학습 자료</strong></li></ul>
-                                </div>
-                            </div>
-                            <p class="text-center mt-8 text-slate-400 max-w-3xl mx-auto word-break-kor"><i class="fa-solid fa-circle-info mr-2"></i>정규 과외 수강생은 <strong class="text-purple-400">대면 그룹 특강</strong>에 우선적으로 참여하게 됩니다. <br><strong class="text-white">비대면 1:1 코칭</strong>은 정규 수업을 듣지 않는 학생들만을 위한 프로그램입니다.</p>
-                        </section>
-                        <section class="space-y-16">
-                            <div>
-                                <div class="text-center mb-8">
-                                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white">대면 그룹 특강 커리큘럼</h2>
-                                    <p class="text-slate-400 mt-2">합격의 시너지를 만드는 All-in-One 솔루션</p>
-                                    <a href="https://drive.google.com/file/d/1jYFcVYeEWjEI_bcAl8hwknpBSiYqmk4Y/view?usp=drive_link" class="btn-secondary mt-4 inline-block">자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="text-center mb-8">
-                                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white">비대면 1:1 코칭 커리큘럼</h2>
-                                    <p class="text-slate-400 mt-2">당신만을 위한 1:1 맞춤 전략</p>
-                                    <a href="https://drive.google.com/file/d/1WNw9GHb9a2bmKO2qYPfc2x8852wBjXP7/view?usp=drive_link" class="btn-secondary mt-4 inline-block">자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="text-center mt-20">
-                            <h2 class="text-3xl font-bold text-white">지금 바로, 합격의 여정을<br class="sm:hidden"> 시작하세요</h2>
-                            <p class="mt-4 text-lg text-slate-400 max-w-3xl mx-auto word-break-kor md:whitespace-nowrap">정규 수강생이라면 대면 특강의 혜택을, 외부 학생이라면 1:1 코칭을 통해 합격의 가능성을 높여보세요.</p>
-                            <div class="mt-8"><a href="#contact" class="btn-primary text-white font-bold text-xl py-4 px-8 rounded-full inline-block">컨설팅 문의하기 <i class="fa-solid fa-arrow-right ml-2"></i></a></div>
-                        </section>
-                    </div>
+                    <button data-next-consulting="consulting-page3" class="next-btn next-btn-consulting mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        합격의 기준 보기 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
                 </div>
-
-                <div class="pt-20 mt-20 border-t-2 border-slate-800">
-                    <h3 class="text-3xl font-black text-white border-b-2 border-slate-700 pb-4 mb-8 text-center">자체 제작 교재</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-                        <div class="flex flex-col items-center group">
-                            <img src="https://static.wixstatic.com/media/d3bd7e_d039c888c49e41899e18608af3d29321~mv2.jpg/v1/fill/w_474,h_672,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%9E%90%EC%B2%B4%EA%B5%90%EC%9E%AC%201_edited.jpg" alt="자체 교재 개념서" class="h-80 w-auto rounded-lg shadow-lg object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/474x672/E2E8F0/4A5568?text=Image+Not+Found';">
-                            <p class="mt-5 text-2xl font-bold text-white">실전 개념서</p>
-                            <p class="mt-2 text-gray-300 px-4">흩어져 있는 모든 최신 개념들을 단 한 권으로 압축하여, 실전에 가장 빠르고 정확하게 적용하는 방법을 제시합니다.</p>
+                <!-- Consulting Page 3: Criteria -->
+                <div id="consulting-page3" class="interactive-page">
+                    <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white">불확실한 특목 입시, 답은 <br class="sm:hidden"><span class="text-purple-400">걸어본 자</span>에게 있습니다</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="text-purple-300 font-bold">완벽 분석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="text-purple-300 font-bold">합격 스토리로 재해석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="text-purple-300 font-bold">합격 서사 설계</span></span></li></ul></div></div>
+                        <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="text-purple-300 font-bold">과학고 조기졸업 & KAIST</span> 입학 경험</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="text-purple-300 font-bold">살아있는 데이터</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="text-purple-300 font-bold">가장 확실한 합격 로드맵</span></span></span></li></ul></div></div>
+                        <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="text-purple-300 font-bold">합격 자소서 10+건</span> 직접 분석</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="text-purple-300 font-bold">'논리 구조 & 흐름'</span> 체득</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="text-purple-300 font-bold">'합격의 공식'</span> 전수</span></li></ul></div></div>
+                    </div>
+                    <p class="text-xl md:text-2xl text-center font-bold text-white mt-12 leading-loose">특목고 합격, <span class="text-purple-400 font-bold">3가지</span>로 결정됩니다.<br>이를 완벽히 충족할 수 있는 건<br class="md:hidden"> <span class="text-purple-400 font-bold">오직 저뿐</span>입니다.</p>
+                    <button data-next-consulting="consulting-page4" class="next-btn next-btn-consulting mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        프로그램 안내 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <!-- Consulting Page 4: Programs -->
+                <div id="consulting-page4" class="interactive-page">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-white">컨설팅 프로그램 안내</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <div class="dark-glass-card rounded-2xl p-8 highlight-card">
+                            <div class="flex items-center gap-4 mb-4"><i class="fa-solid fa-users text-3xl text-purple-400"></i><h3 class="text-2xl font-bold text-white">대면 그룹 특강</h3></div>
+                            <p class="text-purple-300 font-semibold mb-6 text-sm sm:text-base">정규 수강생을 위한 All-in-One 솔루션</p>
+                            <ul class="space-y-4 text-slate-300"><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">압도적인 시너지</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">즉각적인 피드백과 상시 코칭</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-purple-400 mt-1"></i><strong class="text-white">실전과 같은 면접 훈련</strong></li></ul>
                         </div>
-                        <div class="flex flex-col items-center group">
-                            <img src="https://static.wixstatic.com/media/d3bd7e_0aa3021999cf4ca7a9f1313e0ee76085~mv2.jpg/v1/fill/w_444,h_672,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%9E%90%EC%B2%B4%EA%B5%90%EC%9E%AC2_edited.jpg" alt="자체 교재 실전서" class="h-80 w-auto rounded-lg shadow-lg object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/444x672/E2E8F0/4A5568?text=Image+Not+Found';">
-                            <p class="mt-5 text-2xl font-bold text-white">실전 기출 모음집</p>
-                            <p class="mt-2 text-gray-300 px-4">최신 내신 및 모의고사 기출 경향을 완벽히 분석하여, 어떤 변형 문제에도 흔들리지 않는 압도적인 문제 해결 능력을 완성합니다.</p>
-                        </div>
-                        <div class="flex flex-col items-center group">
-                            <img src="https://static.wixstatic.com/media/d3bd7e_06ef271c115949408f07538e5b64d891~mv2.png/v1/fill/w_419,h_600,al_c,q_85,enc_avif,quality_auto/d3bd7e_06ef271c115949408f07538e5b64d891~mv2.png" alt="자체 교재 오답노트" class="h-80 w-auto rounded-lg shadow-lg object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/419x600/E2E8F0/4A5568?text=Image+Not+Found';">
-                            <p class="mt-5 text-2xl font-bold text-white">실전 오답노트</p>
-                            <p class="mt-2 text-gray-300 px-4">개인별 취약점을 집요하게 파고들어, 한 번 틀린 문제는 두 번 다시 틀리지 않도록 오답 체화 시스템을 제공합니다.</p>
+                        <div class="dark-glass-card rounded-2xl p-8">
+                            <div class="flex items-center gap-4 mb-4"><i class="fa-solid fa-laptop text-3xl text-slate-400"></i><h3 class="text-2xl font-bold text-white">비대면 1:1 코칭</h3></div>
+                            <p class="text-slate-400 font-semibold mb-6 text-sm sm:text-base">외부생을 위한 맞춤 코칭</p>
+                            <ul class="space-y-4 text-slate-300"><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">1:1 맞춤형 심층 코칭</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">유연한 일정 관리</strong></li><li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-indigo-400 mt-1"></i><strong class="text-white">체계적인 온라인 학습 자료</strong></li></ul>
                         </div>
                     </div>
+                    <p class="text-center mt-8 text-slate-400 max-w-3xl mx-auto word-break-kor"><i class="fa-solid fa-circle-info mr-2"></i>정규 과외 수강생은 <strong class="text-purple-400">대면 그룹 특강</strong>에 우선적으로 참여하게 됩니다. <br><strong class="text-white">비대면 1:1 코칭</strong>은 정규 수업을 듣지 않는 학생들만을 위한 프로그램입니다.</p>
+                    <button data-next-consulting="consulting-page5" class="next-btn next-btn-consulting mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        상세 커리큘럼 보기 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <!-- Consulting Page 5: Curriculum Links -->
+                <div id="consulting-page5" class="interactive-page">
+                    <div class="space-y-12">
+                        <div>
+                            <div class="text-center mb-8">
+                                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white">대면 그룹 특강 커리큘럼</h2>
+                                <p class="text-slate-400 mt-2">합격의 시너지를 만드는 All-in-One 솔루션</p>
+                                <a href="https://drive.google.com/file/d/1jYFcVYeEWjEI_bcAl8hwknpBSiYqmk4Y/view?usp=drive_link" class="btn-secondary mt-4 inline-block">자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-center mb-8">
+                                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white">비대면 1:1 코칭 커리큘럼</h2>
+                                <p class="text-slate-400 mt-2">당신만을 위한 1:1 맞춤 전략</p>
+                                <a href="https://drive.google.com/file/d/1WNw9GHb9a2bmKO2qYPfc2x8852wBjXP7/view?usp=drive_link" class="btn-secondary mt-4 inline-block">자세히 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                       <button data-next-consulting="consulting-page6" class="next-btn next-btn-consulting mt-12 bg-violet-600 text-white hover:bg-violet-500">
+                        문의하기 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <!-- Consulting Page 6: CTA -->
+                <div id="consulting-page6" class="interactive-page">
+                    <h2 class="text-3xl font-bold text-white">지금 바로, 합격의 여정을<br class="sm:hidden"> 시작하세요</h2>
+                    <p class="mt-4 text-lg text-slate-400 max-w-3xl mx-auto word-break-kor md:whitespace-nowrap">정규 수강생이라면 대면 특강의 혜택을, 외부 학생이라면 1:1 코칭을 통해 합격의 가능성을 높여보세요.</p>
+                    <div class="mt-8"><a href="#contact" class="btn-primary text-white font-bold text-xl py-4 px-8 rounded-full inline-block">컨설팅 문의하기 <i class="fa-solid fa-arrow-right ml-2"></i></a></div>
                 </div>
             </div>
         </section>
@@ -602,11 +939,9 @@
                 <h2 class="text-4xl font-black text-blue-900 mb-4 text-center">합격으로 가는 길, Insight</h2>
                 <p class="text-center text-slate-500 text-base mb-12 max-w-4xl mx-auto">단순한 지식 전달을 넘어, <strong class="text-slate-900 font-bold">합격한 선배</strong>만이 제공할 수 있는 <strong class="text-slate-900 font-bold">살아있는 정보와 전략</strong>으로<br class="hidden md:block"> 최상위권으로 가는 <strong class="text-slate-900 font-bold">가장 확실한 길</strong>을 제시합니다.</p>
                 <div class="space-y-12">
-                    <!-- CLASS 1 Insight -->
                     <div class="glass-card-light p-6 md:p-8 rounded-2xl ring-1 ring-sky-200/50 shadow-lg">
-                        <h3 class="text-xl md:text-2xl font-bold text-sky-800">CLASS 1 Insight</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-sky-800">특목고 입시 Insight</h3>
                         <p class="mt-2 text-base sm:text-lg md:text-xl font-semibold text-slate-800">합격의 문을 여는 '자소서'와 '문제풀이 전략'</p>
-                        <p class="mt-1 text-sm text-slate-500 font-medium">(영재고·과학고 대비)</p>
                         <p class="mt-4 text-sm md:text-base text-slate-700 leading-relaxed"><strong class="text-sky-700 font-bold">'합격 자소서들'</strong>의 성공 공식을 압축해, 학생의 경험과 잠재력을 증명하는 단 하나의 자소서를 완성합니다. 또한, 제가 직접 제시하는 문제 풀이 전략을 통해 답지와는 다른 <strong class="text-sky-700 font-bold">최상위권의 사고 과정</strong>을 익힐 수 있습니다.</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                             <a href="https://drive.google.com/file/d/1szmILdp7ORE7BDhD8yuclF3m4P7eRnd7/view?usp=drive_link" class="block bg-white/80 py-12 px-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 text-center border border-slate-200 flex flex-col justify-center items-center">
@@ -619,11 +954,9 @@
                             </a>
                         </div>
                     </div>
-                    <!-- CLASS 2 Insight -->
                     <div class="glass-card-light p-6 md:p-8 rounded-2xl ring-1 ring-indigo-200/50 shadow-lg">
-                            <h3 class="text-xl md:text-2xl font-bold text-indigo-800">CLASS 2 Insight</h3>
+                            <h3 class="text-xl md:text-2xl font-bold text-indigo-800">과학고 내신 Insight</h3>
                             <p class="mt-2 text-base sm:text-lg md:text-xl font-semibold text-slate-800">선배만이 아는 '내신'의 모든 것</p>
-                            <p class="mt-1 text-sm text-slate-500 font-medium">(대전동신과학고 내신 대비)</p>
                             <p class="mt-4 text-sm md:text-base text-slate-700 leading-relaxed">학원에서는 모르는 <strong class="text-indigo-700 font-bold">'진짜' 내신 정보</strong>가 성적을 결정합니다. <strong class="text-indigo-700 font-bold">전교 3등 선배</strong>가 실제 기출로 내신 출제 의도와 서술형 포인트를 분석해드립니다.</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                                 <a href="https://drive.google.com/file/d/1Et_o-1vd0ZypfOEqHY3T-0ppzHJu0GyK/view?usp=drive_link" class="block bg-white/80 py-12 px-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 text-center border border-slate-200 flex flex-col justify-center items-center">
@@ -757,7 +1090,7 @@
                                 단순히 답을 구하는 수업이 아니라, 왜 그렇게 풀어야 하는지, 왜 그런 접근이 필요한지 <strong class="text-violet-400">핵심 원리</strong>를 알려줍니다. 수학은 결국 <strong class="text-violet-400">‘생각의 기술’</strong>입니다. 문제를 진짜로 이해하는 힘을 길러야 처음 보는 문제에도 당황하지 않죠.<br><br>제 수업은 <strong class="text-violet-400">수학적 직관을 키우고, 스스로 생각하는 습관</strong>을 만드는 데 집중합니다.
                             </p>
                         </div>
-                
+                    
                         <!-- Philosophy Point 2 -->
                         <div>
                             <div class="flex flex-col items-start">
@@ -802,7 +1135,7 @@
                     <!-- Instagram Contact Card -->
                     <a href="https://www.instagram.com/jhwan_kaist_udy/" target="_blank" class="p-6 dark-glass-card text-purple-400 rounded-lg hover:bg-slate-700/50 hover:shadow-lg transition-all transform hover:-translate-y-1">
                         <i class="fab fa-instagram text-4xl"></i>
-                        <h3 class="mt-4 text-xl font-bold text-slate-100">인스타그램</h3>
+                        <h3 class="mt-4 text-xl font-bold text-white">인스타그램</h3>
                         <p class="text-purple-400 mt-1 text-sm">@jhwan_kaist_udy</p>
                     </a>
                 </div>
@@ -815,7 +1148,17 @@
                     <div class="max-w-4xl mx-auto space-y-4 mt-10">
                         <div class="glass-card-light rounded-lg"><button class="toggle-question w-full flex justify-between items-center text-left px-6 sm:px-8 py-6 gap-6"><span class="text-sm sm:text-base font-semibold text-slate-800">Q. 시범과외는 정말 무료인가요? 추가 비용은 없나요?</span><i class="fas fa-chevron-down toggle-icon text-blue-500 flex-shrink-0"></i></button><div class="toggle-answer px-6 sm:px-8"><p class="text-sm sm:text-base text-slate-700">네, <strong class="text-blue-600">100% 무료</strong>입니다. 학생의 현재 실력을 정확히 진단하고, 앞으로의 학습 방향에 대한 구체적인 로드맵을 제시해드리는 시간입니다. 수업을 받아보시고 결정하실 수 있도록 <strong class="text-blue-600">어떠한 비용도 청구하지 않으니</strong> 편하게 신청해주세요.</p></div></div>
                         <div class="glass-card-light rounded-lg"><button class="toggle-question w-full flex justify-between items-center text-left px-6 sm:px-8 py-6 gap-6"><span class="text-sm sm:text-base font-semibold text-slate-800">Q. 수업은 꼭 KAIST나 스터디 카페에서만 해야 하나요?</span><i class="fas fa-chevron-down toggle-icon text-blue-500 flex-shrink-0"></i></button><div class="toggle-answer px-6 sm:px-8"><p class="text-sm sm:text-base text-slate-700">최상의 면학 분위기를 위해 <strong class="text-blue-600">KAIST 스터디룸 또는 프리미엄 스터디 카페</strong>를 기본으로 하고 있습니다. 하지만 학생의 상황에 따라 <strong class="text-blue-600">방문 과외 등 다른 장소에 대한 협의도 가능</strong>하니, 편하게 문의해주시기 바랍니다.</p></div></div>
-                        <div class="glass-card-light rounded-lg"><button class="toggle-question w-full flex justify-between items-center text-left px-6 sm:px-8 py-6 gap-6"><span class="text-sm sm:text-base font-semibold text-slate-800">Q. 그룹과외는 어떻게 구성되나요?</span><i class="fas fa-chevron-down toggle-icon text-blue-500 flex-shrink-0"></i></button><div class="toggle-answer px-6 sm:px-8"><p class="text-sm sm:text-base text-slate-700">그룹과외는 학생들 간의 시너지를 극대화하기 위해 <strong class="text-blue-600">비슷한 실력과 목표를 가진 3~4명의 소수 인원</strong>으로 구성됩니다.<br><br>CLASS 1 – 중3 영재고·과학고 대비반은 <strong class="text-blue-600">무조건 그룹과외로 운영</strong>되며, 개별 신청 시 시범과외 결과를 바탕으로 유사한 실력과 목표를 가진 학생들과 그룹이 편성됩니다. 친구와 함께 신청하는 것도 가능합니다.<br><br>CLASS 2 – 대전동신과학고 내신 대비반은 <strong class="text-blue-600">1대1 과외 또는 그룹과외 중 선택이 가능</strong>하며, 그룹과외의 경우 친구과 함께 신청하는 방식이 일반적입니다. (그룹과외를 희망하지만 개별로 신청하는 경우, 유사한 수준과 일정이 맞는 학생이 있을 때 그룹이 편성될 수 있습니다.)</p></div></div>
+                        <div class="glass-card-light rounded-lg"><button class="toggle-question w-full flex justify-between items-center text-left px-6 sm:px-8 py-6 gap-6"><span class="text-sm sm:text-base font-semibold text-slate-800">Q. 그룹과외는 어떻게 구성되나요?</span><i class="fas fa-chevron-down toggle-icon text-blue-500 flex-shrink-0"></i></button><div class="toggle-answer px-6 sm:px-8 text-sm sm:text-base text-slate-700 space-y-4">
+                            <p>그룹과외는 학생들 간의 시너지를 극대화하기 위해 <strong class="text-blue-600">비슷한 실력과 목표를 가진 3~4명의 소수 인원</strong>으로 구성됩니다.</p>
+                            <div>
+                                <strong class="text-blue-700 block mb-1">■ 중1-2 특목고 준비반 & 중3 특목고 실전반</strong>
+                                <p>두 클래스 모두 <strong class="text-blue-600">그룹과외로만 운영</strong>됩니다. 개별 신청 시 시범과외 결과를 바탕으로 가장 적합한 그룹을 편성해드리며, 친구와 함께 신청하는 것도 가능합니다.</p>
+                            </div>
+                            <div>
+                                <strong class="text-blue-700 block mb-1">■ 대전동신과학고 내신 대비반</strong>
+                                <p><strong class="text-blue-600">1:1 과외 또는 그룹과외 중 선택</strong>할 수 있습니다. 그룹과외의 경우, 주로 친구와 함께 신청하는 방식으로 구성됩니다. (개별 신청 시, 유사한 수준과 일정이 맞는 학생이 있을 경우 그룹 편성이 가능합니다.)</p>
+                            </div>
+                        </div></div>
                         <div class="glass-card-light rounded-lg"><button class="toggle-question w-full flex justify-between items-center text-left px-6 sm:px-8 py-6 gap-6"><span class="text-sm sm:text-base font-semibold text-slate-800">Q. 수업료는 어떻게 되나요?</span><i class="fas fa-chevron-down toggle-icon text-blue-500 flex-shrink-0"></i></button><div class="toggle-answer px-6 sm:px-8"><p class="text-sm sm:text-base text-slate-700">수업료는 <strong class="text-blue-600">수업 형태(1:1 개인, 그룹)와 횟수, 학년에 따라 달라집니다.</strong> 시범과외 진행 후 학생에게 가장 적합한 커리큘럼을 설계해드리며, 이때 <strong class="text-blue-600">상세한 수업료를 안내</strong>해드리고 있습니다. 기타 궁금한 점은 아래 연락처로 문의주시면 친절하게 상담해드리겠습니다.</p></div></div>
                         <div class="glass-card-light rounded-lg"><button class="toggle-question w-full flex justify-between items-center text-left px-6 sm:px-8 py-6 gap-6"><span class="text-sm sm:text-base font-semibold text-slate-800">Q. 숙제나 학습 관리는 어떻게 이루어지나요?</span><i class="fas fa-chevron-down toggle-icon text-blue-500 flex-shrink-0"></i></button><div class="toggle-answer px-6 sm:px-8"><p class="text-sm sm:text-base text-slate-700">매 수업 후에는 그날 배운 내용을 완벽히 체화할 수 있도록 <strong class="text-blue-600">개인별 맞춤 숙제</strong>가 제공됩니다. 다음 수업 시간에는 숙제에 대한 꼼꼼한 피드백이 이루어지며, <strong class="text-blue-600">'클레임 시스템'과 '오답 리마스터'</strong>를 통해 학생이 완벽히 이해할 때까지 틀린 문제를 파고들어 관리합니다. </p></div></div>
                         <div class="glass-card-light rounded-lg"><button class="toggle-question w-full flex justify-between items-center text-left px-6 sm:px-8 py-6 gap-6"><span class="text-sm sm:text-base font-semibold text-slate-800">Q. 자체 제작 교재인 실전 개념서, 실전 기출 모음집, 실전 오답노트는 어떻게 활용되나요?</span><i class="fas fa-chevron-down toggle-icon text-blue-500 flex-shrink-0"></i></button><div class="toggle-answer px-6 sm:px-8"><p class="text-sm sm:text-base text-slate-700">학원 수업을 병행하는 학생의 경우, 과외에서는 <strong class="text-blue-600">‘실전 오답노트’를 중심으로 취약 개념과 사고 과정을 점검하는 맞춤형 보완 학습</strong>에 집중합니다. <strong class="text-blue-600">‘실전 개념서’와 ‘기출 모음집’은 필요한 경우에만 보조적으로 활용</strong>하며, 과도한 학습량보다는 학원에서 배운 내용을 깊이 이해하고 체화하는 데 초점을 둡니다. <strong class="text-blue-600">학습의 양보다 질을 중시하는 수업</strong>입니다.</p></div></div>
@@ -845,43 +1188,81 @@
         <span>무료 시범과외 신청</span>
     </button>
     
+    <!-- UPDATED TRIAL MODAL -->
     <div id="modal-trial-unified" class="modal-backdrop hidden fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center p-4 z-[100] opacity-0">
         <div id="modal-trial-content" class="modal-content bg-slate-800/80 border border-slate-700 text-slate-200 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col transform scale-95">
             <div class="p-6 border-b border-slate-700 relative"><button id="modal-trial-back-button" class="hidden absolute top-1/2 -translate-y-1/2 left-6 text-slate-400 hover:text-white text-2xl transition-colors"><i class="fas fa-arrow-left"></i></button><h3 id="modal-trial-title" class="text-base sm:text-xl font-bold text-slate-100 text-center">시범과외 신청</h3><button class="modal-close-button absolute top-1/2 -translate-y-1/2 right-6 text-slate-400 hover:text-white text-2xl transition-colors">×</button></div>
-            <div class="p-6 overflow-y-auto flex-grow"><div id="class-selection-view"><p class="text-center text-lg font-semibold text-slate-200 mb-6">어떤 수업의 시범과외를 신청하시겠어요?</p><div class="space-y-4"><button data-class="1" class="class-select-button w-full text-left p-4 bg-slate-700/50 rounded-lg shadow-sm border-2 border-transparent hover:border-sky-400 hover:shadow-md transition-all"><h4 class="text-md font-bold text-sky-400">CLASS 1: 중3 영재고·과학고 대비반</h4><p class="text-xs text-slate-400 mt-1">특목고 입시를 준비하는 중3 학생</p></button><button data-class="2" class="class-select-button w-full text-left p-4 bg-slate-700/50 rounded-lg shadow-sm border-2 border-transparent hover:border-indigo-400 hover:shadow-md transition-all"><h4 class="text-md font-bold text-indigo-400">CLASS 2: 대전동신과학고 내신 대비반</h4><p class="text-xs text-slate-400 mt-1">대전동신과학고 재학생</p></button></div></div><div id="form-container" class="hidden"><p class="text-center text-xs sm:text-sm font-semibold text-slate-400 mb-6">작성 후, 하단의 버튼을 눌러 문자 메시지(<strong id="trial-phone-number" class="text-blue-400">010-2124-7269</strong>)로 전송해주시면 정성껏 검토 후 빠르게 연락드리겠습니다.</p>
-                <form id="trial-form-class1" class="hidden space-y-4 trial-form">
-                    <div><label for="c1-student-name" class="block text-sm font-medium text-slate-300">학생 이름을 알려주세요.</label><input type="text" name="학생 이름" id="c1-student-name" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c1-phone-number" class="block text-sm font-medium text-slate-300">연락받으실 전화번호를 알려주세요.</label><input type="tel" name="연락처" id="c1-phone-number" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c1-school" class="block text-sm font-medium text-slate-300">현재 재학 중인 학교를 알려주세요.</label><input type="text" name="현재 학교" id="c1-school" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c1-grades" class="block text-sm font-medium text-slate-300">현재 수학 실력을 알려주세요. (중3 과정 기준, 자유롭게 서술)</label><textarea name="현재 수학 실력" id="c1-grades" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-hagwon" class="block text-sm font-medium text-slate-300">현재 학원에 다니고 계신가요? 다니고 계시다면 과목과 스케줄(예: 수학 주 2회)을 기재해주세요.</label><textarea name="학원 수강 여부" id="c1-hagwon" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-curriculum" class="block text-sm font-medium text-slate-300">현재 공부(혹은 선행)하는 수학 교과과정이나 교재가 있나요?</label><input type="text" name="현재 교과과정/교재" id="c1-curriculum" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c1-study-method" class="block text-sm font-medium text-slate-300">평소 어떤 방식으로 수학 공부를 해왔고, 어려움을 느낀 부분에 대해 알려주세요. (간략히)</label><textarea name="공부 방식 및 어려움" id="c1-study-method" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-weak-points" class="block text-sm font-medium text-slate-300">특히 어려워하는 단원이 있나요?</label><textarea name="어려워하는 단원" id="c1-weak-points" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-availability" class="block text-sm font-medium text-slate-300">편하신 시범과외 및 추후 과외 시간대를 알려주세요.</label><textarea name="가능 시간대" id="c1-availability" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-group-info" class="block text-sm font-medium text-slate-300">과외 수업을 함께할 친구들의 이름과 전화번호를 기재해주세요.</label><textarea name="그룹 희망 정보" id="c1-group-info" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-goals" class="block text-sm font-medium text-slate-300">과외를 통해 이루고 싶은 목표는 무엇인가요? (자유롭게 기재해주세요)</label><textarea name="목표" id="c1-goals" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-etc" class="block text-sm font-medium text-slate-300">그 외 궁금한 점이 있다면 알려주세요.</label><textarea name="기타 문의사항" id="c1-etc" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c1-referral" class="block text-sm font-medium text-slate-300">(설문) 어떤 경로로 알게 되셨나요?</label><input type="text" name="유입 경로" id="c1-referral" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                </form>
-                <form id="trial-form-class2" class="hidden space-y-4 trial-form">
-                    <div><label for="c2-student-name" class="block text-sm font-medium text-slate-300">학생 이름을 알려주세요.</label><input type="text" name="학생 이름" id="c2-student-name" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c2-phone-number" class="block text-sm font-medium text-slate-300">연락받으실 전화번호를 알려주세요.</label><input type="tel" name="연락처" id="c2-phone-number" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-500"></div>
-                    <div><label for="c2-grade" class="block text-sm font-medium text-slate-300">현재 학년을 알려주세요.</label><input type="text" name="학년" id="c2-grade" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c2-grades" class="block text-sm font-medium text-slate-300">학기별 수학 내신 등급(전교 몇 등인지 적어주시면 더욱 좋습니다) 및 최근 모의고사 등급/원점수를 알려주세요.</label><textarea name="현재 성적" id="c2-grades" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-hagwon" class="block text-sm font-medium text-slate-300">현재 학원에 다니고 계신가요? 다니고 계시다면 과목과 스케줄(예: 수학 주 2회)을 기재해주세요.</label><textarea name="학원 수강 여부" id="c2-hagwon" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-curriculum" class="block text-sm font-medium text-slate-300">현재 공부(혹은 선행)하는 수학 교과과정이나 교재가 있나요?</label><input type="text" name="현재 교과과정/교재" id="c2-curriculum" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c2-study-method" class="block text-sm font-medium text-slate-300">평소 어떤 방식으로 수학 공부를 해왔고, 어려움을 느낀 부분에 대해 알려주세요. (간략히)</label><textarea name="공부 방식 및 어려움" id="c2-study-method" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-weak-points" class="block text-sm font-medium text-slate-300">특히 어려워하는 단원이 있나요?</label><textarea name="어려워하는 단원" id="c2-weak-points" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-availability" class="block text-sm font-medium text-slate-300">편하신 시범과외 및 추후 과외 시간대를 알려주세요.</label><textarea name="가능 시간대" id="c2-availability" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-lesson-type" class="block text-sm font-medium text-slate-300">희망하는 수업 형태가 있나요? (개인/그룹)</label><input type="text" name="수업 형태" id="c2-lesson-type" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                    <div><label for="c2-group-info" class="block text-sm font-medium text-slate-300">그룹과외 희망 시, 함께할 친구들의 이름과 전화번호를 기재해주세요.</label><textarea name="그룹 희망 정보" id="c2-group-info" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-goals" class="block text-sm font-medium text-slate-300">과외를 통해 이루고 싶은 목표는 무엇인가요? (대학/학과, 원하는 등수 등 자유롭게 기재해주세요)</label><textarea name="목표" id="c2-goals" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-etc" class="block text-sm font-medium text-slate-300">그 외 궁금한 점이 있다면 알려주세요.</label><textarea name="기타 문의사항" id="c2-etc" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
-                    <div><label for="c2-referral" class="block text-sm font-medium text-slate-300">(설문) 어떤 경로으로 알게 되셨나요?</label><input type="text" name="유입 경로" id="c2-referral" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
-                </form>
-            </div></div>
-            <div id="modal-trial-footer" class="p-4 bg-slate-800 border-t border-slate-700 hidden"><button id="copy-trial-form-button" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"><i class="fa-solid fa-copy mr-2"></i> 복사 및 문자로 보내기</button></div>
+            <div class="p-6 overflow-y-auto flex-grow">
+                <div id="class-selection-view">
+                    <p class="text-center text-lg font-semibold text-slate-200 mb-6">어떤 수업의 시범과외를 신청하시겠어요?</p>
+                    <div class="space-y-4">
+                        <button data-class="1" class="class-select-button w-full text-left p-4 bg-slate-700/50 rounded-lg shadow-sm border-2 border-transparent hover:border-sky-500 hover:shadow-md transition-all">
+                            <h4 class="text-md font-bold text-sky-400">중1-2 특목고 준비반</h4>
+                            <p class="text-xs text-slate-400 mt-1">최상위권으로 가는 가장 단단한 초석을 다지는 과정</p>
+                        </button>
+                        <button data-class="2" class="class-select-button w-full text-left p-4 bg-slate-700/50 rounded-lg shadow-sm border-2 border-transparent hover:border-blue-600 hover:shadow-md transition-all">
+                            <h4 class="text-md font-bold text-blue-400">중3 특목고 실전반</h4>
+                            <p class="text-xs text-slate-400 mt-1">오직 최종 합격만을 위한 시기별 맞춤 전략</p>
+                        </button>
+                         <button data-class="4" class="class-select-button w-full text-left p-4 bg-slate-700/50 rounded-lg shadow-sm border-2 border-transparent hover:border-indigo-700 hover:shadow-md transition-all">
+                            <h4 class="text-md font-bold text-indigo-400">대전동신과학고 내신 대비반</h4>
+                            <p class="text-xs text-slate-400 mt-1">재학생 및 입학 예정생(합격자) 대상, 최상위권 내신 확보</p>
+                        </button>
+                    </div>
+                </div>
+                <div id="form-container" class="hidden">
+                    <p class="text-center text-xs sm:text-sm font-semibold text-slate-400 mb-6">작성 후, 하단의 버튼을 눌러 문자 메시지(<strong id="trial-phone-number" class="font-bold">010-2124-7269</strong>)로 전송해주시면 정성껏 검토 후 빠르게 연락드리겠습니다.</p>
+                    <!-- Form for Class 1 & 2 (Combined) -->
+                    <form id="trial-form-class1" class="hidden space-y-4 trial-form">
+                        <div><label for="c1-student-name" class="block text-sm font-medium text-slate-300">학생 이름을 알려주세요.</label><input type="text" name="학생 이름" id="c1-student-name" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
+                        <div><label for="c1-phone-number" class="block text-sm font-medium text-slate-300">연락받으실 전화번호를 알려주세요.</label><input type="tel" name="연락처" id="c1-phone-number" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
+                        <div><label for="c1-school" class="block text-sm font-medium text-slate-300">현재 재학 중인 학교와 학년을 알려주세요.</label><input type="text" name="현재 학교/학년" id="c1-school" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
+                        <div><label for="c1-grades" class="block text-sm font-medium text-slate-300">현재 수학 실력을 알려주세요. (최근 성적, 선행 정도 등 자유롭게 서술)</label><textarea name="현재 수학 실력" id="c1-grades" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
+                        <div><label for="c1-hagwon" class="block text-sm font-medium text-slate-300">현재 학원에 다니고 계신가요? 다니고 계시다면 과목과 스케줄(예: 수학 주 2회)을 기재해주세요.</label><textarea name="학원 수강 여부" id="c1-hagwon" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
+                        <div><label for="c1-study-method" class="block text-sm font-medium text-slate-300">평소 어떤 방식으로 수학 공부를 해왔고, 어려움을 느낀 부분에 대해 알려주세요. (간략히)</label><textarea name="공부 방식 및 어려움" id="c1-study-method" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
+                        <div><label for="c1-goals" class="block text-sm font-medium text-slate-300">과외를 통해 이루고 싶은 목표는 무엇인가요? (자유롭게 기재해주세요)</label><textarea name="목표" id="c1-goals" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
+                        <div><label for="c1-availability" class="block text-sm font-medium text-slate-300">편하신 시범과외 및 추후 과외 시간대를 알려주세요.</label><textarea name="가능 시간대" id="c1-availability" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
+                        <div><label for="c1-etc" class="block text-sm font-medium text-slate-300">그 외 궁금한 점이 있다면 알려주세요.</label><textarea name="기타 문의사항" id="c1-etc" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
+                        <div><label for="c1-referral" class="block text-sm font-medium text-slate-300">(설문) 어떤 경로로 알게 되셨나요?</label><input type="text" name="유입 경로" id="c1-referral" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
+                    </form>
+                    <!-- Form for Class 4 (Dongshin Naesin) -->
+                    <form id="trial-form-class4" class="hidden space-y-4 trial-form">
+                        <div><label for="c4-student-name" class="block text-sm font-medium text-slate-300">학생 이름을 알려주세요.</label><input type="text" name="학생 이름" id="c4-student-name" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></div>
+                        <div><label for="c4-phone-number" class="block text-sm font-medium text-slate-300">연락받으실 전화번호를 알려주세요.</label><input type="tel" name="연락처" id="c4-phone-number" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></div>
+                        <div><label for="c4-grade" class="block text-sm font-medium text-slate-300">현재 학년을 알려주세요. (예: 1학년 / 입학 예정)</label><input type="text" name="학년" id="c4-grade" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></div>
+                        
+                        <!-- UPDATED QUESTION FOR CLASS 4 -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300">해당하는 구분을 선택해주세요.</label>
+                            <div class="mt-2 flex gap-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="student-type" value="current" class="form-radio h-4 w-4 text-indigo-500 bg-slate-700 border-slate-600 focus:ring-indigo-600" checked>
+                                    <span class="ml-2 text-sm text-slate-300">재학생</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="student-type" value="prospective" class="form-radio h-4 w-4 text-indigo-500 bg-slate-700 border-slate-600 focus:ring-indigo-600">
+                                    <span class="ml-2 text-sm text-slate-300">입학 예정생</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="c4-current-student-question">
+                            <label for="c4-grades" class="block text-sm font-medium text-slate-300">재학생) 학기별 수학 내신 등급(전교 몇 등인지 적어주시면 더욱 좋습니다) 및 최근 모의고사 등급/원점수를 알려주세요.</label>
+                            <textarea name="현재 성적 (재학생)" id="c4-grades" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea>
+                        </div>
+                        <div id="c4-prospective-student-question" class="hidden">
+                            <label for="c4-prospective-grades" class="block text-sm font-medium text-slate-300">입학 예정생) 현재 수학 실력을 알려주세요. (최근 성적, 선행 정도 등 자유롭게 서술)</label>
+                            <textarea name="현재 수학 실력 (입학 예정생)" id="c4-prospective-grades" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea>
+                        </div>
+
+                        <div><label for="c4-hagwon" class="block text-sm font-medium text-slate-300">현재 학원에 다니고 계신가요? 다니고 계시다면 과목과 스케줄(예: 수학 주 2회)을 기재해주세요.</label><textarea name="학원 수강 여부" id="c4-hagwon" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
+                        <div><label for="c4-goals" class="block text-sm font-medium text-slate-300">과외를 통해 이루고 싶은 목표는 무엇인가요? (원하는 등수, 취약점 보완 등 자유롭게 기재해주세요)</label><textarea name="목표" id="c4-goals" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
+                        <div><label for="c4-availability" class="block text-sm font-medium text-slate-300">편하신 시범과외 및 추후 과외 시간대를 알려주세요.</label><textarea name="가능 시간대" id="c4-availability" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
+                        <div><label for="c4-etc" class="block text-sm font-medium text-slate-300">그 외 궁금한 점이 있다면 알려주세요.</label><textarea name="기타 문의사항" id="c4-etc" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
+                        <div><label for="c4-referral" class="block text-sm font-medium text-slate-300">(설문) 어떤 경로으로 알게 되셨나요?</label><input type="text" name="유입 경로" id="c4-referral" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></div>
+                    </form>
+                </div>
+            </div>
+            <div id="modal-trial-footer" class="p-4 bg-slate-800 border-t border-slate-700 hidden"><button id="copy-trial-form-button" class="w-full text-white font-bold py-3 px-4 rounded-lg transition-colors"><i class="fa-solid fa-copy mr-2"></i> 복사 및 문자로 보내기</button></div>
         </div>
     </div>
 
@@ -935,7 +1316,7 @@
                 modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); });
             });
             document.querySelectorAll('.modal-open-button').forEach(button => {
-                                button.addEventListener('click', () => openModal(document.getElementById(button.dataset.modalTarget)));
+                button.addEventListener('click', () => openModal(document.getElementById(button.dataset.modalTarget)));
             });
             
             // --- Trial Application Modal Logic ---
@@ -946,8 +1327,17 @@
             const formContainer = document.getElementById('form-container');
             const copyButton = document.getElementById('copy-trial-form-button');
             const modalFooter = document.getElementById('modal-trial-footer');
-            const trialClassTitles = { "1": "CLASS 1: 중3 영재고·과학고 대비반", "2": "CLASS 2: 대전동신과학고 내신 대비반" };
-            const floatingButton = document.getElementById('floating-trial-button');
+            const phoneEl = document.getElementById('trial-phone-number');
+            const trialClassTitles = { 
+                "1": "중1-2 특목고 준비반", 
+                "2": "중3 특목고 실전반",
+                "4": "대전동신과학고 내신 대비반"
+            };
+            const classColors = {
+                '1': { text: 'text-sky-400', bg: 'bg-sky-600', hover: 'hover:bg-sky-700' },
+                '2': { text: 'text-blue-400', bg: 'bg-blue-600', hover: 'hover:bg-blue-700' },
+                '4': { text: 'text-indigo-400', bg: 'bg-indigo-600', hover: 'hover:bg-indigo-700' }
+            };
             
             const resetTrialModal = () => {
                 classSelectionView?.classList.remove('hidden');
@@ -960,7 +1350,7 @@
 
             const openTrialModal = () => openModal(trialModal);
             document.getElementById('trial-banner-button')?.addEventListener('click', openTrialModal);
-            floatingButton?.addEventListener('click', openTrialModal);
+            document.getElementById('floating-trial-button')?.addEventListener('click', openTrialModal);
 
             if (trialModal) {
                 trialModal.querySelector('.modal-close-button')?.addEventListener('click', () => {
@@ -973,30 +1363,68 @@
             document.querySelectorAll('.class-select-button').forEach(button => {
                 button.addEventListener('click', () => {
                     const classNumber = button.dataset.class;
-                    const selectedForm = document.getElementById(`trial-form-class${classNumber}`);
+                    let formId = (classNumber === '1' || classNumber === '2') ? 'trial-form-class1' : `trial-form-class${classNumber}`;
+                    const selectedForm = document.getElementById(formId);
+                    const selectedColor = classColors[classNumber] || classColors['2'];
+
+                    // Update colors
+                    phoneEl.className = 'font-bold';
+                    Object.values(classColors).forEach(color => {
+                        phoneEl.classList.remove(color.text);
+                        copyButton.classList.remove(color.bg, color.hover);
+                    });
+                    phoneEl.classList.add(selectedColor.text);
+                    copyButton.classList.add(selectedColor.bg, selectedColor.hover);
+
+                    // Show form
                     classSelectionView?.classList.add('hidden');
                     formContainer?.classList.remove('hidden');
                     modalFooter?.classList.remove('hidden');
                     backButton?.classList.remove('hidden');
                     document.querySelectorAll('.trial-form').forEach(form => form.classList.add('hidden'));
                     selectedForm?.classList.remove('hidden');
-                    if(trialModalTitle) trialModalTitle.textContent = trialClassTitles[classNumber];
+                    if(trialModalTitle) trialModalTitle.textContent = trialClassTitles[classNumber] + " 신청";
                 });
             });
+            
+            // Logic for Class 4 form radio buttons
+            const studentTypeRadios = document.querySelectorAll('input[name="student-type"]');
+            const currentStudentQuestion = document.getElementById('c4-current-student-question');
+            const prospectiveStudentQuestion = document.getElementById('c4-prospective-student-question');
+            studentTypeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'current') {
+                        currentStudentQuestion.classList.remove('hidden');
+                        prospectiveStudentQuestion.classList.add('hidden');
+                    } else {
+                        currentStudentQuestion.classList.add('hidden');
+                        prospectiveStudentQuestion.classList.remove('hidden');
+                    }
+                });
+            });
+
 
             if (copyButton) {
                 copyButton.addEventListener('click', () => {
                     const visibleForm = document.querySelector('.trial-form:not(.hidden)');
                     if (!visibleForm) return;
 
-                    const classNumber = visibleForm.id.replace('trial-form-class', '');
-                    const className = trialClassTitles[classNumber];
+                    const titleText = trialModalTitle.textContent.replace(' 신청', '');
                     const elements = visibleForm.elements;
-                    let contentToCopy = `[${className} 시범과외 신청서]\n\n`;
+                    let contentToCopy = `[${titleText} 시범과외 신청서]\n\n`;
 
                     for (let i = 0; i < elements.length; i++) {
                         const item = elements[i];
                         if (item.type !== 'button' && item.name && item.value.trim()) {
+                            // Skip radio buttons themselves, but use their selection to decide which textarea to include
+                            if (item.type === 'radio' && !item.checked) {
+                                continue;
+                            }
+                            if (item.type === 'radio' && item.checked) {
+                                // Don't add the radio button value itself, just use it for logic
+                                continue;
+                            }
+                            
                             const label = visibleForm.querySelector(`label[for="${item.id}"]`);
                             const labelText = label ? label.textContent.split('\n')[0].trim() : item.name;
                             contentToCopy += `■ ${labelText}\n- ${item.value.trim()}\n\n`;
@@ -1055,6 +1483,7 @@
             setTimeout(showNotification, 3000);
 
             // --- Floating Button Scroll Logic ---
+            const floatingButton = document.getElementById('floating-trial-button');
             window.addEventListener('scroll', () => {
                 if (floatingButton) {
                     if (window.scrollY > 300) {
@@ -1076,6 +1505,80 @@
             dividers.forEach(divider => {
                 observer.observe(divider);
             });
+
+            // --- Interactive Curriculum Intro Logic ---
+            const interactiveContainer = document.getElementById('interactive-container');
+            const gaugeNeedle = document.querySelector('.gauge-needle');
+
+            const pageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                       setTimeout(() => gaugeNeedle?.classList.add('animate'), 500);
+                    } else {
+                       gaugeNeedle?.classList.remove('animate');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if(interactiveContainer) {
+                pageObserver.observe(interactiveContainer);
+            }
+
+            document.querySelectorAll('.next-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentPage = button.closest('.interactive-page');
+                    const nextPageId = button.dataset.next;
+
+                    if (nextPageId) {
+                        const nextPage = document.getElementById(nextPageId);
+                        currentPage.classList.remove('active');
+                        nextPage.classList.add('active');
+                        interactiveContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        const targetId = button.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+            
+            // --- Interactive Consulting Section Logic ---
+            const consultingContainer = document.getElementById('consulting-interactive-container');
+            document.querySelectorAll('.next-btn-consulting').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentPage = button.closest('.interactive-page');
+                    const nextPageId = button.dataset.nextConsulting;
+                    
+                    if (nextPageId) {
+                        const nextPage = document.getElementById(nextPageId);
+                        currentPage.classList.remove('active');
+                        nextPage.classList.add('active');
+                        consultingContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+
+            // --- Gauge Ticks Generator ---
+            const ticksContainer = document.querySelector('.gauge-ticks');
+            if (ticksContainer) {
+                const tickCount = 40;
+                const angleStep = 180 / tickCount;
+                for (let i = 0; i <= tickCount; i++) {
+                    const angle = -90 + (i * angleStep);
+                    const tick = document.createElement('div');
+                    tick.className = 'gauge-tick';
+                    tick.style.transform = `translateX(-50%) rotate(${angle}deg) translateY(-190%)`;
+                    if (i % 5 === 0) { // Make every 5th tick longer
+                         tick.style.height = '15px';
+                         tick.style.width = '3px';
+                    }
+                    ticksContainer.appendChild(tick);
+                }
+            }
         });
 
         window.addEventListener('load', () => setTimeout(() => window.scrollTo(0, 0), 100));
