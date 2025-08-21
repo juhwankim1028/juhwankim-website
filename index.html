@@ -575,8 +575,11 @@
                         <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
                         <p class="text-sm font-semibold text-slate-200">성적 정체, 시간과 돈만 낭비되고 있습니다.</p>
                     </div>
+                    <!-- MODIFICATION 1: Added mobile-specific line breaks -->
                     <p class="mt-8 text-lg text-slate-300 max-w-3xl mx-auto">
-                        학원만으로는 채울 수 없는 <strong class="text-white">마지막 2%의 디테일</strong>이<br class="sm:hidden"> 최상위권의 성패를 결정합니다.
+                        학원만으로는 채울 수 없는<br class="sm:hidden">
+                        <strong class="text-white">마지막 2%의 디테일</strong>이<br class="sm:hidden">
+                        최상위권의 성패를 결정합니다.
                     </p>
                     <button data-next="page2" class="next-btn mt-10 bg-violet-600 text-white hover:bg-violet-500">
                         무엇이 문제일까요? <i class="fas fa-arrow-right ml-2"></i>
@@ -588,7 +591,8 @@
                     <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
                         대형 학원 수업의<br><span class="gradient-text">치명적인 3가지 맹점</span>
                     </h2>
-                    <p class="mt-4 text-lg text-slate-400">성실한 학생조차 성적이 오르지 않는 이유입니다.</p>
+                    <!-- MODIFICATION 2: Added mobile-specific line break -->
+                    <p class="mt-4 text-lg text-slate-400">성실한 학생조차 성적이 오르지 않는<br class="sm:hidden"> 이유입니다.</p>
                     <div class="mt-12 grid md:grid-cols-3 gap-6">
                         <div class="info-card">
                             <div class="flex items-center gap-4">
@@ -625,10 +629,11 @@
 
                 <!-- Page 3: The Solution -->
                 <div id="page3" class="interactive-page">
+                       <!-- MODIFICATION 3: Added mobile-specific line breaks -->
                        <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
-                        정답은 <span class="gradient-text">‘학원 보완 전문’</span> 과외입니다
+                        정답은 <span class="gradient-text">‘학원 보완 전문’</span><br class="sm:hidden"> 과외입니다
                     </h2>
-                    <p class="mt-4 text-lg text-slate-400">학원의 장점은 살리고, 단점은 완벽하게 보완합니다.</p>
+                    <p class="mt-4 text-lg text-slate-400">학원의 장점은 살리고, 단점은 완벽하게<br class="sm:hidden"> 보완합니다.</p>
                     <div class="mt-10 max-w-2xl mx-auto p-8 rounded-2xl checklist-card">
                         <ul class="space-y-5 text-left">
                             <li class="flex items-center gap-4">
@@ -661,12 +666,20 @@
 
                 <!-- Page 4: Headline (New) -->
                 <div id="page4" class="interactive-page">
+                    <!-- MODIFICATION 1: Updated mobile headline and spacing -->
                     <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
-                        학원에서 채울 수 없는 <span class="gradient-text">마지막 2%</span><br>최상위권 선배의 밀착 관리로 완성됩니다.
+                        <span class="md:hidden text-4xl leading-tight">
+                            학원에서 놓치는<br>
+                            <span class="gradient-text inline-block mb-2">마지막 2%</span><br>
+                            최상위권 선배의<br>
+                            <span class="gradient-text">밀착관리</span>로 완성
+                        </span>
+                        <span class="hidden md:inline">학원에서 채울 수 없는 <span class="gradient-text">마지막 2%</span><br>최상위권 선배의 밀착 관리로 완성됩니다.</span>
                     </h2>
                     <p class="mt-8 text-lg text-slate-300 max-w-3xl mx-auto">
-                        혹시 우리 아이가 학원에서 잘 따라가고 있다고 생각하시나요?<br>
-                        하지만 <strong class="text-white">최상위권의 문턱</strong>에서 결과가 바뀌는 것은 <strong class="text-white">아주 작은 차이</strong>입니다.
+                        <span class="md:hidden">최상위권의 결과는<br> <strong class="text-white">아주 작은 차이</strong>에서 결정됩니다.</span>
+                        <span class="hidden md:inline">혹시 우리 아이가 학원에서 잘 따라가고 있다고 생각하시나요?<br>
+                        하지만 <strong class="text-white">최상위권의 문턱</strong>에서 결과가 바뀌는 것은 <strong class="text-white">아주 작은 차이</strong>입니다.</span>
                     </p>
                     <button data-next="page5" class="next-btn mt-12 bg-violet-600 text-white hover:bg-violet-500">
                         필요한 진짜 이유 <i class="fas fa-arrow-right ml-2"></i>
@@ -769,7 +782,7 @@
                         <p class="mt-2 text-slate-400 font-medium">(소수 정예 그룹)</p>
                         <div class="my-3"><span class="bg-sky-500/20 text-sky-300 text-xs font-bold px-3 py-1 rounded-full">영재고·과학고 대비</span></div>
                         <p class="text-slate-300 flex-grow">최상위권으로 가는<br>가장 단단한 초석을 다지는 과정</p>
-                        <a href="https://google.com" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-sky-500 text-sky-400 font-bold py-2 px-8 rounded-full hover:bg-sky-500 hover:text-slate-900 transition-colors duration-300">
+                        <a href="https://drive.google.com/file/d/1kN3gi9QaIPuJDdsBa3yL6anizjyz4ubL/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-sky-500 text-sky-400 font-bold py-2 px-8 rounded-full hover:bg-sky-500 hover:text-slate-900 transition-colors duration-300">
                             자세히 보기
                             <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
                         </a>
@@ -783,7 +796,7 @@
                         <p class="mt-2 text-slate-400 font-medium">(소수 정예 그룹)</p>
                         <div class="my-3"><span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full">영재고·과학고 대비</span></div>
                         <p class="text-slate-300 flex-grow">오직 최종 합격만을 위한<br>시기별 맞춤 전략</p>
-                        <a href="https://google.com" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-blue-600 text-blue-400 font-bold py-2 px-8 rounded-full hover:bg-blue-600 hover:text-slate-900 transition-colors duration-300">
+                        <a href="https://drive.google.com/file/d/1KCAgIr0Et_fNuP7v3_vkfdlpqGRVKbqc/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-blue-600 text-blue-400 font-bold py-2 px-8 rounded-full hover:bg-blue-600 hover:text-slate-900 transition-colors duration-300">
                             자세히 보기
                             <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
                         </a>
@@ -797,7 +810,7 @@
                         <p class="mt-2 text-slate-400 font-medium">(1:1 or 그룹)</p>
                         <div class="my-3"><span class="bg-indigo-500/20 text-indigo-300 text-sm font-bold px-3 py-1 rounded-full">재학생 및 입학 예정생(합격자) 대상</span></div>
                         <p class="text-slate-300 flex-grow">동신과학고 내신 경향 완벽 분석<br>최상위권 성적 달성을 위한 맞춤 수업</p>
-                        <a href="https://google.com" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-indigo-700 text-indigo-400 font-bold py-2 px-8 rounded-full hover:bg-indigo-700 hover:text-slate-900 transition-colors duration-300">
+                        <a href="https://drive.google.com/file/d/1a02GDOJ8U6dyfARiYGwr_PrlRzkA9kYM/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-indigo-700 text-indigo-400 font-bold py-2 px-8 rounded-full hover:bg-indigo-700 hover:text-slate-900 transition-colors duration-300">
                             자세히 보기
                             <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
                         </a>
@@ -873,10 +886,11 @@
                 <!-- Consulting Page 3: Criteria -->
                 <div id="consulting-page3" class="interactive-page">
                     <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white">불확실한 특목 입시, 답은 <br class="sm:hidden"><span class="text-purple-400">걸어본 자</span>에게 있습니다</h2>
+                    <!-- MODIFICATION 2: Removed whitespace-nowrap for mobile -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="text-purple-300 font-bold">완벽 분석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">학생 기록을 <span class="text-purple-300 font-bold">합격 스토리로 재해석</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="text-purple-300 font-bold">합격 서사 설계</span></span></li></ul></div></div>
-                        <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor"><span class="text-purple-300 font-bold">과학고 조기졸업 & KAIST</span> 입학 경험</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="text-purple-300 font-bold">살아있는 데이터</span></span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">빅데이터를 통한 <span class="text-purple-300 font-bold">가장 확실한 합격 로드맵</span></span></span></li></ul></div></div>
-                        <div class="dark-glass-card p-6 rounded-xl"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="text-purple-300 font-bold">합격 자소서 10+건</span> 직접 분석</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">합격하는 글의 <span class="text-purple-300 font-bold">'논리 구조 & 흐름'</span> 체득</span></li><li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="text-purple-300 font-bold">'합격의 공식'</span> 전수</span></li></ul></div></div>
+                        <div class="dark-glass-card p-6 rounded-xl text-left"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 1) 학교별 '특화' 전략</h3><ul class="space-y-2 text-slate-300"><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">학교별 최신 인재상 & 면접 스타일 <span class="text-purple-300 font-bold">완벽 분석</span></span></li><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">학생 기록을 <span class="text-purple-300 font-bold">합격 스토리로 재해석</span></span></li><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">입학사정관을 사로잡는 <span class="text-purple-300 font-bold">합격 서사 설계</span></span></li></ul></div></div>
+                        <div class="dark-glass-card p-6 rounded-xl text-left"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 2) 압도적인 '전문 지식'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor"><span class="text-purple-300 font-bold">과학고 조기졸업 & KAIST</span> 입학 경험</span></li><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">실제 합격/불합격 기반의 <span class="text-purple-300 font-bold">살아있는 데이터</span></span></li><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">빅데이터를 통한 <span class="text-purple-300 font-bold">가장 확실한 합격 로드맵</span></span></span></li></ul></div></div>
+                        <div class="dark-glass-card p-6 rounded-xl text-left"><div class="flex-1"><h3 class="text-xl font-bold text-white mb-3">기준 3) 합격 자소서 '다수 보유'</h3><ul class="space-y-2 text-slate-300"><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">영재고·과학고·자사고 <span class="text-purple-300 font-bold">합격 자소서 10+건</span> 직접 분석</span></li><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">합격하는 글의 <span class="text-purple-300 font-bold">'논리 구조 & 흐름'</span> 체득</span></li><li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i><span class="word-break-kor">막연한 글쓰기가 아닌 <span class="text-purple-300 font-bold">'합격의 공식'</span> 전수</span></li></ul></div></div>
                     </div>
                     <p class="text-xl md:text-2xl text-center font-bold text-white mt-12 leading-loose">특목고 합격, <span class="text-purple-400 font-bold">3가지</span>로 결정됩니다.<br>이를 완벽히 충족할 수 있는 건<br class="md:hidden"> <span class="text-purple-400 font-bold">오직 저뿐</span>입니다.</p>
                     <button data-next-consulting="consulting-page4" class="next-btn next-btn-consulting mt-12 bg-violet-600 text-white hover:bg-violet-500">
@@ -1585,3 +1599,4 @@
     </script>
 </body>
 </html>
+" of the docume
