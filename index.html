@@ -372,6 +372,322 @@
             cursor: pointer;
         }
     </style>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+
+            // --- Navigation Logic ---
+            const nav = document.getElementById('navbar');
+            if (nav) { window.addEventListener('scroll', () => nav.classList.toggle('nav-scrolled', window.scrollY > 50)); }
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) { mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden')); }
+            document.querySelectorAll('.mobile-nav-link').forEach(link => link.addEventListener('click', () => mobileMenu && mobileMenu.classList.add('hidden')));
+
+            const dropdownContainer = document.getElementById('more-dropdown-container');
+            const dropdownButton = document.getElementById('more-dropdown-button');
+            const dropdownMenu = document.getElementById('more-dropdown-menu');
+            if (dropdownButton && dropdownMenu && dropdownContainer) {
+                dropdownButton.addEventListener('click', e => { e.stopPropagation(); dropdownMenu.classList.toggle('hidden'); });
+                dropdownMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => dropdownMenu.classList.add('hidden')));
+                window.addEventListener('click', e => { if (!dropdownContainer.contains(e.target)) dropdownMenu.classList.add('hidden'); });
+            }
+            
+            // --- Modal Logic ---
+            const allModals = document.querySelectorAll('.modal-backdrop');
+            const openModal = modal => {
+                if (!modal) return;
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    const modalContent = modal.querySelector('.modal-content');
+                    if (modalContent) modalContent.classList.remove('scale-95');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            };
+            const closeModal = modal => {
+                if (!modal) return;
+                modal.classList.add('opacity-0');
+                const modalContent = modal.querySelector('.modal-content');
+                if (modalContent) modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    if (!document.querySelector('.modal-backdrop:not(.hidden)')) { document.body.style.overflow = ''; }
+                }, 300);
+            };
+            allModals.forEach(modal => {
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+                modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); });
+            });
+            document.querySelectorAll('.modal-open-button').forEach(button => {
+                button.addEventListener('click', () => openModal(document.getElementById(button.dataset.modalTarget)));
+            });
+            
+            // --- Trial Application Modal Logic ---
+            const trialModal = document.getElementById('modal-trial-unified');
+            const trialModalTitle = document.getElementById('modal-trial-title');
+            const backButton = document.getElementById('modal-trial-back-button');
+            const classSelectionView = document.getElementById('class-selection-view');
+            const formContainer = document.getElementById('form-container');
+            const copyButton = document.getElementById('copy-trial-form-button');
+            const modalFooter = document.getElementById('modal-trial-footer');
+            const phoneEl = document.getElementById('trial-phone-number');
+            const trialClassTitles = { 
+                "1": "중1-2 특목고 준비반", 
+                "2": "중3 특목고 실전반",
+                "4": "대전동신과학고 내신 대비반"
+            };
+            const classColors = {
+                '1': { text: 'text-sky-400', bg: 'bg-sky-600', hover: 'hover:bg-sky-700' },
+                '2': { text: 'text-blue-400', bg: 'bg-blue-600', hover: 'hover:bg-blue-700' },
+                '4': { text: 'text-indigo-400', bg: 'bg-indigo-600', hover: 'hover:bg-indigo-700' }
+            };
+            
+            const resetTrialModal = () => {
+                classSelectionView?.classList.remove('hidden');
+                formContainer?.classList.add('hidden');
+                modalFooter?.classList.add('hidden');
+                backButton?.classList.add('hidden');
+                document.querySelectorAll('.trial-form').forEach(form => form.classList.add('hidden'));
+                if (trialModalTitle) trialModalTitle.textContent = '시범과외 신청';
+            };
+
+            const openTrialModal = () => openModal(trialModal);
+            document.getElementById('trial-banner-button')?.addEventListener('click', openTrialModal);
+            document.getElementById('floating-trial-button')?.addEventListener('click', openTrialModal);
+
+            if (trialModal) {
+                trialModal.querySelector('.modal-close-button')?.addEventListener('click', () => {
+                    closeModal(trialModal);
+                    setTimeout(resetTrialModal, 300);
+                });
+            }
+            backButton?.addEventListener('click', resetTrialModal);
+            
+            document.querySelectorAll('.class-select-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const classNumber = button.dataset.class;
+                    let formId = (classNumber === '1' || classNumber === '2') ? 'trial-form-class1' : `trial-form-class${classNumber}`;
+                    const selectedForm = document.getElementById(formId);
+                    const selectedColor = classColors[classNumber] || classColors['2'];
+
+                    // Update colors
+                    phoneEl.className = 'font-bold';
+                    Object.values(classColors).forEach(color => {
+                        phoneEl.classList.remove(color.text);
+                        copyButton.classList.remove(color.bg, color.hover);
+                    });
+                    phoneEl.classList.add(selectedColor.text);
+                    copyButton.classList.add(selectedColor.bg, selectedColor.hover);
+
+                    // Show form
+                    classSelectionView?.classList.add('hidden');
+                    formContainer?.classList.remove('hidden');
+                    modalFooter?.classList.remove('hidden');
+                    backButton?.classList.remove('hidden');
+                    document.querySelectorAll('.trial-form').forEach(form => form.classList.add('hidden'));
+                    selectedForm?.classList.remove('hidden');
+                    if(trialModalTitle) trialModalTitle.textContent = trialClassTitles[classNumber] + " 신청";
+                });
+            });
+            
+            // Logic for Class 4 form radio buttons
+            const studentTypeRadios = document.querySelectorAll('input[name="student-type"]');
+            const currentStudentQuestion = document.getElementById('c4-current-student-question');
+            const prospectiveStudentQuestion = document.getElementById('c4-prospective-student-question');
+            studentTypeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'current') {
+                        currentStudentQuestion.classList.remove('hidden');
+                        prospectiveStudentQuestion.classList.add('hidden');
+                    } else {
+                        currentStudentQuestion.classList.add('hidden');
+                        prospectiveStudentQuestion.classList.remove('hidden');
+                    }
+                });
+            });
+
+
+            if (copyButton) {
+                copyButton.addEventListener('click', () => {
+                    const visibleForm = document.querySelector('.trial-form:not(.hidden)');
+                    if (!visibleForm) return;
+
+                    const titleText = trialModalTitle.textContent.replace(' 신청', '');
+                    const elements = visibleForm.elements;
+                    let contentToCopy = `[${titleText} 시범과외 신청서]\n\n`;
+
+                    for (let i = 0; i < elements.length; i++) {
+                        const item = elements[i];
+                        if (item.type !== 'button' && item.name && item.value.trim()) {
+                            // Skip radio buttons themselves, but use their selection to decide which textarea to include
+                            if (item.type === 'radio' && !item.checked) {
+                                continue;
+                            }
+                            if (item.type === 'radio' && item.checked) {
+                                // Don't add the radio button value itself, just use it for logic
+                                continue;
+                            }
+                            
+                            const label = visibleForm.querySelector(`label[for="${item.id}"]`);
+                            const labelText = label ? label.textContent.split('\n')[0].trim() : item.name;
+                            contentToCopy += `■ ${labelText}\n- ${item.value.trim()}\n\n`;
+                        }
+                    }
+                    
+                    const textArea = document.createElement("textarea");
+                    textArea.value = contentToCopy.trim();
+                    textArea.style.position = "fixed"; textArea.style.top = "-9999px";
+                    document.body.appendChild(textArea);
+                    textArea.focus(); textArea.select();
+                    
+                    try {
+                        document.execCommand('copy');
+                        const phoneNumber = '010-2124-7269';
+                        const encodedBody = encodeURIComponent(contentToCopy.trim());
+                        window.location.href = `sms:${phoneNumber}?body=${encodedBody}`;
+                    } catch (err) {
+                        console.error('Copy failed', err);
+                    } finally {
+                        document.body.removeChild(textArea);
+                    }
+                });
+            }
+
+            document.querySelectorAll('.toggle-question').forEach(button => {
+                button.addEventListener('click', () => {
+                    const answer = button.nextElementSibling;
+                    if (!answer || !answer.classList.contains('toggle-answer')) return;
+
+                    document.querySelectorAll('.toggle-answer.open').forEach(openAnswer => {
+                        if (openAnswer !== answer) {
+                            openAnswer.classList.remove('open');
+                            openAnswer.previousElementSibling.classList.remove('open');
+                        }
+                    });
+
+                    button.classList.toggle('open');
+                    answer.classList.toggle('open');
+                });
+            });
+
+
+            // --- Visitor Notification ---
+            const notification = document.getElementById('visitor-notification');
+            const notificationText = document.getElementById('notification-text');
+            const names = ['김O진', '박O우', '이O연', '최O원', '정O윤', '강O민'];
+            const actions = ['사이트를 방문했습니다.', '시범과외를 신청했습니다.'];
+            function showNotification() {
+                if(!notification || !notificationText) return;
+                notificationText.textContent = `${names[Math.floor(Math.random() * names.length)]} 학생이 ${actions[Math.floor(Math.random() * actions.length)]}`;
+                notification.classList.add('show');
+                setTimeout(() => notification.classList.remove('show'), 5000);
+            }
+            setInterval(showNotification, Math.random() * (15000 - 8000) + 8000);
+            setTimeout(showNotification, 3000);
+
+            // --- Floating Button Scroll Logic ---
+            const floatingButton = document.getElementById('floating-trial-button');
+            window.addEventListener('scroll', () => {
+                if (floatingButton) {
+                    if (window.scrollY > 300) {
+                        floatingButton.classList.remove('opacity-0');
+                    } else {
+                        floatingButton.classList.add('opacity-0');
+                    }
+                }
+            }, { passive: true });
+
+            // --- Intersection Observer for Gradient Animation ---
+            const dividers = document.querySelectorAll('.animated-gradient-divider');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle('in-view', entry.isIntersecting);
+                });
+            }, { threshold: 0.01 });
+
+            dividers.forEach(divider => {
+                observer.observe(divider);
+            });
+
+            // --- Interactive Curriculum Intro Logic ---
+            const interactiveContainer = document.getElementById('interactive-container');
+            const gaugeNeedle = document.querySelector('.gauge-needle');
+
+            const pageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                       setTimeout(() => gaugeNeedle?.classList.add('animate'), 500);
+                    } else {
+                       gaugeNeedle?.classList.remove('animate');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if(interactiveContainer) {
+                pageObserver.observe(interactiveContainer);
+            }
+
+            document.querySelectorAll('.next-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentPage = button.closest('.interactive-page');
+                    const nextPageId = button.dataset.next;
+
+                    if (nextPageId) {
+                        const nextPage = document.getElementById(nextPageId);
+                        currentPage.classList.remove('active');
+                        nextPage.classList.add('active');
+                        interactiveContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        const targetId = button.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+            
+            // --- Interactive Consulting Section Logic ---
+            const consultingContainer = document.getElementById('consulting-interactive-container');
+            document.querySelectorAll('.next-btn-consulting').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentPage = button.closest('.interactive-page');
+                    const nextPageId = button.dataset.nextConsulting;
+                    
+                    if (nextPageId) {
+                        const nextPage = document.getElementById(nextPageId);
+                        currentPage.classList.remove('active');
+                        nextPage.classList.add('active');
+                        consultingContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+
+            // --- Gauge Ticks Generator ---
+            const ticksContainer = document.querySelector('.gauge-ticks');
+            if (ticksContainer) {
+                const tickCount = 40;
+                const angleStep = 180 / tickCount;
+                for (let i = 0; i <= tickCount; i++) {
+                    const angle = -90 + (i * angleStep);
+                    const tick = document.createElement('div');
+                    tick.className = 'gauge-tick';
+                    tick.style.transform = `translateX(-50%) rotate(${angle}deg) translateY(-190%)`;
+                    if (i % 5 === 0) { // Make every 5th tick longer
+                         tick.style.height = '15px';
+                         tick.style.width = '3px';
+                    }
+                    ticksContainer.appendChild(tick);
+                }
+            }
+        });
+
+        window.addEventListener('load', () => setTimeout(() => window.scrollTo(0, 0), 100));
+    </script>
 </head>
 <body class="antialiased">
 
@@ -418,9 +734,10 @@
             </h1>
             <p class="mt-4 text-xl md:text-2xl font-bold text-blue-300 tracking-wider">김주환</p>
             <p class="mt-1 text-base md:text-lg text-gray-200">KAIST 전기및전자공학부 22학번</p>
-            <p class="mt-12 text-base md:text-lg text-gray-200 max-w-2xl mx-auto">
-                학원에서 부족했던 <strong class="text-white">마지막 2%</strong>를 채워주는 소수 정예 <strong class="text-white">학원 보완 전문</strong> 과외.<br>
-                KAIST 선배가 직접 관리하는 <strong class="text-white">프리미엄 그룹 스터디</strong>로 합격의 격을 높입니다.
+            <!-- MODIFIED HERO TEXT -->
+            <p class="mt-12 text-base md:text-lg text-gray-200 max-w-3xl mx-auto">
+                학원만으론 부족한 <strong class="text-white">마지막 2%</strong>를 채워주는<br class="sm:hidden"> <strong class="text-white">소수 정예 학원 보완 전문 과외.</strong><br>
+                <strong class="text-white">KAIST 선배</strong>만의 <strong class="text-white">프리미엄 프로그램</strong>으로<br class="sm:hidden"> 실력의 차이를 만듭니다.
             </p>
         </div>
         <a href="#introduction" class="absolute bottom-10 animate-bounce text-white/70 hover:text-white transition"><i class="fas fa-chevron-down text-4xl"></i></a>
@@ -670,12 +987,13 @@
                     <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
                         <span class="md:hidden text-4xl leading-tight">
                             학원에서 놓치는<br>
-                            <span class="gradient-text inline-block mb-2">마지막 2%</span><br>
+                            <span class="gradient-text inline-block mb-6">마지막 2%</span><br>
                             최상위권 선배의<br>
                             <span class="gradient-text">밀착관리</span>로 완성
                         </span>
                         <span class="hidden md:inline">학원에서 채울 수 없는 <span class="gradient-text">마지막 2%</span><br>최상위권 선배의 밀착 관리로 완성됩니다.</span>
                     </h2>
+                     <!-- MODIFICATION 2: Updated mobile text -->
                     <p class="mt-8 text-lg text-slate-300 max-w-3xl mx-auto">
                         <span class="md:hidden">최상위권의 결과는<br> <strong class="text-white">아주 작은 차이</strong>에서 결정됩니다.</span>
                         <span class="hidden md:inline">혹시 우리 아이가 학원에서 잘 따라가고 있다고 생각하시나요?<br>
@@ -782,7 +1100,7 @@
                         <p class="mt-2 text-slate-400 font-medium">(소수 정예 그룹)</p>
                         <div class="my-3"><span class="bg-sky-500/20 text-sky-300 text-xs font-bold px-3 py-1 rounded-full">영재고·과학고 대비</span></div>
                         <p class="text-slate-300 flex-grow">최상위권으로 가는<br>가장 단단한 초석을 다지는 과정</p>
-                        <a href="https://drive.google.com/file/d/1kN3gi9QaIPuJDdsBa3yL6anizjyz4ubL/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-sky-500 text-sky-400 font-bold py-2 px-8 rounded-full hover:bg-sky-500 hover:text-slate-900 transition-colors duration-300">
+                        <a href="https://google.com" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-sky-500 text-sky-400 font-bold py-2 px-8 rounded-full hover:bg-sky-500 hover:text-slate-900 transition-colors duration-300">
                             자세히 보기
                             <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
                         </a>
@@ -796,7 +1114,7 @@
                         <p class="mt-2 text-slate-400 font-medium">(소수 정예 그룹)</p>
                         <div class="my-3"><span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full">영재고·과학고 대비</span></div>
                         <p class="text-slate-300 flex-grow">오직 최종 합격만을 위한<br>시기별 맞춤 전략</p>
-                        <a href="https://drive.google.com/file/d/1KCAgIr0Et_fNuP7v3_vkfdlpqGRVKbqc/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-blue-600 text-blue-400 font-bold py-2 px-8 rounded-full hover:bg-blue-600 hover:text-slate-900 transition-colors duration-300">
+                        <a href="https://google.com" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-blue-600 text-blue-400 font-bold py-2 px-8 rounded-full hover:bg-blue-600 hover:text-slate-900 transition-colors duration-300">
                             자세히 보기
                             <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
                         </a>
@@ -810,7 +1128,7 @@
                         <p class="mt-2 text-slate-400 font-medium">(1:1 or 그룹)</p>
                         <div class="my-3"><span class="bg-indigo-500/20 text-indigo-300 text-sm font-bold px-3 py-1 rounded-full">재학생 및 입학 예정생(합격자) 대상</span></div>
                         <p class="text-slate-300 flex-grow">동신과학고 내신 경향 완벽 분석<br>최상위권 성적 달성을 위한 맞춤 수업</p>
-                        <a href="https://drive.google.com/file/d/1a02GDOJ8U6dyfARiYGwr_PrlRzkA9kYM/view?usp=drive_link" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-indigo-700 text-indigo-400 font-bold py-2 px-8 rounded-full hover:bg-indigo-700 hover:text-slate-900 transition-colors duration-300">
+                        <a href="https://google.com" target="_blank" class="mt-4 inline-flex items-center justify-center border-2 border-indigo-700 text-indigo-400 font-bold py-2 px-8 rounded-full hover:bg-indigo-700 hover:text-slate-900 transition-colors duration-300">
                             자세히 보기
                             <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
                         </a>
@@ -1279,324 +1597,5 @@
             <div id="modal-trial-footer" class="p-4 bg-slate-800 border-t border-slate-700 hidden"><button id="copy-trial-form-button" class="w-full text-white font-bold py-3 px-4 rounded-lg transition-colors"><i class="fa-solid fa-copy mr-2"></i> 복사 및 문자로 보내기</button></div>
         </div>
     </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-
-            // --- Navigation Logic ---
-            const nav = document.getElementById('navbar');
-            if (nav) { window.addEventListener('scroll', () => nav.classList.toggle('nav-scrolled', window.scrollY > 50)); }
-
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuButton && mobileMenu) { mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden')); }
-            document.querySelectorAll('.mobile-nav-link').forEach(link => link.addEventListener('click', () => mobileMenu && mobileMenu.classList.add('hidden')));
-
-            const dropdownContainer = document.getElementById('more-dropdown-container');
-            const dropdownButton = document.getElementById('more-dropdown-button');
-            const dropdownMenu = document.getElementById('more-dropdown-menu');
-            if (dropdownButton && dropdownMenu && dropdownContainer) {
-                dropdownButton.addEventListener('click', e => { e.stopPropagation(); dropdownMenu.classList.toggle('hidden'); });
-                dropdownMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => dropdownMenu.classList.add('hidden')));
-                window.addEventListener('click', e => { if (!dropdownContainer.contains(e.target)) dropdownMenu.classList.add('hidden'); });
-            }
-            
-            // --- Modal Logic ---
-            const allModals = document.querySelectorAll('.modal-backdrop');
-            const openModal = modal => {
-                if (!modal) return;
-                modal.classList.remove('hidden');
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    const modalContent = modal.querySelector('.modal-content');
-                    if (modalContent) modalContent.classList.remove('scale-95');
-                }, 10);
-                document.body.style.overflow = 'hidden';
-            };
-            const closeModal = modal => {
-                if (!modal) return;
-                modal.classList.add('opacity-0');
-                const modalContent = modal.querySelector('.modal-content');
-                if (modalContent) modalContent.classList.add('scale-95');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    if (!document.querySelector('.modal-backdrop:not(.hidden)')) { document.body.style.overflow = ''; }
-                }, 300);
-            };
-            allModals.forEach(modal => {
-                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
-                modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); });
-            });
-            document.querySelectorAll('.modal-open-button').forEach(button => {
-                button.addEventListener('click', () => openModal(document.getElementById(button.dataset.modalTarget)));
-            });
-            
-            // --- Trial Application Modal Logic ---
-            const trialModal = document.getElementById('modal-trial-unified');
-            const trialModalTitle = document.getElementById('modal-trial-title');
-            const backButton = document.getElementById('modal-trial-back-button');
-            const classSelectionView = document.getElementById('class-selection-view');
-            const formContainer = document.getElementById('form-container');
-            const copyButton = document.getElementById('copy-trial-form-button');
-            const modalFooter = document.getElementById('modal-trial-footer');
-            const phoneEl = document.getElementById('trial-phone-number');
-            const trialClassTitles = { 
-                "1": "중1-2 특목고 준비반", 
-                "2": "중3 특목고 실전반",
-                "4": "대전동신과학고 내신 대비반"
-            };
-            const classColors = {
-                '1': { text: 'text-sky-400', bg: 'bg-sky-600', hover: 'hover:bg-sky-700' },
-                '2': { text: 'text-blue-400', bg: 'bg-blue-600', hover: 'hover:bg-blue-700' },
-                '4': { text: 'text-indigo-400', bg: 'bg-indigo-600', hover: 'hover:bg-indigo-700' }
-            };
-            
-            const resetTrialModal = () => {
-                classSelectionView?.classList.remove('hidden');
-                formContainer?.classList.add('hidden');
-                modalFooter?.classList.add('hidden');
-                backButton?.classList.add('hidden');
-                document.querySelectorAll('.trial-form').forEach(form => form.classList.add('hidden'));
-                if (trialModalTitle) trialModalTitle.textContent = '시범과외 신청';
-            };
-
-            const openTrialModal = () => openModal(trialModal);
-            document.getElementById('trial-banner-button')?.addEventListener('click', openTrialModal);
-            document.getElementById('floating-trial-button')?.addEventListener('click', openTrialModal);
-
-            if (trialModal) {
-                trialModal.querySelector('.modal-close-button')?.addEventListener('click', () => {
-                    closeModal(trialModal);
-                    setTimeout(resetTrialModal, 300);
-                });
-            }
-            backButton?.addEventListener('click', resetTrialModal);
-            
-            document.querySelectorAll('.class-select-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    const classNumber = button.dataset.class;
-                    let formId = (classNumber === '1' || classNumber === '2') ? 'trial-form-class1' : `trial-form-class${classNumber}`;
-                    const selectedForm = document.getElementById(formId);
-                    const selectedColor = classColors[classNumber] || classColors['2'];
-
-                    // Update colors
-                    phoneEl.className = 'font-bold';
-                    Object.values(classColors).forEach(color => {
-                        phoneEl.classList.remove(color.text);
-                        copyButton.classList.remove(color.bg, color.hover);
-                    });
-                    phoneEl.classList.add(selectedColor.text);
-                    copyButton.classList.add(selectedColor.bg, selectedColor.hover);
-
-                    // Show form
-                    classSelectionView?.classList.add('hidden');
-                    formContainer?.classList.remove('hidden');
-                    modalFooter?.classList.remove('hidden');
-                    backButton?.classList.remove('hidden');
-                    document.querySelectorAll('.trial-form').forEach(form => form.classList.add('hidden'));
-                    selectedForm?.classList.remove('hidden');
-                    if(trialModalTitle) trialModalTitle.textContent = trialClassTitles[classNumber] + " 신청";
-                });
-            });
-            
-            // Logic for Class 4 form radio buttons
-            const studentTypeRadios = document.querySelectorAll('input[name="student-type"]');
-            const currentStudentQuestion = document.getElementById('c4-current-student-question');
-            const prospectiveStudentQuestion = document.getElementById('c4-prospective-student-question');
-            studentTypeRadios.forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    if (e.target.value === 'current') {
-                        currentStudentQuestion.classList.remove('hidden');
-                        prospectiveStudentQuestion.classList.add('hidden');
-                    } else {
-                        currentStudentQuestion.classList.add('hidden');
-                        prospectiveStudentQuestion.classList.remove('hidden');
-                    }
-                });
-            });
-
-
-            if (copyButton) {
-                copyButton.addEventListener('click', () => {
-                    const visibleForm = document.querySelector('.trial-form:not(.hidden)');
-                    if (!visibleForm) return;
-
-                    const titleText = trialModalTitle.textContent.replace(' 신청', '');
-                    const elements = visibleForm.elements;
-                    let contentToCopy = `[${titleText} 시범과외 신청서]\n\n`;
-
-                    for (let i = 0; i < elements.length; i++) {
-                        const item = elements[i];
-                        if (item.type !== 'button' && item.name && item.value.trim()) {
-                            // Skip radio buttons themselves, but use their selection to decide which textarea to include
-                            if (item.type === 'radio' && !item.checked) {
-                                continue;
-                            }
-                            if (item.type === 'radio' && item.checked) {
-                                // Don't add the radio button value itself, just use it for logic
-                                continue;
-                            }
-                            
-                            const label = visibleForm.querySelector(`label[for="${item.id}"]`);
-                            const labelText = label ? label.textContent.split('\n')[0].trim() : item.name;
-                            contentToCopy += `■ ${labelText}\n- ${item.value.trim()}\n\n`;
-                        }
-                    }
-                    
-                    const textArea = document.createElement("textarea");
-                    textArea.value = contentToCopy.trim();
-                    textArea.style.position = "fixed"; textArea.style.top = "-9999px";
-                    document.body.appendChild(textArea);
-                    textArea.focus(); textArea.select();
-                    
-                    try {
-                        document.execCommand('copy');
-                        const phoneNumber = '010-2124-7269';
-                        const encodedBody = encodeURIComponent(contentToCopy.trim());
-                        window.location.href = `sms:${phoneNumber}?body=${encodedBody}`;
-                    } catch (err) {
-                        console.error('Copy failed', err);
-                    } finally {
-                        document.body.removeChild(textArea);
-                    }
-                });
-            }
-
-            document.querySelectorAll('.toggle-question').forEach(button => {
-                button.addEventListener('click', () => {
-                    const answer = button.nextElementSibling;
-                    if (!answer || !answer.classList.contains('toggle-answer')) return;
-
-                    document.querySelectorAll('.toggle-answer.open').forEach(openAnswer => {
-                        if (openAnswer !== answer) {
-                            openAnswer.classList.remove('open');
-                            openAnswer.previousElementSibling.classList.remove('open');
-                        }
-                    });
-
-                    button.classList.toggle('open');
-                    answer.classList.toggle('open');
-                });
-            });
-
-
-            // --- Visitor Notification ---
-            const notification = document.getElementById('visitor-notification');
-            const notificationText = document.getElementById('notification-text');
-            const names = ['김O진', '박O우', '이O연', '최O원', '정O윤', '강O민'];
-            const actions = ['사이트를 방문했습니다.', '시범과외를 신청했습니다.'];
-            function showNotification() {
-                if(!notification || !notificationText) return;
-                notificationText.textContent = `${names[Math.floor(Math.random() * names.length)]} 학생이 ${actions[Math.floor(Math.random() * actions.length)]}`;
-                notification.classList.add('show');
-                setTimeout(() => notification.classList.remove('show'), 5000);
-            }
-            setInterval(showNotification, Math.random() * (15000 - 8000) + 8000);
-            setTimeout(showNotification, 3000);
-
-            // --- Floating Button Scroll Logic ---
-            const floatingButton = document.getElementById('floating-trial-button');
-            window.addEventListener('scroll', () => {
-                if (floatingButton) {
-                    if (window.scrollY > 300) {
-                        floatingButton.classList.remove('opacity-0');
-                    } else {
-                        floatingButton.classList.add('opacity-0');
-                    }
-                }
-            }, { passive: true });
-
-            // --- Intersection Observer for Gradient Animation ---
-            const dividers = document.querySelectorAll('.animated-gradient-divider');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    entry.target.classList.toggle('in-view', entry.isIntersecting);
-                });
-            }, { threshold: 0.01 });
-
-            dividers.forEach(divider => {
-                observer.observe(divider);
-            });
-
-            // --- Interactive Curriculum Intro Logic ---
-            const interactiveContainer = document.getElementById('interactive-container');
-            const gaugeNeedle = document.querySelector('.gauge-needle');
-
-            const pageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                       setTimeout(() => gaugeNeedle?.classList.add('animate'), 500);
-                    } else {
-                       gaugeNeedle?.classList.remove('animate');
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            if(interactiveContainer) {
-                pageObserver.observe(interactiveContainer);
-            }
-
-            document.querySelectorAll('.next-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const currentPage = button.closest('.interactive-page');
-                    const nextPageId = button.dataset.next;
-
-                    if (nextPageId) {
-                        const nextPage = document.getElementById(nextPageId);
-                        currentPage.classList.remove('active');
-                        nextPage.classList.add('active');
-                        interactiveContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    } else {
-                        const targetId = button.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    }
-                });
-            });
-            
-            // --- Interactive Consulting Section Logic ---
-            const consultingContainer = document.getElementById('consulting-interactive-container');
-            document.querySelectorAll('.next-btn-consulting').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const currentPage = button.closest('.interactive-page');
-                    const nextPageId = button.dataset.nextConsulting;
-                    
-                    if (nextPageId) {
-                        const nextPage = document.getElementById(nextPageId);
-                        currentPage.classList.remove('active');
-                        nextPage.classList.add('active');
-                        consultingContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                });
-            });
-
-            // --- Gauge Ticks Generator ---
-            const ticksContainer = document.querySelector('.gauge-ticks');
-            if (ticksContainer) {
-                const tickCount = 40;
-                const angleStep = 180 / tickCount;
-                for (let i = 0; i <= tickCount; i++) {
-                    const angle = -90 + (i * angleStep);
-                    const tick = document.createElement('div');
-                    tick.className = 'gauge-tick';
-                    tick.style.transform = `translateX(-50%) rotate(${angle}deg) translateY(-190%)`;
-                    if (i % 5 === 0) { // Make every 5th tick longer
-                         tick.style.height = '15px';
-                         tick.style.width = '3px';
-                    }
-                    ticksContainer.appendChild(tick);
-                }
-            }
-        });
-
-        window.addEventListener('load', () => setTimeout(() => window.scrollTo(0, 0), 100));
-    </script>
 </body>
 </html>
-" of the docume
