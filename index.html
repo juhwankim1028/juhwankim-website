@@ -520,6 +520,21 @@
                 });
             });
 
+            // Logic for Class 4 Class Type (Individual/Group) - Added back per request
+            const classTypeRadios = document.querySelectorAll('input[name="class-type"]');
+            const groupInfoContainer = document.getElementById('c4-group-info');
+
+            classTypeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'group') {
+                        groupInfoContainer.classList.remove('hidden');
+                    } else {
+                        groupInfoContainer.classList.add('hidden');
+                    }
+                });
+            });
+
+
             // --- CORRECTED/IMPROVED FORM COPY LOGIC ---
             // This logic handles copying form data to the clipboard and opening the SMS app.
             if (copyButton) {
@@ -531,7 +546,7 @@
                     let contentToCopy = `[${titleText} 시범과외 신청서]\n\n`;
                     
                     // Select all relevant input fields from the visible form
-                    const elements = visibleForm.querySelectorAll('input[type="text"], input[type="tel"], textarea');
+                    const elements = visibleForm.querySelectorAll('input[type="text"], input[type="tel"], textarea, input[type="radio"]:checked');
                     
                     elements.forEach(item => {
                         // Crucially, check if the element is inside a hidden container.
@@ -540,7 +555,11 @@
                             return; 
                         }
 
-                        if (item.name && item.value.trim()) {
+                        if (item.type === 'radio') {
+                             const label = visibleForm.querySelector(`label[for="${item.name}"]`) || item.parentElement.innerText.trim();
+                             const val = item.nextElementSibling ? item.nextElementSibling.innerText.trim() : item.value;
+                             contentToCopy += `■ ${label}\n- ${val}\n\n`;
+                        } else if (item.name && item.value.trim()) {
                             const label = visibleForm.querySelector(`label[for="${item.id}"]`);
                             const labelText = label ? label.innerText.split('\n')[0].trim() : item.name;
                             contentToCopy += `■ ${labelText}\n- ${item.value.trim()}\n\n`;
@@ -1271,7 +1290,7 @@
                         <div class="mt-4 text-sm md:text-base text-slate-700 leading-relaxed text-left">
                             <ol class="list-decimal list-inside space-y-2">
                                 <li><strong class="text-sky-700 font-bold">'합격 자소서들'</strong>의 성공 공식을 압축해, 오직 학생만을 위한 단 하나의 자소서 완성</li>
-                                <li><strong class="text-sky-700 font-bold">'최상위권의 사고력'</strong>을 기르는 문제 풀이 전략</li>
+                                <li><strong class="text-sky-700 font-bold">'최상위권의 사고력'</strong>을 기르는 문제 풀이 전략 제공</li>
                             </ol>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
@@ -1552,6 +1571,7 @@
                         <div><label for="c1-study-method" class="block text-sm font-medium text-slate-300">평소 어떤 방식으로 수학 공부를 해왔고, 어려움을 느낀 부분에 대해 알려주세요. (간략히)</label><textarea name="공부 방식 및 어려움" id="c1-study-method" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
                         <div><label for="c1-goals" class="block text-sm font-medium text-slate-300">과외를 통해 이루고 싶은 목표는 무엇인가요? (자유롭게 기재해주세요)</label><textarea name="목표" id="c1-goals" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
                         <div><label for="c1-availability" class="block text-sm font-medium text-slate-300">편하신 시범과외 및 추후 과외 시간대를 알려주세요.</label><textarea name="가능 시간대" id="c1-availability" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
+                        <div><label for="c1-friends" class="block text-sm font-medium text-slate-300">과외 수업을 함께할 친구들의 이름과 전화번호를 기재해주세요.</label><textarea name="함께할 친구 정보" id="c1-friends" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
                         <div><label for="c1-etc" class="block text-sm font-medium text-slate-300">그 외 궁금한 점이 있다면 알려주세요.</label><textarea name="기타 문의사항" id="c1-etc" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></textarea></div>
                         <div><label for="c1-referral" class="block text-sm font-medium text-slate-300">(설문) 어떤 경로로 알게 되셨나요?</label><input type="text" name="유입 경로" id="c1-referral" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"></div>
                     </form>
@@ -1586,6 +1606,26 @@
                         <div><label for="c4-hagwon" class="block text-sm font-medium text-slate-300">현재 학원에 다니고 계신가요? 다니고 계시다면 과목과 스케줄(예: 수학 주 2회)을 기재해주세요.</label><textarea name="학원 수강 여부" id="c4-hagwon" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
                         <div><label for="c4-goals" class="block text-sm font-medium text-slate-300">과외를 통해 이루고 싶은 목표는 무엇인가요? (원하는 등수, 취약점 보완 등 자유롭게 기재해주세요)</label><textarea name="목표" id="c4-goals" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
                         <div><label for="c4-availability" class="block text-sm font-medium text-slate-300">편하신 시범과외 및 추후 과외 시간대를 알려주세요.</label><textarea name="가능 시간대" id="c4-availability" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
+
+                         <!-- Added Class Type Question for Class 4 -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300">희망하는 수업 형태가 있나요?</label>
+                            <div class="mt-2 flex gap-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="class-type" value="individual" class="form-radio h-4 w-4 text-indigo-500 bg-slate-700 border-slate-600 focus:ring-indigo-600" checked>
+                                    <span class="ml-2 text-sm text-slate-300">개인</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="class-type" value="group" class="form-radio h-4 w-4 text-indigo-500 bg-slate-700 border-slate-600 focus:ring-indigo-600">
+                                    <span class="ml-2 text-sm text-slate-300">그룹</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="c4-group-info" class="hidden">
+                            <label for="c4-friends" class="block text-sm font-medium text-slate-300">그룹과외 희망 시, 함께할 친구들의 이름과 전화번호를 기재해주세요.</label>
+                            <textarea name="함께할 친구 정보" id="c4-friends" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea>
+                        </div>
+
                         <div><label for="c4-etc" class="block text-sm font-medium text-slate-300">그 외 궁금한 점이 있다면 알려주세요.</label><textarea name="기타 문의사항" id="c4-etc" rows="2" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></textarea></div>
                         <div><label for="c4-referral" class="block text-sm font-medium text-slate-300">(설문) 어떤 경로으로 알게 되셨나요?</label><input type="text" name="유입 경로" id="c4-referral" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"></div>
                     </form>
@@ -1596,4 +1636,3 @@
     </div>
 </body>
 </html>
-
