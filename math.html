@@ -79,7 +79,7 @@
             </div>
             
             <h1 data-aos="fade-up" data-aos-delay="100" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-5 md:mb-8 leading-snug md:leading-tight drop-shadow-lg">
-                단돈 <span class="text-blue-400">8,900원(커피 두 잔 값)</span>으로<br />
+                <span class="text-blue-400">단돈 8,900원</span>으로<br />
                 <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">과학고 전교 3등 & KAIST생</span>의<br />
                 모든 수학적 노하우를 정복하세요
             </h1>
@@ -581,30 +581,39 @@
             }
         });
 
-        // 일주일(7일) 카운트다운 타이머 로직
-        // 사용자가 페이지에 접속한 시점부터 7일 뒤로 설정하여 마감 효과 극대화
-        const countdownElement = document.getElementById('days'); // 타이머 존재 여부 체크
+        // 에버그린(Evergreen) 일주일 카운트다운 타이머 로직
+        // 접속 시점 기준 일주일 뒤의 시간을 브라우저 캐시(localStorage)에 저장하여, 
+        // 새로고침을 해도 진짜로 시간이 흐르도록 설정하는 강력한 마케팅 로직입니다.
+        const countdownElement = document.getElementById('days'); 
         
         if (countdownElement) {
-            // 접속 기준 + 7일
-            const countDownDate = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+            let targetDate = localStorage.getItem('kaist_insight_deadline');
+            
+            if (!targetDate) {
+                // 처음 접속한 경우: 현재 시간 + 7일(일주일)을 밀리초(ms)로 계산하여 저장
+                targetDate = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+                localStorage.setItem('kaist_insight_deadline', targetDate);
+            } else {
+                // 이미 접속한 적이 있는 경우: 로컬 스토리지에 저장된 마감 시간 불러오기
+                targetDate = parseInt(targetDate, 10);
+            }
 
             const x = setInterval(function() {
                 const now = new Date().getTime();
-                const distance = countDownDate - now;
+                const distance = targetDate - now;
 
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // 두 자리 숫자로 맞추기 (06, 09 등)
+                // 두 자리 숫자로 맞추기 (예: 6 -> 06)
                 document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
                 document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
                 document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
                 document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
 
-                // 시간이 만료되었을 때 처리
+                // 일주일의 시간이 만료되었을 때 처리 (0으로 고정)
                 if (distance < 0) {
                     clearInterval(x);
                     document.getElementById("days").innerHTML = "00";
@@ -612,7 +621,7 @@
                     document.getElementById("minutes").innerHTML = "00";
                     document.getElementById("seconds").innerHTML = "00";
                 }
-            }, 1000);
+            }, 1000); // 1초(1000ms)마다 갱신
         }
     </script>
 </body>
