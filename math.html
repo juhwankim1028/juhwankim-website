@@ -69,8 +69,7 @@
 
     <!-- Hero 섹션 -->
     <section class="pt-28 pb-16 md:pt-36 md:pb-24 px-5 md:px-6 bg-gradient-to-br from-navy-900 via-slate-900 to-navy-800 text-white overflow-hidden relative">
-        <!-- 배경 장식 요소 -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <!-- 배경 장식 요소 (렌더링 부하를 일으키는 blur 요소 제거 및 최적화) -->
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop')] opacity-10 mix-blend-overlay bg-cover bg-center"></div>
         
         <div class="max-w-4xl mx-auto relative z-10 text-center">
@@ -80,9 +79,9 @@
             </div>
             
             <h1 data-aos="fade-up" data-aos-delay="100" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-5 md:mb-8 leading-snug md:leading-tight drop-shadow-lg">
-                단돈 <span class="text-blue-400">8,900원</span>(커피 두 잔 값)으로<br class="hidden sm:block" />
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">과학고 전교 3등 & KAIST생</span>의<br class="hidden md:block" />
-                모든 수학적 노하우를 정복하세요.
+                단돈 <span class="text-blue-400">8,900원(커피 두 잔 값)</span>으로<br />
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">과학고 전교 3등 & KAIST생</span>의<br />
+                모든 수학적 노하문을 정복하세요
             </h1>
             
             <p data-aos="fade-up" data-aos-delay="200" class="text-sm sm:text-lg md:text-xl text-slate-300 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed font-light">
@@ -180,7 +179,8 @@
             <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
                 <div class="inline-block border border-blue-500/30 bg-blue-500/10 text-blue-400 font-bold tracking-widest uppercase text-xs md:text-sm px-4 py-1.5 rounded-full mb-4">Core System</div>
                 <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-5">
-                    성적 정체기를 돌파하는 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">3대 공학적 로직</span>
+                    성적 정체기를 돌파하는<br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">3대 공학적 로직</span>
                 </h2>
                 <p class="text-sm md:text-lg text-slate-400 font-light">
                     단순한 수기가 아닙니다. 뇌의 회로 자체를 업데이트하는 실전형 시스템입니다.
@@ -354,7 +354,8 @@
         <div class="max-w-5xl mx-auto relative z-10">
             <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-5">
-                    수천 시간의 현장 데이터로 증명된 <span class="text-blue-400">압도적 결과</span>
+                    수천 시간의 현장 데이터로 증명된<br />
+                    <span class="text-blue-400">압도적 결과</span>
                 </h2>
                 <p class="text-sm md:text-lg text-slate-400 font-light">
                     추상적인 잔소리가 아닙니다. 실제 성적 수직 상승을 이끌어낸 검증된 로직입니다.
@@ -493,9 +494,8 @@
 
     <!-- CTA 섹션 (Scarcity 유도) -->
     <section class="py-16 md:py-28 px-5 md:px-6 bg-navy-900 text-white text-center relative overflow-hidden">
-        <!-- 배경 글래스모피즘 효과 요소 -->
+        <!-- 배경 글래스모피즘 효과 요소 (렌더링 안정성 확보) -->
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop')] opacity-[0.03] mix-blend-overlay bg-cover bg-center"></div>
-        <div class="absolute inset-0 bg-blue-600/10 blur-[100px] rounded-full w-[400px] h-[400px] md:w-[800px] md:h-[800px] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
         
         <div class="max-w-3xl mx-auto relative z-10">
             <!-- 마감 임박 뱃지 -->
