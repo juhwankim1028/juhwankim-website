@@ -11,6 +11,9 @@
     <!-- Tailwind CSS 불러오기 -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- AOS 스크롤 애니메이션 CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <!-- Tailwind 설정 (Pretendard 폰트 적용) -->
     <script>
         tailwind.config = {
@@ -18,6 +21,12 @@
                 extend: {
                     fontFamily: {
                         sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#0a1128',
+                            900: '#050814',
+                        }
                     }
                 }
             }
@@ -30,95 +39,134 @@
     <style>
         /* 페이드인 애니메이션 (미리보기 탭용) */
         .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease-out forwards;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        /* 글래스모피즘 특화 클래스 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-200">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-300 overflow-x-hidden">
 
     <!-- 네비게이션 바 -->
-    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200 transition-all duration-300" id="navbar">
         <div class="max-w-5xl mx-auto px-4 md:px-6 h-14 md:h-16 flex items-center justify-between">
             <div class="font-bold text-base sm:text-xl tracking-tight text-blue-900">KAIST Insight</div>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-colors inline-block">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5 inline-block">
                 리포트 구매하기
             </a>
         </div>
     </nav>
 
     <!-- Hero 섹션 -->
-    <section class="pt-24 pb-12 md:pt-32 md:pb-20 px-5 md:px-6 bg-slate-900 text-white overflow-hidden relative">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop')] opacity-20 mix-blend-overlay bg-cover bg-center"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-slate-900"></div>
+    <section class="pt-28 pb-16 md:pt-36 md:pb-24 px-5 md:px-6 bg-gradient-to-br from-navy-900 via-slate-900 to-navy-800 text-white overflow-hidden relative">
+        <!-- 배경 장식 요소 -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop')] opacity-10 mix-blend-overlay bg-cover bg-center"></div>
         
         <div class="max-w-4xl mx-auto relative z-10 text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] sm:text-sm font-medium mb-6 md:mb-8 border border-blue-500/30">
-                <span class="flex h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-blue-400"></span>
-                상위 0.1% 합격 설계도
+            <div data-aos="fade-down" class="inline-flex items-center gap-2 px-3 py-1.5 md:px-5 md:py-2 rounded-full bg-red-500/20 text-red-300 text-xs sm:text-sm font-bold mb-6 md:mb-8 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+                <i data-lucide="siren" class="w-3.5 h-3.5 md:w-4 md:h-4 animate-pulse text-red-400"></i>
+                출시 기념 특별 할인 이벤트 진행 중
             </div>
             
-            <h1 class="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight mb-4 md:mb-6 leading-snug md:leading-tight">
-                시행착오 <span class="text-blue-400">0%</span>로 수렴,<br class="hidden sm:block" />
-                자녀에게 <span class="text-blue-400">1년의 시간</span>을 선물하세요.
+            <h1 data-aos="fade-up" data-aos-delay="100" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-5 md:mb-8 leading-snug md:leading-tight drop-shadow-lg">
+                단돈 <span class="text-blue-400">8,900원</span>(커피 두 잔 값)으로<br class="hidden sm:block" />
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">과학고 전교 3등 & KAIST생</span>의<br class="hidden md:block" />
+                모든 수학적 노하우를 정복하세요.
             </h1>
             
-            <p class="text-sm sm:text-lg md:text-xl text-slate-300 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
-                대전동신과학고 조기졸업 · KAIST 진학 김주환 튜터가 증명합니다.<br class="hidden sm:block" />
-                성적은 지능이 아니라, <strong class="text-white font-semibold">공학적으로 설계된 알고리즘의 결과</strong>입니다.
+            <p data-aos="fade-up" data-aos-delay="200" class="text-sm sm:text-lg md:text-xl text-slate-300 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+                시행착오를 0%로 수렴시키는 상위 0.1%의 합격 설계도.<br class="hidden sm:block" />
+                성적은 지능이 아니라, 공학적으로 설계된 알고리즘의 결과입니다.
             </p>
+
+            <!-- 카운트다운 타이머 (Scarcity 유도) -->
+            <div data-aos="zoom-in" data-aos-delay="300" class="max-w-md mx-auto mb-10 glass-card p-5 md:p-6 rounded-2xl md:rounded-3xl relative overflow-hidden group hover:border-blue-400/50 transition-colors duration-500">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <p class="text-red-400 font-bold text-xs md:text-sm mb-3 flex items-center justify-center gap-1.5 drop-shadow-md">
+                    <i data-lucide="clock" class="w-4 h-4"></i> 일주일 뒤, 정상가로 인상됩니다!
+                </p>
+                <div class="flex justify-center items-center gap-3 md:gap-5 text-white">
+                    <div class="flex flex-col items-center w-12 md:w-16">
+                        <span id="days" class="text-2xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400">06</span>
+                        <span class="text-[10px] md:text-xs text-slate-400 mt-1 font-medium">일</span>
+                    </div>
+                    <span class="text-xl md:text-3xl font-light text-slate-500 pb-4">:</span>
+                    <div class="flex flex-col items-center w-12 md:w-16">
+                        <span id="hours" class="text-2xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400">23</span>
+                        <span class="text-[10px] md:text-xs text-slate-400 mt-1 font-medium">시간</span>
+                    </div>
+                    <span class="text-xl md:text-3xl font-light text-slate-500 pb-4">:</span>
+                    <div class="flex flex-col items-center w-12 md:w-16">
+                        <span id="minutes" class="text-2xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400">59</span>
+                        <span class="text-[10px] md:text-xs text-slate-400 mt-1 font-medium">분</span>
+                    </div>
+                    <span class="text-xl md:text-3xl font-light text-slate-500 pb-4">:</span>
+                    <div class="flex flex-col items-center w-12 md:w-16">
+                        <span id="seconds" class="text-2xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400">59</span>
+                        <span class="text-[10px] md:text-xs text-slate-400 mt-1 font-medium">초</span>
+                    </div>
+                </div>
+            </div>
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="w-full sm:w-auto px-6 py-3.5 md:px-8 md:py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm md:text-lg transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
-                    <i data-lucide="file-text" class="w-4 h-4 md:w-5 md:h-5"></i>
-                    합격 설계도 PDF 구매 (8,900원)
+            <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 relative z-20">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="w-full sm:w-auto px-6 py-4 md:px-10 md:py-5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-base md:text-xl transition-all hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i data-lucide="download" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    합격 설계도 8,900원 구매하기
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Problem 섹션 -->
-    <section class="py-12 md:py-24 px-5 md:px-6 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-10 md:mb-16">
-                <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 md:mb-4 leading-snug md:leading-tight">
+    <section class="py-16 md:py-28 px-5 md:px-6 bg-white relative">
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
+                <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-5 leading-snug md:leading-tight">
                     유명 학원을 다녀도 <span class="text-red-500">제자리인 성적</span><br />
                     우리 아이 머리가 부족한 걸까요?
                 </h2>
-                <p class="text-sm md:text-lg text-slate-600">
+                <p class="text-sm md:text-lg text-slate-600 font-medium">
                     입시는 '노력의 양'으로 결정되는 정직한 게임이 아닙니다.
                 </p>
             </div>
 
             <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
-                <div class="bg-slate-50 p-5 md:p-8 rounded-2xl border border-slate-100">
-                    <div class="w-10 h-10 md:w-12 md:h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
-                        <i data-lucide="alert-circle" class="w-5 h-5 md:w-6 md:h-6"></i>
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-5 md:mb-6 shadow-inner">
+                        <i data-lucide="alert-triangle" class="w-6 h-6 md:w-7 md:h-7"></i>
                     </div>
-                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">수동적 학습의 함정</h3>
-                    <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">
-                        일타 강사의 화려한 풀이를 구경만 하는 '듣는 공부'의 지식 습득률은 단 5%에 불과합니다. 내 실력이 아닙니다.
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-slate-800">수동적 학습의 함정</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">
+                        일타 강사의 화려한 풀이를 구경만 하는 '듣는 공부'의 지식 습득률은 단 5%에 불과합니다. 고개를 끄덕인다고 내 실력이 되지 않습니다.
                     </p>
                 </div>
-                <div class="bg-slate-50 p-5 md:p-8 rounded-2xl border border-slate-100">
-                    <div class="w-10 h-10 md:w-12 md:h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
-                        <i data-lucide="alert-circle" class="w-5 h-5 md:w-6 md:h-6"></i>
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-5 md:mb-6 shadow-inner">
+                        <i data-lucide="compass" class="w-6 h-6 md:w-7 md:h-7"></i>
                     </div>
-                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">잘못된 설계도</h3>
-                    <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">
-                        방향 없는 성실함은 독입니다. 파편화된 지식을 무작정 암기하는 방식으로는 최상위권의 벽을 넘을 수 없습니다.
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-slate-800">잘못된 설계도</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">
+                        방향 없는 성실함은 오히려 독이 됩니다. 파편화된 지식을 무작정 암기하는 낡은 방식으로는 최상위 0.1%의 벽을 절대 넘을 수 없습니다.
                     </p>
                 </div>
-                <div class="bg-slate-50 p-5 md:p-8 rounded-2xl border border-slate-100 sm:col-span-2 md:col-span-1">
-                    <div class="w-10 h-10 md:w-12 md:h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
-                        <i data-lucide="alert-circle" class="w-5 h-5 md:w-6 md:h-6"></i>
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 sm:col-span-2 md:col-span-1">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-5 md:mb-6 shadow-inner">
+                        <i data-lucide="book-x" class="w-6 h-6 md:w-7 md:h-7"></i>
                     </div>
-                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">가짜 오답노트</h3>
-                    <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">
-                        해설지를 베껴 적는 단순 노동을 멈추세요. 얕은 이해력으로는 변형된 킬러 문항을 돌파할 수 없습니다.
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-slate-800">가짜 오답노트</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">
+                        해설지를 베껴 적는 단순 노동을 당장 멈추세요. 조건이 바뀌면 무너지는 얕은 이해력으로는 변형된 킬러 문항을 돌파할 수 없습니다.
                     </p>
                 </div>
             </div>
@@ -126,60 +174,61 @@
     </section>
 
     <!-- Solution 섹션 -->
-    <section class="py-12 md:py-24 px-5 md:px-6 bg-slate-900 text-white">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-10 md:mb-16">
-                <div class="text-blue-400 font-semibold tracking-wider uppercase text-xs md:text-base mb-2 md:mb-3">Core System</div>
-                <h2 class="text-xl sm:text-3xl md:text-4xl font-bold mb-2 md:mb-4">
-                    성적 정체기를 돌파하는 <span class="text-blue-400">3대 공학적 로직</span>
+    <section class="py-16 md:py-28 px-5 md:px-6 bg-navy-900 text-white relative">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-navy-900 to-navy-900"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
+                <div class="inline-block border border-blue-500/30 bg-blue-500/10 text-blue-400 font-bold tracking-widest uppercase text-xs md:text-sm px-4 py-1.5 rounded-full mb-4">Core System</div>
+                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-5">
+                    성적 정체기를 돌파하는 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">3대 공학적 로직</span>
                 </h2>
-                <p class="text-sm md:text-lg text-slate-400">
+                <p class="text-sm md:text-lg text-slate-400 font-light">
                     단순한 수기가 아닙니다. 뇌의 회로 자체를 업데이트하는 실전형 시스템입니다.
                 </p>
             </div>
 
-            <div class="space-y-5 md:space-y-8">
-                <div class="flex flex-col sm:flex-row gap-4 md:gap-8 items-start sm:items-center bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10">
-                    <div class="w-12 h-12 md:w-20 md:h-20 shrink-0 bg-blue-500/20 text-blue-400 rounded-2xl flex items-center justify-center">
-                        <i data-lucide="brain" class="w-6 h-6 md:w-10 md:h-10"></i>
+            <div class="space-y-6 md:space-y-10">
+                <div data-aos="fade-up" data-aos-delay="100" class="flex flex-col sm:flex-row gap-5 md:gap-8 items-start sm:items-center glass-card p-6 md:p-10 rounded-3xl group hover:bg-white/10 transition-colors duration-300">
+                    <div class="w-14 h-14 md:w-24 md:h-24 shrink-0 bg-gradient-to-br from-blue-500/30 to-blue-600/10 border border-blue-500/30 text-blue-400 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-[0_0_20px_rgba(59,130,246,0.15)]">
+                        <i data-lucide="network" class="w-7 h-7 md:w-12 md:h-12"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg md:text-2xl font-bold mb-2 md:mb-3 flex flex-wrap items-center gap-2 md:gap-3">
+                        <h3 class="text-xl md:text-3xl font-bold mb-2 md:mb-3 flex flex-wrap items-center gap-2 md:gap-3 text-slate-100">
                             KAIST Insight
-                            <span class="text-[10px] sm:text-xs md:text-sm font-normal px-2 py-1 md:px-3 md:py-1 bg-blue-500/20 text-blue-300 rounded-full mt-1 sm:mt-0">개념의 시각화</span>
+                            <span class="text-[10px] sm:text-xs md:text-sm font-medium px-2.5 py-1 md:px-3 md:py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/20 mt-1 sm:mt-0">개념의 시각화</span>
                         </h3>
-                        <p class="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed">
-                            파편화된 단순 암기 대신 교과목 전체를 하나의 '세계관'으로 시각화합니다. 수식의 뼈대를 파악해 수많은 응용 문제를 단숨에 연결합니다.
+                        <p class="text-sm md:text-lg text-slate-400 leading-relaxed font-light">
+                            파편화된 단순 암기 대신 교과목 전체를 하나의 '세계관'으로 시각화합니다. 수식의 뼈대를 파악해 수많은 응용 문제를 단숨에 연결하는 최상위권의 시야를 장착합니다.
                         </p>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-4 md:gap-8 items-start sm:items-center bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10">
-                    <div class="w-12 h-12 md:w-20 md:h-20 shrink-0 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center">
-                        <i data-lucide="message-square" class="w-6 h-6 md:w-10 md:h-10"></i>
+                <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col sm:flex-row gap-5 md:gap-8 items-start sm:items-center glass-card p-6 md:p-10 rounded-3xl group hover:bg-white/10 transition-colors duration-300">
+                    <div class="w-14 h-14 md:w-24 md:h-24 shrink-0 bg-gradient-to-br from-emerald-500/30 to-emerald-600/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                        <i data-lucide="message-square-dashed" class="w-7 h-7 md:w-12 md:h-12"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg md:text-2xl font-bold mb-2 md:mb-3 flex flex-wrap items-center gap-2 md:gap-3">
+                        <h3 class="text-xl md:text-3xl font-bold mb-2 md:mb-3 flex flex-wrap items-center gap-2 md:gap-3 text-slate-100">
                             클레임(Claim) 시스템
-                            <span class="text-[10px] sm:text-xs md:text-sm font-normal px-2 py-1 md:px-3 md:py-1 bg-emerald-500/20 text-emerald-300 rounded-full mt-1 sm:mt-0">역설명</span>
+                            <span class="text-[10px] sm:text-xs md:text-sm font-medium px-2.5 py-1 md:px-3 md:py-1 bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/20 mt-1 sm:mt-0">역설명</span>
                         </h3>
-                        <p class="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed">
-                            배운 내용을 스스로 역설명하여 메타인지를 깨웁니다. 타인에게 완벽히 설명할 수 없다면 진짜 아는 것이 아닙니다.
+                        <p class="text-sm md:text-lg text-slate-400 leading-relaxed font-light">
+                            배운 내용을 스스로 역설명하여 메타인지를 완벽하게 깨웁니다. 타인에게 명확히 설명할 수 없다면 진짜 아는 것이 아닙니다. 90% 습득률의 비밀을 공개합니다.
                         </p>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-4 md:gap-8 items-start sm:items-center bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10">
-                    <div class="w-12 h-12 md:w-20 md:h-20 shrink-0 bg-purple-500/20 text-purple-400 rounded-2xl flex items-center justify-center">
-                        <i data-lucide="pen-tool" class="w-6 h-6 md:w-10 md:h-10"></i>
+                <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col sm:flex-row gap-5 md:gap-8 items-start sm:items-center glass-card p-6 md:p-10 rounded-3xl group hover:bg-white/10 transition-colors duration-300">
+                    <div class="w-14 h-14 md:w-24 md:h-24 shrink-0 bg-gradient-to-br from-purple-500/30 to-purple-600/10 border border-purple-500/30 text-purple-400 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+                        <i data-lucide="wrench" class="w-7 h-7 md:w-12 md:h-12"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg md:text-2xl font-bold mb-2 md:mb-3 flex flex-wrap items-center gap-2 md:gap-3">
+                        <h3 class="text-xl md:text-3xl font-bold mb-2 md:mb-3 flex flex-wrap items-center gap-2 md:gap-3 text-slate-100">
                             오답 리마스터
-                            <span class="text-[10px] sm:text-xs md:text-sm font-normal px-2 py-1 md:px-3 md:py-1 bg-purple-500/20 text-purple-300 rounded-full mt-1 sm:mt-0">공학적 재설계</span>
+                            <span class="text-[10px] sm:text-xs md:text-sm font-medium px-2.5 py-1 md:px-3 md:py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/20 mt-1 sm:mt-0">공학적 재설계</span>
                         </h3>
-                        <p class="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed">
-                            "조건이 바뀌면 어떻게 풀 큰 것인가?" 스스로 파생 문제를 만듭니다. 오류를 완벽히 해체하여 한 번 틀린 문제는 절대 다시 틀리지 않습니다.
+                        <p class="text-sm md:text-lg text-slate-400 leading-relaxed font-light">
+                            "조건이 바뀌면 어떻게 풀 것인가?" 스스로 파생 문제를 창조합니다. 자신의 오류를 공학적으로 완벽히 해체하여 한 번 틀린 문제는 두 번 다시 틀리지 않습니다.
                         </p>
                     </div>
                 </div>
@@ -188,101 +237,111 @@
     </section>
 
     <!-- Preview 섹션 -->
-    <section class="py-12 md:py-24 px-5 md:px-6 bg-slate-50">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-8 md:mb-12">
-                <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 md:mb-4">
+    <section class="py-16 md:py-28 px-5 md:px-6 bg-slate-50 relative overflow-hidden">
+        <!-- 배경 데코 -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="text-center mb-10 md:mb-16" data-aos="fade-up">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4">
                     상위 0.1% 합격 설계도 <span class="text-blue-600">핵심 내용</span>
                 </h2>
-                <p class="text-sm md:text-lg text-slate-600">
+                <p class="text-sm md:text-lg text-slate-600 font-medium">
                     방대한 실전 노하우가 집약된 리포트의 하이라이트를 확인하세요.
                 </p>
-                <div class="mt-4 md:mt-5 inline-flex items-center justify-center gap-2 px-4 py-2 md:px-5 md:py-2.5 bg-white border border-slate-200 rounded-full text-xs sm:text-sm text-slate-600 shadow-sm">
-                    <i data-lucide="instagram" class="w-4 h-4 md:w-5 md:h-5 text-pink-500"></i>
-                    <span>전체 목차와 프롤로그 원본은 스토리 하이라이트 <strong class="text-slate-900">'수학 입시 설계도 미리보기'</strong> 참고!</span>
+                <div class="mt-5 md:mt-6 inline-flex items-center justify-center gap-2 md:gap-3 px-5 py-3 md:px-6 md:py-3 bg-white border border-slate-200 rounded-full text-xs sm:text-sm text-slate-700 shadow-[0_4px_20px_rgb(0,0,0,0.05)] hover:shadow-md transition-shadow">
+                    <div class="bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-1.5 rounded-full text-white">
+                        <i data-lucide="instagram" class="w-3.5 h-3.5 md:w-4 md:h-4"></i>
+                    </div>
+                    <span>전체 목차와 프롤로그 원본은 스토리 하이라이트 <strong class="text-slate-900 font-bold border-b-2 border-blue-200 hover:border-blue-500 transition-colors">'수학 입시 설계도 미리보기'</strong> 참고!</span>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl md:rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+            <div class="bg-white rounded-3xl shadow-[0_8px_40px_rgb(0,0,0,0.08)] overflow-hidden border border-slate-100" data-aos="fade-up" data-aos-delay="100">
                 <!-- 탭 메뉴 -->
-                <div class="flex border-b border-slate-200">
-                    <button id="tab-toc" onclick="switchTab('toc')" class="flex-1 py-3 md:py-5 text-center font-bold text-xs sm:text-base md:text-lg transition-colors bg-blue-50 text-blue-700 border-b-2 border-blue-600">
+                <div class="flex border-b border-slate-100 bg-slate-50/50">
+                    <button id="tab-toc" onclick="switchTab('toc')" class="flex-1 py-4 md:py-6 text-center font-bold text-sm sm:text-base md:text-lg transition-colors bg-white text-blue-600 border-b-2 border-blue-600 shadow-[0_4px_0_0_rgba(37,99,235,0.0)]">
                         리포트 핵심 요약
                     </button>
-                    <button id="tab-prologue" onclick="switchTab('prologue')" class="flex-1 py-3 md:py-5 text-center font-bold text-xs sm:text-base md:text-lg transition-colors text-slate-500 hover:bg-slate-50 border-b-2 border-transparent">
+                    <button id="tab-prologue" onclick="switchTab('prologue')" class="flex-1 py-4 md:py-6 text-center font-bold text-sm sm:text-base md:text-lg transition-colors text-slate-400 hover:text-slate-600 hover:bg-slate-50 border-b-2 border-transparent">
                         프롤로그 전문
                     </button>
                 </div>
 
                 <!-- 탭 콘텐츠 -->
-                <div class="p-5 md:p-12 min-h-[350px] md:min-h-[500px]">
+                <div class="p-6 md:p-12 min-h-[400px] md:min-h-[550px]">
                     
                     <!-- 목차 콘텐츠 -->
                     <div id="content-toc" class="fade-in">
-                        <div class="bg-blue-50/50 p-6 md:p-8 rounded-2xl border border-blue-100">
-                            <h4 class="text-lg md:text-2xl font-bold text-blue-900 mb-5 md:mb-8 border-b border-blue-200 pb-4 flex items-center gap-2">
-                                <i data-lucide="flame" class="w-6 h-6 text-red-500"></i>
+                        <div class="bg-gradient-to-br from-blue-50/50 to-slate-50 p-6 md:p-10 rounded-3xl border border-blue-100/50">
+                            <h4 class="text-lg md:text-2xl font-bold text-slate-900 mb-6 md:mb-10 flex items-center gap-3">
+                                <span class="bg-red-100 text-red-500 p-2 rounded-xl"><i data-lucide="flame" class="w-5 h-5 md:w-6 md:h-6"></i></span>
                                 단 1%만 아는 합격의 치트키
                             </h4>
                             <ul class="space-y-6 md:space-y-8 text-sm sm:text-base md:text-lg text-slate-700">
-                                <li class="flex items-start gap-4">
-                                    <span class="text-blue-600 font-black mt-1 text-lg">01.</span>
+                                <li class="flex items-start gap-4 md:gap-5 group">
+                                    <span class="text-blue-500/40 font-black mt-0.5 text-2xl md:text-3xl transition-colors group-hover:text-blue-500">01</span>
                                     <div>
-                                        <strong class="block text-slate-900 mb-1 font-bold text-base md:text-xl">착각의 늪: 당신의 아이가 학원의 들러리인 이유</strong>
-                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block mt-1">월 200만 원 학원비가 허공으로 사라지는 밑 빠진 독의 한계와, 과외로 전환해야 하는 완벽한 골든타임을 짚어드립니다.</span>
+                                        <strong class="block text-slate-900 mb-1.5 font-bold text-base md:text-xl transition-colors group-hover:text-blue-600">착각의 늪: 당신의 아이가 학원의 들러리인 이유</strong>
+                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block">월 200만 원 학원비가 허공으로 사라지는 밑 빠진 독의 한계와, 과외로 전환해야 하는 완벽한 골든타임을 짚어드립니다.</span>
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-4">
-                                    <span class="text-blue-600 font-black mt-1 text-lg">02.</span>
+                                <li class="flex items-start gap-4 md:gap-5 group">
+                                    <span class="text-blue-500/40 font-black mt-0.5 text-2xl md:text-3xl transition-colors group-hover:text-blue-500">02</span>
                                     <div>
-                                        <strong class="block text-slate-900 mb-1 font-bold text-base md:text-xl">영재고·과학고 조기졸업 패스트트랙</strong>
-                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block mt-1">KMO(수학경시)의 진짜 무기화 전략과, 1학년 1학기 내신을 완벽하게 사수하는 극비 로직을 공개합니다.</span>
+                                        <strong class="block text-slate-900 mb-1.5 font-bold text-base md:text-xl transition-colors group-hover:text-blue-600">영재고·과학고 조기졸업 패스트트랙</strong>
+                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block">KMO(수학경시)의 진짜 무기화 전략과, 1학년 1학기 내신을 완벽하게 사수하는 극비 로직을 공개합니다.</span>
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-4">
-                                    <span class="text-blue-600 font-black mt-1 text-lg">03.</span>
+                                <li class="flex items-start gap-4 md:gap-5 group">
+                                    <span class="text-blue-500/40 font-black mt-0.5 text-2xl md:text-3xl transition-colors group-hover:text-blue-500">03</span>
                                     <div>
-                                        <strong class="block text-slate-900 mb-1 font-bold text-base md:text-xl">최상위 명문대를 뚫는 서사와 면접의 비밀</strong>
-                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block mt-1">정답을 몰라도 교수님의 감탄을 부르는 사고 알고리즘과, 특목고 & 명문대가 사랑하는 '합격 세특'의 공식을 알려드립니다.</span>
+                                        <strong class="block text-slate-900 mb-1.5 font-bold text-base md:text-xl transition-colors group-hover:text-blue-600">최상위 명문대를 뚫는 서사와 면접의 비밀</strong>
+                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block">정답을 몰라도 교수님의 감탄을 부르는 사고 알고리즘과, 특목고 & 명문대가 사랑하는 '합격 세특'의 공식을 알려드립니다.</span>
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-4">
-                                    <span class="text-blue-600 font-black mt-1 text-lg">04.</span>
+                                <li class="flex items-start gap-4 md:gap-5 group">
+                                    <span class="text-blue-500/40 font-black mt-0.5 text-2xl md:text-3xl transition-colors group-hover:text-blue-500">04</span>
                                     <div>
-                                        <strong class="block text-slate-900 mb-1 font-bold text-base md:text-xl">튜터 김주환의 상위 0.1% 멘탈리티</strong>
-                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block mt-1">수학적 머리가 부족하다는 좌절을 기회로 바꾸는 멘탈 관리법과, 부모의 '시스템 관리자' 역할 가이드를 제공합니다.</span>
+                                        <strong class="block text-slate-900 mb-1.5 font-bold text-base md:text-xl transition-colors group-hover:text-blue-600">튜터 김주환의 상위 0.1% 멘탈리티</strong>
+                                        <span class="text-slate-600 text-sm md:text-base leading-relaxed block">수학적 머리가 부족하다는 좌절을 기회로 바꾸는 멘탈 관리법과, 부모의 '시스템 관리자' 역할 가이드를 제공합니다.</span>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <div class="text-center mt-8">
-                            <p class="text-slate-500 font-medium text-xs md:text-sm bg-slate-100 inline-block px-4 py-2 rounded-full">
-                                * 방대한 분량의 핵심 로직을 단 하나의 PDF에 압축했습니다.
+                        <div class="text-center mt-8 md:mt-10">
+                            <p class="text-blue-700 font-bold text-xs md:text-sm bg-blue-50 inline-block px-5 py-2.5 rounded-full border border-blue-100">
+                                ✨ 방대한 분량의 핵심 로직을 단 하나의 PDF에 압축했습니다.
                             </p>
                         </div>
                     </div>
 
                     <!-- 프롤로그 콘텐츠 -->
                     <div id="content-prologue" class="hidden fade-in">
-                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 mb-3 md:mb-6">"노력이 부족한 게 아니라, 설계도가 틀린 겁니다."</h3>
-                        <p class="text-sm md:text-lg text-slate-700 leading-relaxed mb-4 md:mb-6">
+                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 mb-4 md:mb-6">"노력이 부족한 게 아니라, 설계도가 틀린 겁니다."</h3>
+                        <p class="text-sm md:text-lg text-slate-700 leading-relaxed mb-4 md:mb-6 font-light">
                             대한민국 입시 판에서 '수학'은 언제나 공포의 대상입니다. 많은 학부모님이 "우리 아이는 수학 머리가 없나 봐요"라며 한숨을 내쉬고, 학생들은 밤을 새워 문제집을 풀어도 제자리인 성적에 좌절합니다. 하지만 저는 단호하게 말씀드립니다.
                         </p>
-                        <div class="font-bold text-blue-800 bg-blue-50 p-4 md:p-6 rounded-xl my-5 md:my-8 border border-blue-100 text-sm md:text-xl leading-relaxed">
-                            입시는 '노력의 양'으로 결정되는 정직한 게임이 아니라, '시행착오를 얼마나 줄이느냐'로 승패가 갈리는 정밀한 설계의 영역입니다.
+                        <div class="font-bold text-blue-900 bg-blue-50/50 p-5 md:p-8 rounded-2xl md:rounded-3xl my-6 md:my-10 border border-blue-100 text-sm md:text-xl leading-relaxed shadow-inner">
+                            입시는 '노력의 양'으로 결정되는 정직한 게임이 아니라, <br class="hidden md:block" />
+                            '시행착오를 얼마나 줄이느냐'로 승패가 갈리는 정밀한 설계의 영역입니다.
                         </div>
-                        <p class="text-sm md:text-lg text-slate-700 leading-relaxed mb-4 md:mb-6">
-                            저는 대한민국 이공계 엘리트 코스라 불리는 대전동신과학고등학교를 2년 만에 조기 졸업하고, KAIST 전기및전자공학부에 진학했습니다. 과학고 재학 시절, 수학 내신 전교 1등과 통합 전교 3등이라는 성적을 거두며 깨달은 것은 단 하나였습니다. <strong>'성적은 지능의 산물이 아니라 알고리즘의 결과'</strong>라는 사실입니다.
+                        <p class="text-sm md:text-lg text-slate-700 leading-relaxed mb-4 md:mb-6 font-light">
+                            저는 대한민국 이공계 엘리트 코스라 불리는 대전동신과학고등학교를 2년 만에 조기 졸업하고, KAIST 전기및전자공학부에 진학했습니다. 과학고 재학 시절, 수학 내신 전교 1등과 통합 전교 3등이라는 성적을 거두며 깨달은 것은 단 하나였습니다. <strong class="text-slate-900">'성적은 지능의 산물이 아니라 알고리즘의 결과'</strong>라는 사실입니다.
                         </p>
-                        <p class="text-sm md:text-lg text-slate-700 leading-relaxed mb-4 md:mb-6">
+                        <p class="text-sm md:text-lg text-slate-700 leading-relaxed mb-4 md:mb-6 font-light">
                             무작정 암기하고 많이 푸는 방식으로는 상위 0.1%의 벽을 넘을 수 없습니다. 문제를 마주했을 때 뇌가 어떻게 반응해야 하는지, 개념과 풀이 사이의 끊어진 연결 고리를 어떻게 이어야 하는지 그 '회로'를 먼저 설계해야 합니다.
                         </p>
-                        <p class="text-sm md:text-lg text-slate-700 leading-relaxed mb-5 md:mb-8">
-                            이 설계도를 따라오는 것만으로도 여러분의 자녀는 남들보다 훨씬 앞선 출발선에서 시작하게 될 것입니다. <strong>여러분의 자녀에게 '1년의 시간'이라는 가장 값진 선물을 줄 준비가 되셨습니까?</strong>
+                        <p class="text-sm md:text-lg text-slate-800 font-medium leading-relaxed mb-6 md:mb-10">
+                            이 설계도를 따라오는 것만으로도 여러분의 자녀는 남들보다 훨씬 앞선 출발선에서 시작하게 될 것입니다. <strong class="text-blue-600">여러분의 자녀에게 '1년의 시간'이라는 가장 값진 선물을 줄 준비가 되셨습니까?</strong>
                         </p>
-                        <p class="text-right font-bold mt-6 md:mt-12 text-slate-900 text-sm md:text-lg">
-                            튜터 김주환 드림
-                        </p>
+                        <div class="text-right mt-6 md:mt-12">
+                            <img src="https://api.dicebear.com/7.x/initials/svg?seed=KJ&backgroundColor=2563eb&textColor=ffffff" alt="Sign" class="w-10 h-10 md:w-12 md:h-12 rounded-full inline-block mb-3 opacity-90 grayscale" />
+                            <p class="font-bold text-slate-900 text-sm md:text-lg tracking-wide">
+                                튜터 김주환 드림
+                            </p>
+                        </div>
                     </div>
 
                 </div>
@@ -291,39 +350,45 @@
     </section>
 
     <!-- Proof 섹션 -->
-    <section class="py-12 md:py-24 px-5 md:px-6 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white border-t border-b border-slate-800">
+    <section class="py-16 md:py-28 px-5 md:px-6 bg-gradient-to-b from-navy-900 to-slate-900 text-white border-t border-b border-slate-800">
         <div class="max-w-5xl mx-auto relative z-10">
-            <div class="text-center mb-10 md:mb-16">
-                <h2 class="text-xl sm:text-3xl md:text-4xl font-bold mb-2 md:mb-4">
-                    수천 시간의 현장 데이터로 증명된 압도적 결과
+            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-5">
+                    수천 시간의 현장 데이터로 증명된 <span class="text-blue-400">압도적 결과</span>
                 </h2>
-                <p class="text-sm md:text-lg text-blue-100">
+                <p class="text-sm md:text-lg text-slate-400 font-light">
                     추상적인 잔소리가 아닙니다. 실제 성적 수직 상승을 이끌어낸 검증된 로직입니다.
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                <div class="bg-white/5 backdrop-blur-sm p-5 md:p-8 rounded-2xl border border-white/10 text-center shadow-xl">
-                    <i data-lucide="trending-up" class="w-8 h-8 md:w-12 md:h-12 text-blue-400 mx-auto mb-3 md:mb-6"></i>
-                    <div class="text-slate-300 font-medium mb-1 md:mb-3 text-xs sm:text-sm md:text-lg">6월 모의고사 3등급</div>
-                    <div class="text-xl md:text-3xl font-bold flex items-center justify-center gap-2">
-                        수능 1등급 <span class="text-blue-400 text-sm md:text-xl">견인</span>
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+                <div data-aos="zoom-in" data-aos-delay="100" class="glass-card p-6 md:p-10 rounded-3xl text-center group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-up" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <div class="text-slate-400 font-medium mb-2 md:mb-3 text-xs sm:text-sm md:text-base uppercase tracking-wider">Case 01. 6월 모의고사 3등급</div>
+                    <div class="text-xl md:text-3xl font-bold flex flex-col items-center justify-center gap-1 text-white">
+                        수능 1등급 <span class="text-blue-400 text-sm md:text-lg font-normal mt-1 bg-blue-500/10 px-3 py-1 rounded-full">견인 달성</span>
                     </div>
                 </div>
                 
-                <div class="bg-white/5 backdrop-blur-sm p-5 md:p-8 rounded-2xl border border-white/10 text-center shadow-xl">
-                    <i data-lucide="trending-up" class="w-8 h-8 md:w-12 md:h-12 text-blue-400 mx-auto mb-3 md:mb-6"></i>
-                    <div class="text-slate-300 font-medium mb-1 md:mb-3 text-xs sm:text-sm md:text-lg">일반고 수학 전교 28등</div>
-                    <div class="text-xl md:text-3xl font-bold flex items-center justify-center gap-2">
-                        전교 5등 <span class="text-blue-400 text-sm md:text-xl">수직 상승</span>
+                <div data-aos="zoom-in" data-aos-delay="200" class="glass-card p-6 md:p-10 rounded-3xl text-center group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-up" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <div class="text-slate-400 font-medium mb-2 md:mb-3 text-xs sm:text-sm md:text-base uppercase tracking-wider">Case 02. 일반고 수학 전교 28등</div>
+                    <div class="text-xl md:text-3xl font-bold flex flex-col items-center justify-center gap-1 text-white">
+                        전교 5등 <span class="text-emerald-400 text-sm md:text-lg font-normal mt-1 bg-emerald-500/10 px-3 py-1 rounded-full">수직 상승</span>
                     </div>
                 </div>
 
-                <div class="bg-white/5 backdrop-blur-sm p-5 md:p-8 rounded-2xl border border-white/10 text-center shadow-xl sm:col-span-2 md:col-span-1">
-                    <i data-lucide="trending-up" class="w-8 h-8 md:w-12 md:h-12 text-blue-400 mx-auto mb-3 md:mb-6"></i>
-                    <div class="text-slate-300 font-medium mb-1 md:mb-3 text-xs sm:text-sm md:text-lg">수학 공백기 노베이스 고3</div>
-                    <div class="text-xl md:text-3xl font-bold flex items-center justify-center gap-2">
-                        모의고사 1등급 <span class="text-blue-400 text-sm md:text-xl">달성</span>
+                <div data-aos="zoom-in" data-aos-delay="300" class="glass-card p-6 md:p-10 rounded-3xl text-center group hover:-translate-y-2 transition-transform duration-300 sm:col-span-2 md:col-span-1">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-up" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <div class="text-slate-400 font-medium mb-2 md:mb-3 text-xs sm:text-sm md:text-base uppercase tracking-wider">Case 03. 수학 노베이스 고3</div>
+                    <div class="text-xl md:text-3xl font-bold flex flex-col items-center justify-center gap-1 text-white">
+                        모의고사 1등급 <span class="text-purple-400 text-sm md:text-lg font-normal mt-1 bg-purple-500/10 px-3 py-1 rounded-full">기적의 달성</span>
                     </div>
                 </div>
             </div>
@@ -331,33 +396,41 @@
     </section>
 
     <!-- TargetSection 섹션 -->
-    <section class="py-12 md:py-24 px-5 md:px-6 bg-white">
+    <section class="py-16 md:py-28 px-5 md:px-6 bg-white">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-10 md:mb-16">
-                <div class="inline-flex items-center justify-center w-14 h-14 md:w-20 md:h-20 rounded-full bg-blue-50 text-blue-600 mb-3 md:mb-6">
-                    <i data-lucide="target" class="w-7 h-7 md:w-10 md:h-10"></i>
+            <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+                <div class="inline-flex items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-3xl bg-blue-50 text-blue-600 mb-4 md:mb-6 shadow-inner border border-blue-100">
+                    <i data-lucide="target" class="w-8 h-8 md:w-12 md:h-12"></i>
                 </div>
                 <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 md:mb-4">
                     이런 분들께 이 설계도를 바칩니다
                 </h2>
             </div>
 
-            <div class="bg-slate-50 p-5 md:p-12 rounded-2xl md:rounded-3xl border border-slate-200">
-                <ul class="space-y-3 md:space-y-6">
-                    <li class="flex items-start gap-3 md:gap-4 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 md:w-7 md:h-7 text-blue-600 shrink-0 mt-0.5"></i>
+            <div class="bg-slate-50 p-6 md:p-12 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.02)]" data-aos="fade-up" data-aos-delay="100">
+                <ul class="space-y-4 md:space-y-6">
+                    <li class="flex items-start gap-4 md:gap-5 bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-colors">
+                        <div class="bg-blue-50 text-blue-600 p-2 rounded-full mt-0.5">
+                            <i data-lucide="check" class="w-4 h-4 md:w-5 md:h-5 font-bold"></i>
+                        </div>
                         <span class="text-sm md:text-lg text-slate-700 leading-relaxed"><strong>영재고·과학고 조기졸업</strong>이라는 '패스트트랙'을 꿈꾸는 학생과 학부모님</span>
                     </li>
-                    <li class="flex items-start gap-3 md:gap-4 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 md:w-7 md:h-7 text-blue-600 shrink-0 mt-0.5"></i>
+                    <li class="flex items-start gap-4 md:gap-5 bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-colors">
+                        <div class="bg-blue-50 text-blue-600 p-2 rounded-full mt-0.5">
+                            <i data-lucide="check" class="w-4 h-4 md:w-5 md:h-5 font-bold"></i>
+                        </div>
                         <span class="text-sm md:text-lg text-slate-700 leading-relaxed">명문대 합격을 위해 최상위권의 <strong>'공학적 공부 로직'</strong>이 필요한 초·중·고등학생</span>
                     </li>
-                    <li class="flex items-start gap-3 md:gap-4 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 md:w-7 md:h-7 text-blue-600 shrink-0 mt-0.5"></i>
+                    <li class="flex items-start gap-4 md:gap-5 bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-colors">
+                        <div class="bg-blue-50 text-blue-600 p-2 rounded-full mt-0.5">
+                            <i data-lucide="check" class="w-4 h-4 md:w-5 md:h-5 font-bold"></i>
+                        </div>
                         <span class="text-sm md:text-lg text-slate-700 leading-relaxed">학원을 열심히 다녀도 <strong>성적이 오르지 않아</strong> 답답함을 느끼는 학생</span>
                     </li>
-                    <li class="flex items-start gap-3 md:gap-4 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 md:w-7 md:h-7 text-blue-600 shrink-0 mt-0.5"></i>
+                    <li class="flex items-start gap-4 md:gap-5 bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-colors">
+                        <div class="bg-blue-50 text-blue-600 p-2 rounded-full mt-0.5">
+                            <i data-lucide="check" class="w-4 h-4 md:w-5 md:h-5 font-bold"></i>
+                        </div>
                         <span class="text-sm md:text-lg text-slate-700 leading-relaxed">자녀의 입시 여정에서 완벽한 <strong>'시스템 관리자'</strong>가 되어주고 싶은 학부모님</span>
                     </li>
                 </ul>
@@ -366,49 +439,51 @@
     </section>
 
     <!-- Review Event 섹션 -->
-    <section class="py-12 md:py-24 px-5 md:px-6 bg-blue-50/50 border-t border-blue-100">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="inline-flex items-center justify-center w-14 h-14 md:w-20 md:h-20 rounded-full bg-blue-100 text-blue-600 mb-3 md:mb-6 shadow-sm">
-                <i data-lucide="gift" class="w-7 h-7 md:w-10 md:h-10"></i>
+    <section class="py-16 md:py-28 px-5 md:px-6 bg-gradient-to-b from-blue-50/50 to-white border-t border-blue-100 overflow-hidden relative">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div data-aos="fade-down" class="inline-flex items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-blue-500 to-blue-600 text-white mb-5 md:mb-8 shadow-lg shadow-blue-500/30 transform -rotate-3">
+                <i data-lucide="gift" class="w-8 h-8 md:w-12 md:h-12 animate-pulse"></i>
             </div>
-            <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 md:mb-4">
+            <h2 data-aos="fade-up" class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-3 md:mb-5 tracking-tight">
                 구매자 특별 감사 이벤트 🎁
             </h2>
-            <p class="text-sm md:text-lg text-slate-600 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p data-aos="fade-up" data-aos-delay="100" class="text-sm md:text-lg text-slate-600 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed">
                 본 합격 설계도를 읽고 정성스러운 후기를 남겨주시면,<br class="hidden sm:block" />
-                감사의 의미로 <strong class="text-blue-600">실제 영재고·과학고 합격 자소서 원본 PDF</strong>를 추가 발송해 드립니다.
+                감사의 의미로 <strong class="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded">실제 영재고·과학고 합격 자소서 원본 PDF</strong>를 추가 발송해 드립니다.
             </p>
             
-            <div class="bg-white p-5 md:p-10 rounded-2xl md:rounded-3xl shadow-lg border border-slate-200 inline-block text-left w-full max-w-2xl mx-auto relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-20 h-20 md:w-32 md:h-32 bg-blue-50 rounded-bl-full -z-10"></div>
+            <div data-aos="zoom-in" data-aos-delay="200" class="bg-white p-6 md:p-12 rounded-3xl shadow-[0_20px_50px_rgb(0,0,0,0.06)] border border-slate-100 inline-block text-left w-full max-w-2xl mx-auto relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 md:w-48 md:h-48 bg-gradient-to-bl from-blue-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
                 
-                <h3 class="text-lg md:text-2xl font-bold text-slate-900 mb-4 md:mb-6">📝 이벤트 참여 방법</h3>
-                <ul class="space-y-4 md:space-y-6 text-slate-700">
-                    <li class="flex items-start gap-3 md:gap-4">
-                        <span class="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-600 text-white font-bold text-xs md:text-sm shrink-0 shadow-md">1</span>
+                <h3 class="text-lg md:text-2xl font-bold text-slate-900 mb-5 md:mb-8 flex items-center gap-2">
+                    <i data-lucide="list-checks" class="text-blue-500 w-5 h-5 md:w-6 md:h-6"></i> 이벤트 참여 방법
+                </h3>
+                <ul class="space-y-5 md:space-y-8 text-slate-700">
+                    <li class="flex items-start gap-4 md:gap-5 relative before:content-[''] before:absolute before:left-3.5 md:before:left-4 before:top-10 before:bottom-[-20px] before:w-[2px] before:bg-slate-100 last:before:hidden">
+                        <span class="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-900 text-white font-bold text-xs md:text-sm shrink-0 shadow-md relative z-10">1</span>
                         <div class="pt-0.5 md:pt-1">
                             <strong class="text-sm md:text-lg text-slate-900 block mb-1">리포트 구매 및 완독</strong>
-                            <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">합격 설계도 PDF를 구매하여 꼼꼼히 읽어봅니다.</p>
+                            <p class="text-xs sm:text-sm md:text-base text-slate-500 leading-relaxed font-light">합격 설계도 PDF를 구매하여 꼼꼼히 읽어봅니다.</p>
                         </div>
                     </li>
-                    <li class="flex items-start gap-3 md:gap-4">
-                        <span class="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-600 text-white font-bold text-xs md:text-sm shrink-0 shadow-md">2</span>
+                    <li class="flex items-start gap-4 md:gap-5 relative before:content-[''] before:absolute before:left-3.5 md:before:left-4 before:top-10 before:bottom-[-20px] before:w-[2px] before:bg-slate-100 last:before:hidden">
+                        <span class="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-900 text-white font-bold text-xs md:text-sm shrink-0 shadow-md relative z-10">2</span>
                         <div class="pt-0.5 md:pt-1">
                             <strong class="text-sm md:text-lg text-slate-900 block mb-1">솔직한 후기 작성</strong>
-                            <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">하단의 버튼을 눌러 지정된 폼에 후기를 정성껏 작성해 주세요.</p>
+                            <p class="text-xs sm:text-sm md:text-base text-slate-500 leading-relaxed font-light">하단의 버튼을 눌러 지정된 폼에 후기를 정성껏 작성해 주세요.</p>
                         </div>
                     </li>
-                    <li class="flex items-start gap-3 md:gap-4">
-                        <span class="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-600 text-white font-bold text-xs md:text-sm shrink-0 shadow-md">3</span>
+                    <li class="flex items-start gap-4 md:gap-5 relative last:before:hidden">
+                        <span class="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-blue-600 text-white font-bold text-xs md:text-sm shrink-0 shadow-[0_0_15px_rgba(37,99,235,0.4)] relative z-10">3</span>
                         <div class="pt-0.5 md:pt-1">
-                            <strong class="text-sm md:text-lg text-slate-900 block mb-1">자소서 원본 수령</strong>
-                            <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">작성 확인 후, 기재해주신 이메일로 <strong>합격 자소서 원본</strong>을 발송해 드립니다.</p>
+                            <strong class="text-sm md:text-lg text-blue-700 block mb-1">자소서 원본 수령 완료!</strong>
+                            <p class="text-xs sm:text-sm md:text-base text-slate-500 leading-relaxed font-light">작성 확인 후, 기재해주신 이메일로 <strong class="text-slate-800">합격 자소서 원본</strong>을 즉시 발송해 드립니다.</p>
                         </div>
                     </li>
                 </ul>
-                <div class="mt-6 md:mt-10 pt-5 md:pt-8 border-t border-slate-100 text-center">
-                    <a href="sms:01021247269?body=안녕하세요,%20합격%20설계도%20후기%20남깁니다." class="inline-flex items-center justify-center px-5 py-3 md:px-8 md:py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs sm:text-base md:text-lg transition-all shadow-xl shadow-slate-900/20 w-full sm:w-auto gap-2 md:gap-3 group">
-                        <i data-lucide="message-circle" class="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform"></i>
+                <div class="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-slate-100 text-center">
+                    <a href="sms:01021247269?body=안녕하세요,%20합격%20설계도%20후기%20남깁니다." class="inline-flex items-center justify-center px-6 py-4 md:px-10 md:py-5 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-bold text-sm sm:text-base md:text-lg transition-all shadow-xl shadow-slate-900/20 w-full sm:w-auto gap-3 group hover:-translate-y-1">
+                        <i data-lucide="message-circle" class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform"></i>
                         문자로 후기 남기고 자소서 받기
                     </a>
                 </div>
@@ -416,35 +491,55 @@
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
-    <section class="py-12 md:py-24 px-5 md:px-6 bg-slate-900 text-white text-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-blue-600/20 blur-3xl rounded-full w-[400px] h-[400px] md:w-[800px] md:h-[800px] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+    <!-- CTA 섹션 (Scarcity 유도) -->
+    <section class="py-16 md:py-28 px-5 md:px-6 bg-navy-900 text-white text-center relative overflow-hidden">
+        <!-- 배경 글래스모피즘 효과 요소 -->
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop')] opacity-[0.03] mix-blend-overlay bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-blue-600/10 blur-[100px] rounded-full w-[400px] h-[400px] md:w-[800px] md:h-[800px] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
         
         <div class="max-w-3xl mx-auto relative z-10">
-            <h2 class="text-2xl md:text-5xl font-bold mb-4 md:mb-8 leading-snug md:leading-tight">
-                당신의 자녀도 <span class="text-blue-400">0.1%의 주인공</span>이<br class="hidden sm:block" />될 수 있습니다.
+            <!-- 마감 임박 뱃지 -->
+            <div data-aos="fade-down" class="inline-block bg-red-500/20 text-red-400 font-bold px-4 py-1.5 md:px-6 md:py-2 rounded-full mb-6 text-xs md:text-sm border border-red-500/30 animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                🚨 특별 할인 이벤트 마감 임박!
+            </div>
+
+            <h2 data-aos="fade-up" data-aos-delay="100" class="text-3xl md:text-5xl lg:text-6xl font-black mb-5 md:mb-8 leading-tight tracking-tight drop-shadow-lg">
+                당신의 자녀도 <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">0.1%의 주인공</span>이<br class="hidden sm:block" />될 수 있습니다.
             </h2>
-            <p class="text-sm md:text-xl text-slate-300 mb-6 md:mb-12 leading-relaxed">
-                시행착오를 줄이는 것, 그것이 입시 승리의 전부입니다.<br class="hidden sm:block" />
-                지금 바로 합격의 알고리즘을 시작하세요.
+            <p data-aos="fade-up" data-aos-delay="200" class="text-sm md:text-xl text-slate-400 mb-8 md:mb-12 leading-relaxed font-light">
+                커피 두 잔 값으로 평생의 시행착오를 차단하세요.<br class="hidden sm:block" />
+                단돈 8,900원으로 합격의 알고리즘을 지금 바로 시작하세요.
             </p>
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="w-full sm:w-auto px-6 py-3.5 md:px-8 md:py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm md:text-xl transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
-                    <i data-lucide="file-text" class="w-4 h-4 md:w-6 md:h-6"></i>
-                    합격 설계도 PDF 구매 (8,900원)
+            <div data-aos="zoom-in" data-aos-delay="300" class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 relative group w-full sm:w-auto inline-block">
+                <!-- 버튼 뒤 발광 효과 -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-2xl blur opacity-30 group-hover:opacity-70 transition duration-500 group-hover:duration-200"></div>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="relative w-full sm:w-auto px-6 py-4 md:px-10 md:py-6 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl md:rounded-2xl font-bold text-base md:text-2xl transition-all flex items-center justify-center gap-2 md:gap-3 leading-none">
+                    <i data-lucide="zap" class="w-5 h-5 md:w-7 md:h-7 text-yellow-300 fill-yellow-300"></i>
+                    단돈 8,900원, 합격 설계도 구매하기
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Footer 섹션 -->
-    <footer class="py-6 text-center text-slate-500 text-[10px] sm:text-sm bg-slate-50 border-t border-slate-200 px-5">
+    <footer class="py-8 text-center text-slate-500 text-[10px] sm:text-xs md:text-sm bg-navy-900 border-t border-slate-800 px-5">
         <p>© 2026 Tutor Kim Ju-hwan. KAIST Academic Consulting. All rights reserved.</p>
     </footer>
 
-    <!-- 자바스크립트 로직 (아이콘 활성화 및 탭 전환) -->
+    <!-- AOS 애니메이션 스크립트 -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- 자바스크립트 로직 (타이머, 스크롤, 아이콘, 탭) -->
     <script>
+        // AOS 스크롤 애니메이션 초기화 (Framer motion 대체)
+        AOS.init({
+            duration: 800, // 애니메이션 지속 시간 (ms)
+            once: true, // 스크롤 내릴 때 한 번만 실행
+            offset: 50, // 애니메이션이 시작되는 스크롤 위치 (px)
+            easing: 'ease-out-cubic' // 부드러운 가속도
+        });
+
         // Lucide 아이콘 렌더링
         lucide.createIcons();
 
@@ -455,20 +550,69 @@
             const contentToc = document.getElementById('content-toc');
             const contentPrologue = document.getElementById('content-prologue');
 
-            // 초기화
-            tabTocBtn.className = "flex-1 py-3 md:py-5 text-center font-bold text-xs sm:text-base md:text-lg transition-colors text-slate-500 hover:bg-slate-50 border-b-2 border-transparent";
-            tabPrologueBtn.className = "flex-1 py-3 md:py-5 text-center font-bold text-xs sm:text-base md:text-lg transition-colors text-slate-500 hover:bg-slate-50 border-b-2 border-transparent";
+            // 초기화 스타일
+            const inactiveClass = "flex-1 py-4 md:py-6 text-center font-bold text-sm sm:text-base md:text-lg transition-colors text-slate-400 hover:text-slate-600 hover:bg-slate-50 border-b-2 border-transparent";
+            const activeClass = "flex-1 py-4 md:py-6 text-center font-bold text-sm sm:text-base md:text-lg transition-colors bg-white text-blue-600 border-b-2 border-blue-600 shadow-[0_4px_0_0_rgba(37,99,235,0.0)]";
+
+            tabTocBtn.className = inactiveClass;
+            tabPrologueBtn.className = inactiveClass;
             contentToc.classList.add('hidden');
             contentPrologue.classList.add('hidden');
 
             // 선택된 탭 활성화
             if (tabName === 'toc') {
-                tabTocBtn.className = "flex-1 py-3 md:py-5 text-center font-bold text-xs sm:text-base md:text-lg transition-colors bg-blue-50 text-blue-700 border-b-2 border-blue-600";
+                tabTocBtn.className = activeClass;
                 contentToc.classList.remove('hidden');
             } else {
-                tabPrologueBtn.className = "flex-1 py-3 md:py-5 text-center font-bold text-xs sm:text-base md:text-lg transition-colors bg-blue-50 text-blue-700 border-b-2 border-blue-600";
+                tabPrologueBtn.className = activeClass;
                 contentPrologue.classList.remove('hidden');
             }
+        }
+
+        // 상단 네비게이션 스크롤 효과 (내리면 배경 진하게)
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-white/80', 'bg-white/95');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('bg-white/95', 'bg-white/80');
+            }
+        });
+
+        // 일주일(7일) 카운트다운 타이머 로직
+        // 사용자가 페이지에 접속한 시점부터 7일 뒤로 설정하여 마감 효과 극대화
+        const countdownElement = document.getElementById('days'); // 타이머 존재 여부 체크
+        
+        if (countdownElement) {
+            // 접속 기준 + 7일
+            const countDownDate = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // 두 자리 숫자로 맞추기 (06, 09 등)
+                document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+                document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+
+                // 시간이 만료되었을 때 처리
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("days").innerHTML = "00";
+                    document.getElementById("hours").innerHTML = "00";
+                    document.getElementById("minutes").innerHTML = "00";
+                    document.getElementById("seconds").innerHTML = "00";
+                }
+            }, 1000);
         }
     </script>
 </body>
