@@ -534,22 +534,22 @@
         <div class="max-w-6xl mx-auto px-5 md:px-6">
             <div class="text-center mb-10 md:mb-16" data-aos="fade-up">
                 <div class="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-white text-blue-600 mb-4 md:mb-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100">
-                    <i data-lucide="message-heart" class="w-8 h-8 md:w-10 md:h-10"></i>
+                    <i data-lucide="messages-square" class="w-8 h-8 md:w-10 md:h-10"></i>
                 </div>
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-5">
                     "결과가 증명합니다"<br class="sm:hidden" /> 100% 리얼 수강 후기
                 </h2>
                 <p class="text-sm md:text-lg text-slate-600 font-medium">
-                    수천 시간의 수업으로 입증된 압도적인 만족도. 옆으로 넘겨보세요.
+                    수천 시간의 수업으로 입증된 압도적인 만족도.<br class="sm:hidden" /> 옆으로 넘겨보세요.
                 </p>
             </div>
 
             <!-- 카테고리 탭 버튼 -->
-            <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-12" data-aos="fade-up" data-aos-delay="100">
-                <button id="rev-tab-1" onclick="switchReviewTab(1)" class="px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs sm:text-sm md:text-base transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/30">영과고 수학</button>
-                <button id="rev-tab-2" onclick="switchReviewTab(2)" class="px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100">중고등 수학</button>
-                <button id="rev-tab-3" onclick="switchReviewTab(3)" class="px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100">비대면 온라인</button>
-                <button id="rev-tab-4" onclick="switchReviewTab(4)" class="px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100">초등 사고력</button>
+            <div class="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-12" data-aos="fade-up" data-aos-delay="100">
+                <button id="rev-tab-1" onclick="switchReviewTab(1)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/30 whitespace-nowrap">영과고 수학</button>
+                <button id="rev-tab-2" onclick="switchReviewTab(2)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap">중고등 수학</button>
+                <button id="rev-tab-3" onclick="switchReviewTab(3)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap">비대면 온라인</button>
+                <button id="rev-tab-4" onclick="switchReviewTab(4)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap">초등 사고력</button>
             </div>
         </div>
 
@@ -863,7 +863,7 @@
                     "입시 설명회보다 훨씬 알찹니다"<br class="sm:hidden" /> 리얼 구매 후기
                 </h2>
                 <p class="text-sm md:text-lg text-slate-600 font-medium">
-                    단돈 8,900원의 가치를 뛰어넘은 압도적인 퀄리티, 실제 독자들의 후기입니다.
+                    단돈 8,900원의 가치를 뛰어넘은 압도적인 퀄리티,<br class="sm:hidden" /> 실제 독자들의 후기입니다.
                 </p>
             </div>
         </div>
@@ -1221,10 +1221,10 @@
                 contentPrologue.classList.remove('hidden');
             }
         }
-
+        // 리뷰(후기) 섹션 탭 전환 로직
         function switchReviewTab(tabId) {
-            const activeClass = "px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs sm:text-sm md:text-base transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/30";
-            const inactiveClass = "px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100";
+            const activeClass = "w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/30 whitespace-nowrap";
+            const inactiveClass = "w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap";
 
             for (let i = 1; i <= 4; i++) {
                 const btn = document.getElementById('rev-tab-' + i);
