@@ -74,6 +74,22 @@
             font-weight: 700;
             color: #1e3a8a;
         }
+        
+        /* 세련된 구매 버튼 광원(Shine) 애니메이션 */
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            z-index: 1;
+            transition: all 0.7s ease-in-out;
+        }
+        .group:hover .btn-shine {
+            left: 200%;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-300 overflow-x-hidden">
@@ -147,29 +163,59 @@
             </div>
             
             <!-- 상단 CTA 버튼 영역 -->
-            <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col items-center justify-center w-full max-w-2xl mx-auto relative z-20">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="px-3 py-4 bg-slate-800/80 hover:bg-slate-700 text-white border border-slate-600 rounded-xl transition-all flex flex-col items-center justify-center gap-1 group">
-                        <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider">LITE 맛보기</span>
-                        <div class="font-bold text-sm md:text-base">핵심 압축본</div>
-                        <span class="font-bold text-slate-300 text-sm mt-0.5">4,900원</span>
-                    </a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="px-3 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex flex-col items-center justify-center gap-1 group">
-                        <span class="text-[10px] md:text-xs text-blue-200 font-bold uppercase tracking-wider">FULL 추천</span>
-                        <div class="font-bold text-sm md:text-base">수학 설계도</div>
-                        <div class="flex items-baseline gap-1.5 mt-0.5">
-                            <span class="text-blue-200 line-through text-[10px] font-medium">19,900원</span>
-                            <span class="text-white font-bold text-sm">9,900원</span>
+            <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col items-center justify-center w-full max-w-3xl mx-auto relative z-20">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 w-full">
+                    
+                    <!-- LITE 버전 버튼 -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="relative overflow-hidden px-4 py-5 md:py-6 bg-slate-800 text-white rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-slate-700/30 hover:-translate-y-1.5 flex flex-col items-center justify-center gap-2 group border border-slate-700 hover:border-slate-500 w-full">
+                        <div class="btn-shine opacity-50"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-1.5">
+                            <span class="inline-block px-3 py-1 bg-slate-900 border border-slate-600 text-slate-300 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider mb-1">
+                                LITE 맛보기
+                            </span>
+                            <div class="flex items-center gap-2 font-bold text-base md:text-lg text-slate-100">
+                                <i data-lucide="file-text" class="w-5 h-5 text-slate-400 group-hover:scale-110 transition-transform"></i> 핵심 압축본
+                            </div>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-white font-black text-lg md:text-xl drop-shadow-md">4,900원</span>
+                            </div>
                         </div>
                     </a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="px-3 py-4 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white rounded-xl transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:-translate-y-1 flex flex-col items-center justify-center gap-1 group">
-                        <span class="text-[10px] md:text-xs text-purple-200 font-bold uppercase tracking-wider">입시 필수</span>
-                        <div class="font-bold text-sm md:text-base">생기부 설계도</div>
-                        <div class="flex items-baseline gap-1.5 mt-0.5">
-                            <span class="text-purple-200 line-through text-[10px] font-medium">19,900원</span>
-                            <span class="text-white font-bold text-sm">9,900원</span>
+
+                    <!-- 수학 FULL 버튼 -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="relative overflow-hidden px-4 py-5 md:py-6 bg-gradient-to-b from-blue-600 to-blue-800 text-white rounded-2xl transition-all duration-300 shadow-[0_8px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_15px_30px_rgba(59,130,246,0.5)] hover:-translate-y-1.5 flex flex-col items-center justify-center gap-2 group border border-blue-400/30 hover:border-blue-300/80 w-full">
+                        <div class="btn-shine"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-1.5">
+                            <span class="inline-block px-3 py-1 bg-blue-900/50 border border-blue-400/30 text-blue-200 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider mb-1">
+                                FULL 추천
+                            </span>
+                            <div class="flex items-center gap-2 font-black text-base md:text-lg text-white drop-shadow-sm">
+                                <i data-lucide="zap" class="w-5 h-5 text-yellow-300 fill-yellow-300 group-hover:scale-110 transition-transform"></i> 수학 설계도
+                            </div>
+                            <div class="flex items-end gap-1.5 mt-1">
+                                <span class="text-blue-300 line-through text-xs md:text-sm font-medium mb-0.5">19,900원</span>
+                                <span class="text-yellow-300 font-black text-xl md:text-2xl drop-shadow-md">9,900원</span>
+                            </div>
                         </div>
                     </a>
+
+                    <!-- 생기부 FULL 버튼 -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="relative overflow-hidden px-4 py-5 md:py-6 bg-gradient-to-b from-purple-600 to-purple-800 text-white rounded-2xl transition-all duration-300 shadow-[0_8px_20px_rgba(147,51,234,0.3)] hover:shadow-[0_15px_30px_rgba(168,85,247,0.5)] hover:-translate-y-1.5 flex flex-col items-center justify-center gap-2 group border border-purple-400/30 hover:border-purple-300/80 w-full">
+                        <div class="btn-shine"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-1.5">
+                            <span class="inline-block px-3 py-1 bg-purple-900/50 border border-purple-400/30 text-purple-200 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider mb-1 group-hover:animate-pulse">
+                                입시 필수
+                            </span>
+                            <div class="flex items-center gap-2 font-black text-base md:text-lg text-white drop-shadow-sm">
+                                <i data-lucide="book-open" class="w-5 h-5 text-pink-300 group-hover:scale-110 transition-transform"></i> 생기부 설계도
+                            </div>
+                            <div class="flex items-end gap-1.5 mt-1">
+                                <span class="text-purple-300 line-through text-xs md:text-sm font-medium mb-0.5">19,900원</span>
+                                <span class="text-yellow-300 font-black text-xl md:text-2xl drop-shadow-md">9,900원</span>
+                            </div>
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -366,7 +412,7 @@
                             </li>
                             <li class="flex items-start gap-4">
                                 <i data-lucide="check-circle-2" class="w-6 h-6 text-amber-500 shrink-0 mt-0.5"></i>
-                                <span class="text-sm md:text-lg text-slate-200 font-light leading-relaxed">1, 2학년 때 방향을 잘못 잡아 포기 직전이지만, 흩어진 활동을 하나로 엮어 <strong class="text-white font-bold">기적의 합격 서사</strong>를 쓰고 싶은 고3 수험생</span>
+                                <span class="text-sm md:text-lg text-slate-200 font-light leading-relaxed">1, 2학년 때 방향을 잘못 잡아 포기 직전이지만, 흩어진 활동을 하나로 엮어 <strong class="text-white font-bold">기적의 합격 서사</strong>를 쓰고 고3 수험생</span>
                             </li>
                         </ul>
                     </div>
@@ -1495,37 +1541,58 @@
             
             <!-- 새로운 3단 티어형 구매 버튼 -->
             <div data-aos="zoom-in" data-aos-delay="300" class="flex flex-col items-center justify-center w-full max-w-3xl mx-auto relative z-20">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 w-full">
+                    
                     <!-- LITE 버전 버튼 -->
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="px-3 py-4 md:px-4 md:py-6 bg-slate-800/80 hover:bg-slate-700 text-white border border-slate-600 rounded-xl transition-all backdrop-blur-md flex flex-col items-center justify-center gap-1 group">
-                        <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider">LITE 맛보기</span>
-                        <div class="flex items-center gap-2 font-black text-sm md:text-base">
-                            <i data-lucide="file-text" class="w-4 h-4 text-slate-300"></i> 핵심 압축본
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="relative overflow-hidden px-4 py-5 md:py-6 bg-slate-800 text-white rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-slate-700/30 hover:-translate-y-1.5 flex flex-col items-center justify-center gap-2 group border border-slate-700 hover:border-slate-500 w-full">
+                        <div class="btn-shine opacity-50"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-1.5">
+                            <span class="inline-block px-3 py-1 bg-slate-900 border border-slate-600 text-slate-300 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider mb-1">
+                                LITE 맛보기
+                            </span>
+                            <div class="flex items-center gap-2 font-bold text-base md:text-lg text-slate-100">
+                                <i data-lucide="file-text" class="w-5 h-5 text-slate-400 group-hover:scale-110 transition-transform"></i> 핵심 압축본
+                            </div>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-white font-black text-lg md:text-xl drop-shadow-md">4,900원</span>
+                            </div>
                         </div>
-                        <span class="font-bold text-slate-300 text-sm mt-0.5">4,900원</span>
                     </a>
+
                     <!-- 수학 FULL 버튼 -->
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="px-3 py-4 md:px-4 md:py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex flex-col items-center justify-center gap-1 group">
-                        <span class="text-[10px] md:text-xs text-blue-200 font-bold uppercase tracking-wider">FULL 추천</span>
-                        <div class="flex items-center gap-2 font-black text-sm md:text-base">
-                            <i data-lucide="zap" class="w-4 h-4 text-yellow-300 fill-yellow-300"></i> 수학 설계도
-                        </div>
-                        <div class="flex items-baseline gap-1.5 mt-0.5">
-                            <span class="text-blue-200 line-through text-[11px] font-medium">19,900원</span>
-                            <span class="text-white font-bold text-sm md:text-base">9,900원</span>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="relative overflow-hidden px-4 py-5 md:py-6 bg-gradient-to-b from-blue-600 to-blue-800 text-white rounded-2xl transition-all duration-300 shadow-[0_8px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_15px_30px_rgba(59,130,246,0.5)] hover:-translate-y-1.5 flex flex-col items-center justify-center gap-2 group border border-blue-400/30 hover:border-blue-300/80 w-full">
+                        <div class="btn-shine"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-1.5">
+                            <span class="inline-block px-3 py-1 bg-blue-900/50 border border-blue-400/30 text-blue-200 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider mb-1">
+                                FULL 추천
+                            </span>
+                            <div class="flex items-center gap-2 font-black text-base md:text-lg text-white drop-shadow-sm">
+                                <i data-lucide="zap" class="w-5 h-5 text-yellow-300 fill-yellow-300 group-hover:scale-110 transition-transform"></i> 수학 설계도
+                            </div>
+                            <div class="flex items-end gap-1.5 mt-1">
+                                <span class="text-blue-300 line-through text-xs md:text-sm font-medium mb-0.5">19,900원</span>
+                                <span class="text-yellow-300 font-black text-xl md:text-2xl drop-shadow-md">9,900원</span>
+                            </div>
                         </div>
                     </a>
+
                     <!-- 생기부 FULL 버튼 -->
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="px-3 py-4 md:px-4 md:py-6 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white rounded-xl transition-all shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:-translate-y-1 flex flex-col items-center justify-center gap-1 group">
-                        <span class="text-[10px] md:text-xs text-purple-200 font-bold uppercase tracking-wider">입시 필수</span>
-                        <div class="flex items-center gap-2 font-black text-sm md:text-base">
-                            <i data-lucide="book-open" class="w-4 h-4 text-white"></i> 생기부 설계도
-                        </div>
-                        <div class="flex items-baseline gap-1.5 mt-0.5">
-                            <span class="text-purple-200 line-through text-[11px] font-medium">19,900원</span>
-                            <span class="text-white font-bold text-sm md:text-base">9,900원</span>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="relative overflow-hidden px-4 py-5 md:py-6 bg-gradient-to-b from-purple-600 to-purple-800 text-white rounded-2xl transition-all duration-300 shadow-[0_8px_20px_rgba(147,51,234,0.3)] hover:shadow-[0_15px_30px_rgba(168,85,247,0.5)] hover:-translate-y-1.5 flex flex-col items-center justify-center gap-2 group border border-purple-400/30 hover:border-purple-300/80 w-full">
+                        <div class="btn-shine"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-1.5">
+                            <span class="inline-block px-3 py-1 bg-purple-900/50 border border-purple-400/30 text-purple-200 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider mb-1 group-hover:animate-pulse">
+                                입시 필수
+                            </span>
+                            <div class="flex items-center gap-2 font-black text-base md:text-lg text-white drop-shadow-sm">
+                                <i data-lucide="book-open" class="w-5 h-5 text-pink-300 group-hover:scale-110 transition-transform"></i> 생기부 설계도
+                            </div>
+                            <div class="flex items-end gap-1.5 mt-1">
+                                <span class="text-purple-300 line-through text-xs md:text-sm font-medium mb-0.5">19,900원</span>
+                                <span class="text-yellow-300 font-black text-xl md:text-2xl drop-shadow-md">9,900원</span>
+                            </div>
                         </div>
                     </a>
+
                 </div>
                 
                 <!-- 차액 결제 강조 배너 -->
