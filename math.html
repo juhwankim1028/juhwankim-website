@@ -168,7 +168,7 @@
                         <p class="mt-1.5 md:mt-2 text-xl md:text-3xl font-black tracking-tight text-white tabular-nums">24,900<span class="ml-0.5 text-sm md:text-base font-bold text-slate-400">원</span></p>
                     </a>
                     <!-- 과학고 방문면접 대비 -->
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="group flex flex-col items-start rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-4 md:px-5 md:py-5 text-left transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ivory focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900">
+                    <a href="#interview-prep" class="group flex flex-col items-start rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-4 md:px-5 md:py-5 text-left transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ivory focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900">
                         <span class="text-[10px] md:text-[11px] font-bold tracking-wider text-slate-400 uppercase">New</span>
                         <p class="mt-1 text-sm md:text-base font-semibold text-white">방문면접 대비</p>
                         <p class="mt-1.5 md:mt-2 text-xl md:text-3xl font-black tracking-tight text-white tabular-nums">19,900<span class="ml-0.5 text-sm md:text-base font-bold text-slate-400">원</span></p>
@@ -396,6 +396,58 @@
                             <li class="flex items-start gap-4">
                                 <i data-lucide="check-circle-2" class="w-6 h-6 text-amber-500 shrink-0 mt-0.5"></i>
                                 <span class="text-sm md:text-lg text-slate-200 font-light leading-relaxed">서류는 통과해도 <strong class="text-white font-bold">면접에서 논리적으로 답하는 훈련</strong>이 되어 있지 않아 실전이 두려운 학생</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 방문면접 대비 섹션: 훅 + 표지 + 타겟 독자 -->
+    <section id="interview-prep" class="scroll-mt-24 py-16 md:py-28 px-5 md:px-6 bg-[#050814] text-white relative overflow-hidden">
+        <!-- 배경 글래스 효과 -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-900/30 rounded-full mix-blend-screen filter blur-[100px] opacity-50"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-ivory/10 rounded-full mix-blend-screen filter blur-[100px] opacity-50"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <!-- 웅장한 스토리 훅(Hook) -->
+            <div class="text-center mb-16 md:mb-24" data-aos="fade-up">
+                <div class="inline-block border border-ivory/30 bg-ivory/10 text-ivory font-bold tracking-widest uppercase text-xs md:text-sm px-4 py-1.5 rounded-full mb-6">PDF 원문 발췌</div>
+                <div class="bg-slate-800/50 border border-slate-700 p-6 md:p-12 rounded-3xl inline-block max-w-4xl shadow-2xl backdrop-blur-md">
+                    <p class="text-base md:text-2xl text-slate-300 leading-relaxed font-light text-center md:text-left">
+                        예상 질문 100개를 외워도 세 번째 질문에서 막힙니다.<br/><br/>
+                        꼬리질문은 정해진 목록이 아니라, 내가 한 대답의 빈틈을 겨냥해 그 자리에서 만들어지기 때문입니다.<br/><br/>
+                        <strong class="text-transparent bg-clip-text bg-gradient-to-r from-ivory to-amber-100 font-black text-xl md:text-3xl">질문의 출처는 서류가 아니라, 방금 내가 한 말입니다.</strong>
+                    </p>
+                </div>
+            </div>
+            <!-- 표지 및 타겟 독자 -->
+            <div class="grid lg:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-center">
+                <!-- 왼쪽: 실제 표지 이미지 (파일 준비 전에는 열 자체를 걷어내고 오른쪽을 전폭으로 넓힌다) -->
+                <div class="lg:col-span-5" data-cover data-aos="fade-right" data-aos-delay="100">
+                    <img src="assets/img/interview-cover.png" alt="상위 0.1% 과학고 방문면접 대비 설계도 표지" onerror="this.closest('[data-cover]').remove();document.getElementById('interview-copy').classList.replace('lg:col-span-7','lg:col-span-12')" class="w-full max-w-md mx-auto rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/50 transform transition-transform hover:scale-[1.02] duration-500" />
+                </div>
+                <!-- 오른쪽: 타겟 독자 -->
+                <div id="interview-copy" class="lg:col-span-7 flex flex-col gap-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="bg-amber-50/10 border border-amber-500/30 rounded-3xl p-8 md:p-10 shadow-2xl">
+                        <h4 class="text-xl md:text-2xl font-bold text-amber-400 mb-8 flex items-center gap-3">
+                            <i data-lucide="target" class="w-6 h-6 md:w-8 md:h-8"></i> 이런 학생과 학부모님을 위해 쓰였습니다.
+                        </h4>
+                        <ul class="space-y-6">
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="check-circle-2" class="w-6 h-6 text-amber-500 shrink-0 mt-0.5"></i>
+                                <span class="text-sm md:text-lg text-slate-200 font-light leading-relaxed">1단계 서류는 냈는데, <strong class="text-white font-bold">면접은 무엇부터 준비해야 할지</strong> 감이 오지 않는 중3 학생</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="check-circle-2" class="w-6 h-6 text-amber-500 shrink-0 mt-0.5"></i>
+                                <span class="text-sm md:text-lg text-slate-200 font-light leading-relaxed">예상 질문과 답변은 정리해뒀지만, <strong class="text-white font-bold">한 번만 더 물으면 말문이 막히는</strong> 학생</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="check-circle-2" class="w-6 h-6 text-amber-500 shrink-0 mt-0.5"></i>
+                                <span class="text-sm md:text-lg text-slate-200 font-light leading-relaxed">자기소개서에 쓴 개념을 <strong class="text-white font-bold">다시 설명하라고 하면 자신이 없는</strong> 학생</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="check-circle-2" class="w-6 h-6 text-amber-500 shrink-0 mt-0.5"></i>
+                                <span class="text-sm md:text-lg text-slate-200 font-light leading-relaxed">방문면접까지 시간이 얼마 없는데, <strong class="text-white font-bold">아이가 무엇을 연습해야 하는지 모르겠는</strong> 학부모님</span>
                             </li>
                         </ul>
                     </div>
@@ -1573,7 +1625,7 @@
                         <p class="mt-1.5 md:mt-2 text-xl md:text-3xl font-black tracking-tight text-white tabular-nums">24,900<span class="ml-0.5 text-sm md:text-base font-bold text-slate-400">원</span></p>
                     </a>
                     <!-- 과학고 방문면접 대비 -->
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="group flex flex-col items-start rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-4 md:px-5 md:py-5 text-left transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ivory focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900">
+                    <a href="#interview-prep" class="group flex flex-col items-start rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-4 md:px-5 md:py-5 text-left transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ivory focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900">
                         <span class="text-[10px] md:text-[11px] font-bold tracking-wider text-slate-400 uppercase">New</span>
                         <p class="mt-1 text-sm md:text-base font-semibold text-white">방문면접 대비</p>
                         <p class="mt-1.5 md:mt-2 text-xl md:text-3xl font-black tracking-tight text-white tabular-nums">19,900<span class="ml-0.5 text-sm md:text-base font-bold text-slate-400">원</span></p>
