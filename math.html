@@ -60,6 +60,41 @@
         .hide-scrollbar::-webkit-scrollbar {
             display: none; 
         }
+        /* 후기 마퀴: 트랙 = 카드 2벌, -50% 이동으로 무한 루프. 카드 간격은 gap 대신 margin(-50%가 정확히 1벌 폭이 되게) */
+        @keyframes rev-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .rev-marquee { overflow: hidden; }
+        .rev-track {
+            width: max-content;
+            animation: rev-scroll var(--rev-dur, 60s) linear infinite;
+        }
+        .rev-marquee:hover .rev-track {
+            animation-play-state: paused;
+        }
+        .rev-card {
+            flex: 0 0 auto;
+            width: 85vw;
+            margin-right: 20px;
+        }
+        @media (min-width: 640px) {
+            .rev-card { width: 300px; margin-right: 24px; }
+        }
+        @media (min-width: 1024px) {
+            .rev-card { width: 360px; }
+        }
+        /* 터치 기기·모션 최소화: 자동 이동 대신 손으로 넘김. 복제본은 숨김 */
+        @media (hover: none), (prefers-reduced-motion: reduce) {
+            .rev-marquee {
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+            .rev-track { animation: none; }
+            .rev-card { scroll-snap-align: center; }
+            .rev-track > [aria-hidden="true"] { display: none; }
+        }
         /* 형광펜 하이라이트 효과 */
         .highlight-yellow {
             background: linear-gradient(to top, rgba(253, 224, 71, 0.6) 40%, transparent 40%);
@@ -190,6 +225,7 @@
                         <span class="text-sm md:text-base text-slate-400 line-through tabular-nums">44,800원</span>
                         <span class="rounded bg-ivory/15 px-2 py-0.5 text-[11px] md:text-xs font-bold text-ivory tabular-nums">4,900원 절약</span>
                     </div>
+                    <p class="text-xs md:text-sm text-slate-300 leading-snug border-t border-white/10 pt-3">“학원을 다니지 않아 면접 준비가 막막했는데, 준비 과정이 단계적으로 나와있어서 좋아요” <span class="text-slate-500">— 학부모</span></p>
                 </a>
 
                 <div class="w-full h-px bg-white/10 my-7 md:my-10"></div>
@@ -226,13 +262,62 @@
                         <span class="text-sm md:text-base text-slate-400 line-through tabular-nums">49,800원</span>
                         <span class="rounded bg-ivory/15 px-2 py-0.5 text-[11px] md:text-xs font-bold text-ivory tabular-nums">4,900원 절약</span>
                     </div>
+                    <p class="text-xs md:text-sm text-slate-300 leading-snug border-t border-white/10 pt-3">“유명 학원 상담 가도 안 알려주는 '입시 방향성' 설명 보고 감탄했네요” <span class="text-slate-500">— 학부모</span></p>
+                </a>
+
+                <!-- 풀세트: 수학 + 과학고 + 방문면접 -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="group relative mt-2.5 md:mt-3 flex w-full flex-col gap-3 overflow-hidden rounded-xl border border-ivory/25 bg-ivory/[0.06] py-4 pl-5 pr-4 md:py-5 md:pl-7 md:pr-6 text-left transition-colors duration-200 hover:border-ivory/50 hover:bg-ivory/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ivory focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900">
+                    <span class="absolute left-0 top-0 bottom-0 w-[3px] bg-ivory"></span>
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] md:text-[11px] font-bold tracking-wider text-ivory uppercase">전 과정 포함</span>
+                            <p class="mt-1 text-base md:text-lg font-semibold text-white">상위 0.1% 합격 설계도 풀세트</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="mt-1 w-5 h-5 shrink-0 text-ivory transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                    <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1.5">
+                        <span class="text-2xl md:text-4xl font-black tracking-tight text-ivory tabular-nums">59,900<span class="ml-0.5 text-base md:text-lg font-bold text-ivory/60">원</span></span>
+                        <span class="text-sm md:text-base text-slate-400 line-through tabular-nums">69,700원</span>
+                        <span class="rounded bg-ivory/15 px-2 py-0.5 text-[11px] md:text-xs font-bold text-ivory tabular-nums">9,800원 절약</span>
+                    </div>
+                    <dl class="rounded-lg border border-white/10 bg-navy-900/40 px-3.5 py-2.5 md:px-4 md:py-3 text-xs md:text-sm tabular-nums">
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-300">✓ 수학 설계도</dt><dd class="text-slate-300">24,900</dd></div>
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-300">✓ 과학고 설계도</dt><dd class="text-slate-300">24,900</dd></div>
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-300">✓ 방문면접 대비</dt><dd class="text-slate-300">19,900</dd></div>
+                        <div class="my-1.5 h-px bg-white/10"></div>
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-500">정가 합계</dt><dd class="text-slate-500 line-through">69,700</dd></div>
+                        <div class="flex justify-between gap-3 py-0.5 font-bold"><dt class="text-ivory">풀세트가</dt><dd class="text-ivory">59,900</dd></div>
+                    </dl>
+                    <p class="text-xs md:text-sm text-slate-300 leading-snug border-t border-white/10 pt-3">“입시의 전체적인 지도를 미리 손에 넣은 느낌이라 든든합니다” <span class="text-slate-500">— 학부모</span></p>
+                    <p class="text-[11px] md:text-xs text-slate-500 leading-relaxed">이미 개별 구매하신 분은 DM 주시면 차액으로 업그레이드해 드립니다.</p>
                 </a>
 
                 <!-- 업그레이드 차액 · 가격 안내 -->
                 <div class="mt-6 md:mt-8 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 md:px-5 md:py-4 text-left">
-                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed">LITE를 먼저 사고 수학 설계도로 올리면 <strong class="font-bold text-white">차액 20,000원</strong>만 더 내면 됩니다.</p>
+                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed">먼저 산 상품이 있으면 차액만 더 내면 됩니다. <strong class="font-bold text-white">LITE → 수학 설계도 20,000원</strong> · 세트/번들 → 풀세트는 DM 주세요.</p>
                     <p class="mt-2 text-[11px] md:text-xs text-slate-500 leading-relaxed tabular-nums">내용이 추가되면 가격이 오릅니다. 8,900원 → 19,900원 → 현재 24,900원.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!-- 신뢰 바 -->
+    <section class="bg-navy-900 text-white border-b border-slate-800 px-5 md:px-6">
+        <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-y-6 py-6 md:py-8 text-center" data-aos="fade-up">
+            <div>
+                <p class="flex items-center justify-center gap-1.5 text-2xl md:text-3xl font-black text-ivory tabular-nums"><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>5.0</p>
+                <p class="mt-1 text-[11px] md:text-xs text-slate-400">평균 별점</p>
+            </div>
+            <div>
+                <p class="text-2xl md:text-3xl font-black text-ivory tabular-nums">50건</p>
+                <p class="mt-1 text-[11px] md:text-xs text-slate-400">구매·수업 후기</p>
+            </div>
+            <div>
+                <p class="text-2xl md:text-3xl font-black text-ivory">KMO 은상</p>
+                <p class="mt-1 text-[11px] md:text-xs text-slate-400">지도 학생 수상</p>
+            </div>
+            <div>
+                <p class="text-2xl md:text-3xl font-black text-ivory">초등~고3</p>
+                <p class="mt-1 text-[11px] md:text-xs text-slate-400">대면 · 온라인</p>
             </div>
         </div>
     </section>
@@ -459,6 +544,7 @@
                     <p class="text-base md:text-lg font-bold text-white mb-3">상위 0.1% 과학고 방문면접 대비 설계도</p>
                     <span class="text-white font-black text-3xl sm:text-4xl tabular-nums">19,900원</span>
                     <p class="mt-4 text-xs md:text-sm text-slate-400 font-light">구매 즉시 PDF로 받아보실 수 있습니다.</p>
+                    <p class="mt-4 text-xs md:text-sm text-slate-300 leading-snug border-t border-slate-700 pt-4">“학원을 다니지 않아 면접 준비가 막막했는데, 준비 과정이 단계적으로 나와있어서 좋아요” <span class="text-slate-500">— 학부모</span></p>
                 </div>
                 <!-- 가격: 과학고 세트 (단품보다 강조) -->
                 <div data-aos="zoom-in" data-aos-delay="100" class="relative overflow-hidden max-w-2xl mx-auto mb-10 md:mb-12 glass-card p-6 md:p-10 rounded-3xl text-center border-2 border-ivory/50 shadow-2xl">
@@ -473,6 +559,7 @@
                     <p class="mt-5 text-sm md:text-base text-slate-300 font-light leading-relaxed border-t border-slate-700 pt-5 text-left">
                         과학고 입시 합격 설계도는 입시 전 과정을 다룬 지도이고, 방문면접 대비는 면접 한 구간을 확대한 자료입니다. 둘을 같이 보면 서류부터 면접까지 이어집니다.
                     </p>
+                    <p class="mt-4 text-xs md:text-sm text-slate-300 leading-snug text-left">“어지간한 입시학원 설명회 자료보다 훨씬 내용이 알차요” <span class="text-slate-500">— 학부모</span></p>
                 </div>
                 <!-- CTA -->
                 <div class="text-center" data-aos="fade-up" data-aos-delay="100">
@@ -709,8 +796,8 @@
                         <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
                         <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
                     </div>
-                    <p class="text-slate-100 font-bold text-base md:text-lg leading-snug mb-3">"어지간한 학원 설명회보다 훨씬 알차요~"</p>
-                    <p class="text-xs md:text-sm text-slate-400">중등 학부모</p>
+                    <p class="text-slate-100 font-bold text-base md:text-lg leading-snug mb-3">"어지간한 입시학원 설명회 자료보다 훨씬 내용이 알차요"</p>
+                    <p class="text-xs md:text-sm text-slate-400">학부모</p>
                 </div>
             </div>
             <!-- 가격 -->
@@ -718,6 +805,7 @@
                 <p class="text-sm md:text-base text-slate-300 font-light mb-3">책 한 권 값도 안 되는 가격으로,<br class="sm:hidden"/> 중학생과 학부모를 위한 12장의 준비 설계도를 손에 넣으세요.</p>
                 <span class="text-yellow-400 font-black text-3xl sm:text-4xl md:text-5xl drop-shadow-md">24,900원</span>
                 <p class="mt-4 text-[11px] md:text-xs text-slate-500">본 리포트는 콘텐츠 추가 및 개정에 따라 가격이 상시 인상될 수 있습니다. (초기 8,900원 → 19,900원 → 현재 24,900원)</p>
+                <p class="mt-4 text-xs md:text-sm text-slate-300 leading-snug border-t border-slate-700 pt-4">“어지간한 입시학원 설명회 자료보다 훨씬 내용이 알차요” <span class="text-slate-500">— 학부모</span></p>
             </div>
             <!-- CTA -->
             <div class="text-center" data-aos="fade-up" data-aos-delay="100">
@@ -1069,507 +1157,197 @@
             </div>
         </div>
     </section>
-    <!-- Reviews (수강 후기) 섹션 -->
-    <section class="py-16 md:py-28 px-0 bg-slate-50 relative border-t border-slate-200 overflow-hidden z-10">
-        <div class="max-w-6xl mx-auto px-5 md:px-6">
+    <!-- Reviews (실제 후기 갤러리) 섹션 -->
+    <section id="reviews" class="scroll-mt-24 py-16 md:py-28 px-5 md:px-6 bg-slate-50 relative border-t border-slate-200 overflow-hidden z-10">
+        <div class="max-w-6xl mx-auto">
             <div class="text-center mb-10 md:mb-16" data-aos="fade-up">
                 <div class="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-white text-blue-600 mb-4 md:mb-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100">
                     <i data-lucide="messages-square" class="w-8 h-8 md:w-10 md:h-10"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-5">
-                    "결과가 증명합니다"<br class="sm:hidden" /> 100% 리얼 수강 후기
-                </h2>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-5">실제 후기</h2>
                 <p class="text-sm md:text-lg text-slate-600 font-medium">
-                    수천 시간의 수업으로 입증된 압도적인 만족도.<br class="sm:hidden" /> 옆으로 넘겨보세요.
+                    전자책 구매자와 수업 학생·학부모가 남긴 원본 캡처입니다.<br class="sm:hidden" /> 썸네일을 누르면 크게 보입니다.
                 </p>
             </div>
             <!-- 카테고리 탭 버튼 -->
-            <div class="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-12" data-aos="fade-up" data-aos-delay="100">
-                <button id="rev-tab-1" onclick="switchReviewTab(1)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/30 whitespace-nowrap">영과고 수학</button>
-                <button id="rev-tab-2" onclick="switchReviewTab(2)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap">중고등 수학</button>
-                <button id="rev-tab-3" onclick="switchReviewTab(3)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap">비대면 온라인</button>
-                <button id="rev-tab-4" onclick="switchReviewTab(4)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap">초등 사고력</button>
+            <div class="grid grid-cols-2 sm:flex justify-center gap-2 md:gap-3 mb-8 md:mb-12" data-aos="fade-up" data-aos-delay="100">
+                <button id="rev-tab-1" onclick="switchReviewTab(1)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/30 whitespace-nowrap">전자책 구매후기</button>
+                <button id="rev-tab-2" onclick="switchReviewTab(2)" class="w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap">수업 후기</button>
             </div>
-        </div>
-        <!-- 가로 스크롤 뷰 컨테이너 -->
-        <div class="relative w-full max-w-7xl mx-auto px-5 md:px-6">
-            
-            <!-- 1. 영과고 수학 후기 -->
-            <div id="rev-content-1" class="review-carousel flex overflow-x-auto gap-4 md:gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar fade-in w-full">
-                <!-- Card 1 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">영과고 대비</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            저희 아이 수학성적이 하향세라 급하게 과외 알아보고 시험수업부터 진행했는데 <span class="highlight-yellow">첫날부터 완전 반해서 바로 정규 수업 쭉 진행</span>하고 있습니다. 아이에게 수학에 대한 자신감을 갖도록 격려와 많은 조언도 아낌없이 해주셔서 멘탈관리에 도움도 받고 있구요~ 수학 문제풀이도 <span class="highlight-yellow">내신 맞춤으로 만족도 높고</span>, 수업 직후 피드백도 친절히 주셔서 무조건 강추입니다~^^
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">유</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">유성택 학부모님</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+            <!-- 1. 전자책 구매후기 -->
+            <div id="rev-content-1" class="rev-marquee relative fade-in">
+                <div class="rev-track flex items-stretch py-4" style="--rev-dur: 66s">
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“어지간한 입시학원 설명회 자료보다 훨씬 내용이 알차요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기2.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Card 2 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">영과고 대비</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            고등수학 수업중입니다. <span class="highlight-blue">학생 만족도 너무 좋아요^^</span> 시간엄수, 깔끔한 수업내용, 자세한 피드백 만족스럽습니다! 진심으로 학생의 성향과 현 위치를 잘 파악하셔서 <span class="highlight-blue">맞춤수업으로 해주세요.</span> 아이에게도 동기부여가 되는 말씀도 잊지 않고 해주셔서 많은 도움이 되고 있습니다.
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">매</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">매미소리 학부모님</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“막연하고 험난하게만 느껴지는 입시과정을 '공학적 시스템'으로 재정의하여 명확한 입시 이정표를 제공받은 느낌이었습니다. 선생님의 경험과 통찰이 담긴 실전 로직이라는 점에서 공학적 확신을 주는 훌륭한 지침서”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기8.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <div class="shrink-0 w-4 md:w-8"></div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“KMO를 해야 할지 말아야 할지 기준이 안 섰는데 Q&amp;A 파트 보고 명쾌하게 해결됐습니다. 입시의 전체적인 지도를 미리 손에 넣은 느낌이라 든든합니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기4.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“학원을 다니지 않아 면접 준비가 막막했는데 이 책을 보고 어느 정도 감을 잡은 것 같아요. 준비 과정이 단계적으로 나와있어서 좋은 것 같아요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기12.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“유명 학원 상담 가도 안 알려주는 '입시 방향성' 설명 보고 감탄했네요. 아이랑 같이 읽으면서 이번 학기 입시 방향성 아예 새로 잡았어요. 특목고 준비하신다면 무조건 추천입니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기5.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“스스로 하니까 수학이 되네요. 저번 중간고사에 비해 엄청 점수가 높아진 건 아니지만 성장함을 느끼고 방법을 알았어요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학생</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기10.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“영과고 준비하는 친구들을 위한 로드맵과 시기별 플랜이 잘 정리되어 있네요. 과학자가 꿈인 친구들한테 도움이 많이 될 것 같습니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 영재고 준비 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기7.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“내용도 디테일하시고 선생님에 대한 믿음지수가 팍팍 올라가는 레포트였어요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기6.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“우리 아이가 일반고가 아닌 고등학교가 가능할까… 내용들 너무 좋아요. 아이에게도 서포트해줄 만한 내용도 있는 것 같습니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기11.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“아직 막히는 부분은 있지만 저번보다 실력이 더 좋아진 것 같아요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학생</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기9.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“내용 너무 훌륭해요~~ 또 한번 감탄이요!!”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/purchase/구매후기3.jpg" alt="전자책 구매후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
+                </div>
+                </div>
+                <div class="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-24 bg-gradient-to-r from-slate-50 to-transparent"></div>
+                <div class="pointer-events-none absolute inset-y-0 right-0 w-10 md:w-24 bg-gradient-to-l from-slate-50 to-transparent"></div>
             </div>
-            <!-- 2. 중고등 수학 후기 -->
-            <div id="rev-content-2" class="review-carousel flex overflow-x-auto gap-4 md:gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar hidden fade-in w-full">
-                <!-- Card 3 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">고등 수학</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            그동안 개념을 외우면서 하는 잘못된 공부를 해왔다면, 선생님과 수업을 하면서 <span class="highlight-yellow">공식을 유도하는 방식으로 공부를 하니 문제도 이전보다 더 잘풀리고</span> 암기할 때보다 제대로 공부를 하고 있다는 생각이 들었습니다. 그리고 수업도 굉장히 꼼꼼히 하시고, 내가 뭘 질문을 할지까지도 생각하고 계실 정도고, <span class="highlight-yellow">수업 마칠때마다 과제나 내용을 피드백</span> 주시는 점 또한 굉장히 만족합니다.
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">구</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">구르미네 학생</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+            <!-- 2. 수업 후기 -->
+            <div id="rev-content-2" class="rev-marquee relative fade-in hidden">
+                <div class="rev-track flex items-stretch py-4" style="--rev-dur: 72s">
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“오답을 풀면 식이 제대로 안 보이니 답을 외운 건지 헷갈리거든요. 설명시켜 확인하시는 거 같아서 만족해요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기30.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Card 4 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">고등 수학</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            고등학교 진학 후 방황하며 1년간의 공백을 가졌었습니다. 하지만 선생님과 한 달이 채 안돼서 <span class="highlight-blue">놓쳐버린 시간의 대부분을 메울 수 있었고</span> 현재도 밀도 높고 정확한 개념을 배우고 있습니다. 선생님의 설명이 일련의 과정들이 응당 했어야 하는 일들로 보이게 하고 <span class="highlight-blue">유형을 외우는 것이 아닌 납득 후 체화로 수학을 대할 수 있게</span> 되었습니다.
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">우</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">우하하 학생</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“학원에서 들을 수 없는 자세하고 친절한 설명에 고2 이과반 아이가 감탄… 대학생이신데 전문과외 선생님보다 더 준비를 많이 해오세요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 리사 · 학부모 · ★ 5.0</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기36.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Card 5 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">중등 수학</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            선생님 감사합니다. 어제하고 오늘은 좀 앉아서 공부를 하려고 하더라구요. <span class="highlight-yellow">선생님께 좋은 영향을 받아서 맘을 좀 잡고 목표나 꿈이 생겨서</span> 다시 공부를 시작했으면 좋겠습니다.
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">한</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">한숨 쉬는 죠르디</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 멘탈 케어 만족</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“어제 KMO 발표날이었어요 — 은상 받았습니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기34.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Card 6 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">고등 수학</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            <span class="highlight-blue">아이가 선생님 천재라네요 잘부탁드려요.</span> 선생님 너무 잘가르치시고 이해하기 쉽게 알려주신다고 하네요 감사합니다.
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">라</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">자랑하는 라이언</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 이해도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“개념을 외우면서 하는 잘못된 공부를 해왔다면… 공식을 유도하는 방식으로 공부하니 문제도 이전보다 더 잘 풀립니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 구르미네 · 학생</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기12.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <div class="shrink-0 w-4 md:w-8"></div>
-            </div>
-            <!-- 3. 비대면 온라인 후기 -->
-            <div id="rev-content-3" class="review-carousel flex overflow-x-auto gap-4 md:gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar hidden fade-in w-full">
-                <!-- Card 7 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">비대면 수업</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            비대면 온라인 과외를 처음 해보는 거라 걱정이 조금 있었는데, <span class="highlight-yellow">판서를 병행한 화면 공유로 걱정이 무색하게 대면 수업 퀄리티와 비슷하게 몰입</span>하기 좋았습니다! 또한 그동안 수학을 이해한다는 느낌으로 공부한 적이 없었는데, <span class="highlight-yellow">처음으로 수학에 대해 이해를 통해 공부한다는 느낌</span>을 받을 수 있었습니다!!
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">곰</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">곰이 학생</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“처음으로 이해를 통해 공부한다는 느낌을 받았습니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 곰이 · 학생</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기17.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Card 8 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">비대면 수업</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            <span class="highlight-blue">오히려 화면 공유와 깔끔한 판서 덕분에 대면 수업보다 훨씬 더 몰입도 있게</span> 수업에 참여하고 있어요. 온라인이라는 물리적 거리가 전혀 느껴지지 않을 정도로 수업 퀄리티가 압도적입니다!! <span class="highlight-blue">복잡한 킬러 문항도 직관적으로 해석하는 법과 실전 시간 단축 치트키</span>를 전수해주시는 게 정말 큰 도움이 됩니다.
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">a</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">alaidhw 학생</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“예비고1, 수학학원만 보냈었는데 개념 정리가 잘 되지 않아서… KAIST 전공자 특유의 논리적인 접근법”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 릴리 · 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기21.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <div class="shrink-0 w-4 md:w-8"></div>
-            </div>
-            <!-- 4. 초등 사고력 후기 -->
-            <div id="rev-content-4" class="review-carousel flex overflow-x-auto gap-4 md:gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar hidden fade-in w-full">
-                <!-- Card 9 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">초등 사고력</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            사고력수학이 고민되어 과외시작하게 되었어요. 아이가 선생님을 무척 잘 따르고 좋아합니다. <span class="highlight-yellow">모르는 문제가 나올 때 자신의 풀이를 존중해주시며 더 나은 풀이도 함께 제시</span>해주시고 친절하셔서 좋다고 합니다. 시간도 잘 지켜주시고 실력, 인품도 좋으신 선생님인것 같아서 앞으로 함께 수업하며 아이의 사고력이 성장하길 기대합니다^^
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">초2</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">학부모 | 대전 | 초2</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“학원과 전문과외 선생님만 주로 해왔는데… 접근하는 방식에 레전드 선생님이라고 합니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 마빈 · 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기33.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Card 10 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-white rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-full">초등 사고력</span>
-                        </div>
-                        <i data-lucide="quote" class="w-8 h-8 md:w-10 md:h-10 text-slate-100 mb-3 fill-slate-100"></i>
-                        <p class="text-slate-700 leading-loose text-sm md:text-base">
-                            수업시간 철저히 지켜주시고, 매 수업 후에는 성의 있는 피드백을 통해 아이의 상태와 보완할 부분을 구체적으로 공유해 주십니다. <span class="highlight-blue">단순 암기가 아니라 개념을 정확히 이해하도록 질문을 반복하여 사고 과정을 이끌어주고</span> 이해될 때까지 지도해주십니다. 가장 원했던 부분들을 잘 채워주셔서 만족합니다.
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-3 pt-5 border-t border-slate-100">
-                        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">초4</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-sm md:text-base">학부모 | 대전 | 초4</div>
-                            <div class="text-xs text-slate-400">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“자칫 그냥 넘어갈 수도 있었던 제대로 이해하지 못한 부분들을 파악”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기31.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <div class="shrink-0 w-4 md:w-8"></div>
-            </div>
-            <!-- 데스크탑 전용 드래그 안내 문구 -->
-            <div class="hidden md:flex justify-center items-center gap-2 text-slate-400 text-sm mt-4 pointer-events-none">
-                <i data-lucide="mouse" class="w-4 h-4"></i> 카드를 마우스로 좌우로 드래그하여 넘겨보세요.
-            </div>
-        </div>
-    </section>
-    <!-- Purchase Reviews (구매 후기) 섹션 -->
-    <section class="py-16 md:py-28 px-0 bg-white relative border-t border-slate-200 overflow-hidden z-10">
-        <div class="max-w-6xl mx-auto px-5 md:px-6">
-            <div class="text-center mb-10 md:mb-16" data-aos="fade-up">
-                <div class="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-slate-50 text-purple-600 mb-4 md:mb-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100">
-                    <i data-lucide="book-open-check" class="w-8 h-8 md:w-10 md:h-10"></i>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“카이스트생답게 일정도 미리 깔끔하게 잡아주시고 수업 후에 늘 브리핑해주셔요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 나난 · 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기37.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-5">
-                    "입시 설명회보다 훨씬 알찹니다"<br class="sm:hidden" /> 리얼 구매 후기
-                </h2>
-                <p class="text-sm md:text-lg text-slate-600 font-medium">
-                    24,900원의 가치를 뛰어넘은 압도적인 퀄리티,<br class="sm:hidden" /> 실제 독자들의 후기입니다.
-                </p>
-            </div>
-        </div>
-        <!-- 가로 스크롤 뷰 컨테이너 -->
-        <div class="relative w-full max-w-7xl mx-auto px-5 md:px-6">
-            <div class="review-carousel flex overflow-x-auto gap-4 md:gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar fade-in w-full">
-                
-                <!-- Purchase Card 1 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-slate-50 rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.04)] border border-slate-200 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1.5 rounded-full">설계도 구매 완료</span>
-                        </div>
-                        
-                        <div class="mb-4">
-                             <i data-lucide="quote" class="w-10 h-10 md:w-12 md:h-12 text-slate-200 fill-slate-200 scale-x-[-1]"></i>
-                        </div>
-                        
-                        <div class="text-center mb-6 px-2">
-                            <span class="highlight-blue text-lg md:text-xl font-black text-slate-800 leading-snug">"내용 너무 훌륭해요~~ 또 한번 감탄이요!!"</span>
-                        </div>
-                        
-                        <p class="text-slate-600 leading-loose text-sm md:text-base">
-                            샘~ 읽어봐도 역시나 대단!! 🐰👍 처음엔 솔직히 큰 기대 없이 커피 한 잔 안 마신다 생각하고 결제했는데, 다 읽고 나니 정말 돈이 하나도 아깝지 않네요. <span class="highlight-yellow">시중에서 파는 어설픈 공부법 책이나 비싼 입시 컨설팅보다 훨씬 실질적이고 뼈를 때리는 내용들</span>로 가득 차 있어서 놀랐습니다. 아이 책상 위에 프린트해서 꼭 붙여두려구요!
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-4 pt-6 border-t border-slate-200">
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 font-bold text-xl">과</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-base md:text-lg">과학고 학부모님</div>
-                            <div class="text-sm text-slate-400 mt-0.5">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“고등학교 진학 후 1년간의 공백… 한 달이 채 안 돼서 대부분을 메울 수 있었습니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 우하하 · 학생</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기13.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Purchase Card 2 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-slate-50 rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.04)] border border-slate-200 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1.5 rounded-full">설계도 구매 완료</span>
-                        </div>
-                        
-                        <div class="mb-4">
-                             <i data-lucide="quote" class="w-10 h-10 md:w-12 md:h-12 text-slate-200 fill-slate-200 scale-x-[-1]"></i>
-                        </div>
-                        
-                        <div class="text-center mb-6 px-2">
-                            <span class="highlight-blue text-lg md:text-xl font-black text-slate-800 leading-snug">"Q&amp;A 파트 보고 명쾌하게 해결됐습니다."</span>
-                        </div>
-                        
-                        <p class="text-slate-600 leading-loose text-sm md:text-base">
-                            이제 막 중등 수학 선행 시작했는데, KMO를 해야 할지 말아야 할지 기준이 안 섰는데 학원 상담만 가면 무조건 해야 한다고 불안감만 조성해서 답답했거든요. 근데 이 리포트는 <span class="highlight-blue">철저히 공학적이고 객관적인 데이터로 설명해주시니 신뢰</span>가 갑니다. <span class="highlight-blue">주변 엄마들 한테도 햄버거 값 아껴서 이거부터 보라고 소문내는 중이에요ㅎㅎ</span> 앞으로 우리 아이 공부 방향을 잡는 데 큰 등대가 될 것 같아요!
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-4 pt-6 border-t border-slate-200">
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 font-bold text-xl">중</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-base md:text-lg">중등 예비맘</div>
-                            <div class="text-sm text-slate-400 mt-0.5">평점 5.0 | 강력 추천</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“선생님을 더 일찍 만났으면 좋았을 거라고 하더라고요”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기38.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Purchase Card 3 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-slate-50 rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.04)] border border-slate-200 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1.5 rounded-full">설계도 구매 완료</span>
-                        </div>
-                        
-                        <div class="mb-4">
-                             <i data-lucide="quote" class="w-10 h-10 md:w-12 md:h-12 text-slate-200 fill-slate-200 scale-x-[-1]"></i>
-                        </div>
-                        
-                        <div class="text-center mb-6 px-2">
-                            <span class="highlight-blue text-lg md:text-xl font-black text-slate-800 leading-snug">"어지간한 학원 설명회보다 훨씬 알차요~"</span>
-                        </div>
-                        
-                        <p class="text-slate-600 leading-loose text-sm md:text-base">
-                            매번 설명회 쫓아다니면서 필기하고 발품 팔았던 시간들이 허무해질 정도네요. <span class="highlight-yellow">역쉬 예상했던데로 내용도 디테일하시고 선생님에 대한 믿음지수가 팍팍 올라가는 레포트</span>였어요! 특히 '가짜 오답노트' 피하는 방법이나 '클레임 시스템'은 <span class="highlight-yellow">당장 내일부터라도 적용해 볼 수 있을 만큼 구체적</span>이어서 좋았습니다. 딸아이 기숙사에서 오면 꼼꼼하게 다시 읽어보려구요. 감사합니다!
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-4 pt-6 border-t border-slate-200">
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 font-bold text-xl">고</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-base md:text-lg">고등 학부모님</div>
-                            <div class="text-sm text-slate-400 mt-0.5">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
+                <div class="rev-card bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-[0_15px_40px_rgb(0,0,0,0.06)] flex flex-col">
+                    <p class="text-slate-900 font-bold text-base md:text-lg leading-snug break-keep">“모르면 그냥 넘어가지 않고 이해될 때까지 질문을 합니다”</p>
+                    <p class="mt-3 text-xs md:text-sm text-slate-400">— 학부모</p>
+                    <button type="button" onclick="openLightbox(this.firstElementChild)" class="mt-auto pt-5 w-full overflow-hidden rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" aria-label="원본 캡처 크게 보기">
+                        <img src="assets/reviews/class/수업후기20.jpg" alt="수업 후기 원본 캡처" loading="lazy" class="w-full h-auto max-h-40 md:max-h-44 object-cover object-top rounded-xl border border-slate-200" />
+                    </button>
                 </div>
-                <!-- Purchase Card 4 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-slate-50 rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.04)] border border-slate-200 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1.5 rounded-full">설계도 구매 완료</span>
-                        </div>
-                        
-                        <div class="mb-4">
-                             <i data-lucide="quote" class="w-10 h-10 md:w-12 md:h-12 text-slate-200 fill-slate-200 scale-x-[-1]"></i>
-                        </div>
-                        
-                        <div class="text-center mb-6 px-2">
-                            <span class="highlight-blue text-lg md:text-xl font-black text-slate-800 leading-snug">"진짜 입시 방향성 설명에 감탄했네요..!!"</span>
-                        </div>
-                        
-                        <p class="text-slate-600 leading-loose text-sm md:text-base">
-                            아이가 중3 올라오면서 영재고 준비를 시작했는데, 어떻게 로드맵을 짜줘야 할지 안 그려져서 막막했거든요. <span class="highlight-blue">유명 학원 상담 가도 절대 안 알려주는 진짜 '입시 방향성'</span>을 보고 놀랐습니다. 방대한 양인데도 술술 읽히고 몰입감이 장난 아닙니다. 아이랑 어제 밤에 같이 읽으면서 <span class="highlight-blue">이번 학기 수학 입시 방향성 아예 새로 싹 잡았어요.</span> 특목고 준비를 시작하시는 분들께 무조건 추천입니다!
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-4 pt-6 border-t border-slate-200">
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 font-bold text-xl">중</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-base md:text-lg">중3 학부모님</div>
-                            <div class="text-sm text-slate-400 mt-0.5">평점 5.0 | 만족도 최고</div>
-                        </div>
-                    </div>
                 </div>
-                <!-- Purchase Card 5 -->
-                <div class="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-slate-50 rounded-3xl p-6 md:p-8 shadow-[0_15px_40px_rgb(0,0,0,0.04)] border border-slate-200 flex flex-col justify-between cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform select-none">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-0.5 text-yellow-400">
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                                <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400"></i>
-                            </div>
-                            <span class="text-[11px] md:text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1.5 rounded-full">설계도 구매 완료</span>
-                        </div>
-                        
-                        <div class="mb-4">
-                             <i data-lucide="quote" class="w-10 h-10 md:w-12 md:h-12 text-slate-200 fill-slate-200 scale-x-[-1]"></i>
-                        </div>
-                        
-                        <div class="text-center mb-6 px-2">
-                            <span class="highlight-yellow text-lg md:text-xl font-black text-slate-800 leading-snug">"명확한 입시 이정표를 제공받은 느낌입니다."</span>
-                        </div>
-                        
-                        <p class="text-slate-600 leading-loose text-sm md:text-base">
-                            한 문장 한 문장 천천히 정독하며 읽었어요. 막연하게 느껴지는 입시과정을 <span class="highlight-blue">'공학적 시스템'으로 재정의하여 명확한 이정표를 제공</span>받은 느낌이었습니다. 특히 클레임시스템 등으로 아이에게 학습 주도권을 찾아주고, <span class="highlight-blue">학부모에게는 가정을 안정적인 안전기지로 강조</span>하는 부분이 인상 깊었습니다. 저와 아이에게 공학적 확신을 주는 훌륭한 지침서입니다. 감사해요 선생님^^
-                        </p>
-                    </div>
-                    <div class="mt-6 md:mt-8 flex items-center gap-4 pt-6 border-t border-slate-200">
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xl">K</div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-base md:text-lg">KMO 준비생 학부모님</div>
-                            <div class="text-sm text-slate-400 mt-0.5">평점 5.0 | 로드맵 만족</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="shrink-0 w-4 md:w-8"></div>
-            </div>
-            <!-- 데스크탑 전용 드래그 안내 문구 -->
-            <div class="hidden md:flex justify-center items-center gap-2 text-slate-400 text-sm mt-4 pointer-events-none">
-                <i data-lucide="mouse" class="w-4 h-4"></i> 카드를 마우스로 좌우로 드래그하여 넘겨보세요.
+                <div class="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-24 bg-gradient-to-r from-slate-50 to-transparent"></div>
+                <div class="pointer-events-none absolute inset-y-0 right-0 w-10 md:w-24 bg-gradient-to-l from-slate-50 to-transparent"></div>
             </div>
         </div>
     </section>
@@ -1637,6 +1415,12 @@
             <h2 data-aos="fade-up" data-aos-delay="100" class="text-3xl md:text-5xl lg:text-6xl font-black mb-5 md:mb-8 leading-tight tracking-tight drop-shadow-lg">
                 당신도 <span class="text-blue-400">0.1%의 주인공</span>이<br />될 수 있습니다.
             </h2>
+            <a href="#reviews" data-aos="fade-up" data-aos-delay="150" class="inline-flex items-center gap-2 mb-6 md:mb-8 text-sm md:text-base text-slate-300 hover:text-white transition-colors">
+                <span class="flex items-center gap-0.5"><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i></span>
+                <span class="font-bold text-white">5.0</span>
+                <span class="text-slate-500">·</span>
+                <span>실제 구매·수업 후기 50건</span>
+            </a>
             <p data-aos="fade-up" data-aos-delay="200" class="text-sm md:text-xl text-slate-400 mb-8 md:mb-12 leading-relaxed font-light">
                 치킨 세트 값으로 평생의 시행착오를 차단하세요.<br class="hidden sm:block" />
                 24,900원으로 합격의 알고리즘을 지금 바로 시작하세요.
@@ -1676,6 +1460,7 @@
                         <span class="text-sm md:text-base text-slate-400 line-through tabular-nums">44,800원</span>
                         <span class="rounded bg-ivory/15 px-2 py-0.5 text-[11px] md:text-xs font-bold text-ivory tabular-nums">4,900원 절약</span>
                     </div>
+                    <p class="text-xs md:text-sm text-slate-300 leading-snug border-t border-white/10 pt-3">“학원을 다니지 않아 면접 준비가 막막했는데, 준비 과정이 단계적으로 나와있어서 좋아요” <span class="text-slate-500">— 학부모</span></p>
                 </a>
 
                 <div class="w-full h-px bg-white/10 my-7 md:my-10"></div>
@@ -1712,11 +1497,39 @@
                         <span class="text-sm md:text-base text-slate-400 line-through tabular-nums">49,800원</span>
                         <span class="rounded bg-ivory/15 px-2 py-0.5 text-[11px] md:text-xs font-bold text-ivory tabular-nums">4,900원 절약</span>
                     </div>
+                    <p class="text-xs md:text-sm text-slate-300 leading-snug border-t border-white/10 pt-3">“유명 학원 상담 가도 안 알려주는 '입시 방향성' 설명 보고 감탄했네요” <span class="text-slate-500">— 학부모</span></p>
+                </a>
+
+                <!-- 풀세트: 수학 + 과학고 + 방문면접 -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWNWqz4nN5m7aZuUIU587bhQoHt1rpgSFMF74LD5mkZc5Mg/viewform" target="_blank" class="group relative mt-2.5 md:mt-3 flex w-full flex-col gap-3 overflow-hidden rounded-xl border border-ivory/25 bg-ivory/[0.06] py-4 pl-5 pr-4 md:py-5 md:pl-7 md:pr-6 text-left transition-colors duration-200 hover:border-ivory/50 hover:bg-ivory/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ivory focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900">
+                    <span class="absolute left-0 top-0 bottom-0 w-[3px] bg-ivory"></span>
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] md:text-[11px] font-bold tracking-wider text-ivory uppercase">전 과정 포함</span>
+                            <p class="mt-1 text-base md:text-lg font-semibold text-white">상위 0.1% 합격 설계도 풀세트</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="mt-1 w-5 h-5 shrink-0 text-ivory transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                    <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1.5">
+                        <span class="text-2xl md:text-4xl font-black tracking-tight text-ivory tabular-nums">59,900<span class="ml-0.5 text-base md:text-lg font-bold text-ivory/60">원</span></span>
+                        <span class="text-sm md:text-base text-slate-400 line-through tabular-nums">69,700원</span>
+                        <span class="rounded bg-ivory/15 px-2 py-0.5 text-[11px] md:text-xs font-bold text-ivory tabular-nums">9,800원 절약</span>
+                    </div>
+                    <dl class="rounded-lg border border-white/10 bg-navy-900/40 px-3.5 py-2.5 md:px-4 md:py-3 text-xs md:text-sm tabular-nums">
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-300">✓ 수학 설계도</dt><dd class="text-slate-300">24,900</dd></div>
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-300">✓ 과학고 설계도</dt><dd class="text-slate-300">24,900</dd></div>
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-300">✓ 방문면접 대비</dt><dd class="text-slate-300">19,900</dd></div>
+                        <div class="my-1.5 h-px bg-white/10"></div>
+                        <div class="flex justify-between gap-3 py-0.5"><dt class="text-slate-500">정가 합계</dt><dd class="text-slate-500 line-through">69,700</dd></div>
+                        <div class="flex justify-between gap-3 py-0.5 font-bold"><dt class="text-ivory">풀세트가</dt><dd class="text-ivory">59,900</dd></div>
+                    </dl>
+                    <p class="text-xs md:text-sm text-slate-300 leading-snug border-t border-white/10 pt-3">“입시의 전체적인 지도를 미리 손에 넣은 느낌이라 든든합니다” <span class="text-slate-500">— 학부모</span></p>
+                    <p class="text-[11px] md:text-xs text-slate-500 leading-relaxed">이미 개별 구매하신 분은 DM 주시면 차액으로 업그레이드해 드립니다.</p>
                 </a>
 
                 <!-- 업그레이드 차액 · 가격 안내 -->
                 <div class="mt-6 md:mt-8 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 md:px-5 md:py-4 text-left">
-                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed">LITE를 먼저 사고 수학 설계도로 올리면 <strong class="font-bold text-white">차액 20,000원</strong>만 더 내면 됩니다.</p>
+                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed">먼저 산 상품이 있으면 차액만 더 내면 됩니다. <strong class="font-bold text-white">LITE → 수학 설계도 20,000원</strong> · 세트/번들 → 풀세트는 DM 주세요.</p>
                     <p class="mt-2 text-[11px] md:text-xs text-slate-500 leading-relaxed tabular-nums">내용이 추가되면 가격이 오릅니다. 8,900원 → 19,900원 → 현재 24,900원.</p>
                 </div>
             </div>
@@ -1726,6 +1539,10 @@
     <footer class="py-8 text-center text-slate-500 text-[10px] sm:text-xs md:text-sm bg-navy-900 border-t border-slate-800 px-5">
         <p>© 2026 Tutor Kim Ju-hwan. KAIST Academic Consulting. All rights reserved.</p>
     </footer>
+    <!-- 후기 원본 라이트박스 -->
+    <div id="lightbox" class="hidden fixed inset-0 z-[100] bg-navy-900/90 flex items-center justify-center p-4 md:p-8 cursor-zoom-out" role="dialog" aria-modal="true" aria-label="후기 원본 캡처">
+        <img id="lightbox-img" alt="" class="max-w-full max-h-full rounded-xl shadow-2xl" />
+    </div>
     <!-- AOS 애니메이션 스크립트 -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- 자바스크립트 로직 -->
@@ -1753,7 +1570,7 @@
         function switchReviewTab(tabId) {
             const activeClass = "w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/30 whitespace-nowrap";
             const inactiveClass = "w-full sm:w-auto px-2 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-[13px] sm:text-sm md:text-base transition-all bg-white text-slate-500 border border-slate-200 hover:bg-slate-100 whitespace-nowrap";
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 2; i++) {
                 const btn = document.getElementById('rev-tab-' + i);
                 const content = document.getElementById('rev-content-' + i);
                 
@@ -1766,6 +1583,28 @@
                 }
             }
         }
+        // 후기 갤러리: 마퀴 무한 루프용 복제(1벌) + 라이트박스
+        document.querySelectorAll('.rev-track').forEach(track => {
+            [...track.children].forEach(card => {
+                const clone = card.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                clone.querySelectorAll('button').forEach(b => b.tabIndex = -1);
+                track.appendChild(clone);
+            });
+        });
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(img) {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.remove('hidden');
+        }
+        function closeLightbox() {
+            lightbox.classList.add('hidden');
+            lightboxImg.removeAttribute('src');
+        }
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
         const sliders = document.querySelectorAll('.review-carousel');
         
         sliders.forEach(slider => {
